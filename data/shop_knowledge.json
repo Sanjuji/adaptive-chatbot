@@ -1,0 +1,177 @@
+[
+  {
+    "input": "switch ki price kitni hai",
+    "response": "Switch ki price type ke hisaab se alag hoti hai. Normal 2-pin switch 15-25 rupees, 3-pin switch 20-30 rupees, modular switch 40-80 rupees mein milta hai. Brand bhi farak karta hai.",
+    "category": "switches",
+    "domain": "shop",
+    "confidence": 1.0
+  },
+  {
+    "input": "kya modular switch available hai",
+    "response": "Haan bilkul! Hamare paas different brands ke modular switches hain - Havells, Legrand, Anchor, Philips. White aur ivory color mein available hain. Price 40 se 150 rupees tak.",
+    "category": "switches",
+    "domain": "shop",
+    "confidence": 1.0
+  },
+  {
+    "input": "wire ka rate kya hai",
+    "response": "Wire ka rate size aur brand ke according hai. 1.5mm house wire 35-40 rupees per meter, 2.5mm wire 55-60 rupees per meter. Polycab, Havells, KEI ke wire achhe quality ke hain.",
+    "category": "wires",
+    "domain": "shop",
+    "confidence": 1.0
+  },
+  {
+    "input": "house wiring ke liye kya chahiye",
+    "response": "House wiring ke liye chahiye: 1.5mm aur 2.5mm wire, switches, sockets, MCB, distribution board, earth wire, concealed box, pipe. Total estimate depends on room size. Ek room ke liye lagbhag 3000-5000 rupees.",
+    "category": "wiring",
+    "domain": "shop",
+    "confidence": 1.0
+  },
+  {
+    "input": "bulb ki variety kya hai",
+    "response": "Hamare paas different types ke bulbs hain: LED bulb (9W, 12W, 15W) - 80-150 rupees, CFL bulb - 120-200 rupees, tube light - 150-300 rupees. LED sabse energy efficient hai.",
+    "category": "bulbs",
+    "domain": "shop",
+    "confidence": 1.0
+  },
+  {
+    "input": "fan ki price kitni hai",
+    "response": "Ceiling fan ki price 2000 se 5000 rupees tak. Table fan 800-1500 rupees, exhaust fan 600-1200 rupees. Popular brands: Bajaj, Crompton, Havells, Orient. 2 saal warranty milti hai.",
+    "category": "fans",
+    "domain": "shop",
+    "confidence": 1.0
+  },
+  {
+    "input": "mcb kya hota hai",
+    "response": "MCB matlab Miniature Circuit Breaker. Yeh electrical safety device hai jo overload ya short circuit se bachata hai. Single pole MCB 80-120 rupees, double pole 150-200 rupees. 6A, 10A, 16A, 20A, 25A, 32A rating mein milta hai.",
+    "category": "mcb",
+    "domain": "shop",
+    "confidence": 1.0
+  },
+  {
+    "input": "socket ki price",
+    "response": "Socket price type ke hisaab se: 2-pin socket 25-35 rupees, 3-pin socket 35-45 rupees, universal socket 60-80 rupees, modular socket 50-100 rupees. Safety socket with child protection bhi available hai.",
+    "category": "sockets",
+    "domain": "shop",
+    "confidence": 1.0
+  },
+  {
+    "input": "extension board chahiye",
+    "response": "Extension board different sizes mein hai: 4 socket board 200-300 rupees, 6 socket board 300-450 rupees, spike guard with fuse 400-600 rupees. Anchor, Goldmedal brands achhe hain.",
+    "category": "extension",
+    "domain": "shop",
+    "confidence": 1.0
+  },
+  {
+    "input": "inverter battery ki price",
+    "response": "Inverter battery price capacity ke hisaab se: 150AH battery 8000-12000 rupees, 180AH 10000-15000 rupees. Exide, Luminous, Amaron brands popular hain. 2-3 saal warranty.",
+    "category": "battery",
+    "domain": "shop",
+    "confidence": 1.0
+  },
+  {
+    "input": "stabilizer chahiye",
+    "response": "Voltage stabilizer different ratings mein: 1KVA 2500-3500 rupees, 2KVA 3500-5000 rupees, 3KVA 4500-6500 rupees. AC, fridge, TV ke liye alag models. V-Guard, Microtek achhe brands.",
+    "category": "stabilizer",
+    "domain": "shop",
+    "confidence": 1.0
+  },
+  {
+    "input": "geyser element ki price",
+    "response": "Geyser element 1000W-2000W mein available. Price 300-800 rupees brand ke according. Bajaj, Venus, Racold ke elements milte hain. Copper aur SS dono type ke.",
+    "category": "geyser",
+    "domain": "shop",
+    "confidence": 1.0
+  },
+  {
+    "input": "motor pump ki price",
+    "response": "Water pump motor price HP ke according: 0.5HP 3000-4500 rupees, 1HP 4500-7000 rupees. Submersible pump aur centrifugal pump dono available. Crompton, Kirloskar, CRI brands.",
+    "category": "motor",
+    "domain": "shop",
+    "confidence": 1.0
+  },
+  {
+    "input": "electrical tape chahiye",
+    "response": "Electrical tape different colors mein available: black, red, blue, green, yellow. Price 15-25 rupees per roll. PVC tape sabse common, flame retardant bhi hai.",
+    "category": "tape",
+    "domain": "shop",
+    "confidence": 1.0
+  },
+  {
+    "input": "distribution board ki price",
+    "response": "Distribution board size ke hisaab se: 4-way board 150-250 rupees, 8-way 300-450 rupees, 12-way 450-650 rupees. Metal aur plastic dono available. Din rail aur MCB separate.",
+    "category": "board",
+    "domain": "shop",
+    "confidence": 1.0
+  },
+  {
+    "input": "conduit pipe rate",
+    "response": "Conduit pipe 20mm aur 25mm mein common: 20mm pipe 18-22 rupees per meter, 25mm 25-30 rupees per meter. Rigid aur flexible dono type. White aur black color.",
+    "category": "pipe",
+    "domain": "shop",
+    "confidence": 1.0
+  },
+  {
+    "input": "doorbell ki price",
+    "response": "Doorbell different types: wired doorbell 200-500 rupees, wireless doorbell 300-800 rupees, video doorbell 2000-5000 rupees. Battery aur electric dono option.",
+    "category": "doorbell",
+    "domain": "shop",
+    "confidence": 1.0
+  },
+  {
+    "input": "immersion rod chahiye",
+    "response": "Immersion rod (water heater) 1000W-2000W mein available. Price 150-400 rupees. ISI mark wala safe hai. Bajaj, Crompton ke achhe models hain.",
+    "category": "immersion",
+    "domain": "shop",
+    "confidence": 1.0
+  },
+  {
+    "input": "electric meter connection",
+    "response": "Electric meter connection ke liye MSEB office jaana padta hai. New connection form, documents chahiye. Hamare paas meter box, MCB, wire material available hai connection ke liye.",
+    "category": "connection",
+    "domain": "shop",
+    "confidence": 1.0
+  },
+  {
+    "input": "shop timing kya hai",
+    "response": "Hamari shop morning 9 baje se evening 8 baje tak khuli rehti hai. Sunday ko 10 se 6 baje tak. Emergency mein phone kar sakte hain.",
+    "category": "timing",
+    "domain": "shop",
+    "confidence": 1.0
+  },
+  {
+    "input": "warranty kitni milti hai",
+    "response": "Warranty product ke hisaab se: electrical items pe 1-2 saal, fans pe 2 saal, motors pe 1 saal, batteries pe 2-3 saal. Bill rakhna zaroori hai warranty ke liye.",
+    "category": "warranty",
+    "domain": "shop",
+    "confidence": 1.0
+  },
+  {
+    "input": "installation service dete ho",
+    "response": "Haan bilkul! Hamare paas experienced electrician hai. Fan installation 200 rupees, geyser 300 rupees, complete house wiring rate according. Quality work guarantee.",
+    "category": "service",
+    "domain": "shop",
+    "confidence": 1.0
+  },
+  {
+    "input": "credit card accept karte ho",
+    "response": "Haan, hamare paas card payment machine hai. Credit card, debit card, UPI, PhonePe, Google Pay sab accept karte hain. Cash bhi chalega.",
+    "category": "payment",
+    "domain": "shop",
+    "confidence": 1.0
+  },
+  {
+    "input": "home delivery karte ho",
+    "response": "Haan, 2000 rupees se upar ke order pe free home delivery. Local area mein same day delivery. Heavy items ke liye truck arrangement kar dete hain.",
+    "category": "delivery",
+    "domain": "shop",
+    "confidence": 1.0
+  },
+  {
+    "input": "solar panel available hai",
+    "response": "Solar panel aur solar system available hai. 1KW system 50000-60000 rupees, 2KW 90000-100000 rupees. Subsidy bhi milti hai government se. Complete installation with warranty.",
+    "category": "solar",
+    "domain": "shop",
+    "confidence": 1.0
+  }
+]
