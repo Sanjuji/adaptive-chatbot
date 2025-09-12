@@ -6,7 +6,7 @@ rich==13.7.0
 
 # Database and storage
 sqlalchemy==2.0.23
-sqlite3  # Built-in with Python
+# sqlite3 is built-in with Python
 
 # Natural Language Processing
 nltk==3.8.1
@@ -15,7 +15,7 @@ numpy==1.24.3
 pandas==2.1.4
 
 # Text similarity and embeddings
-sentence-transformers==2.2.2
+sentence-transformers>=2.3.0
 faiss-cpu==1.7.4
 
 # Configuration and utilities
