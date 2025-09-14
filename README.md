@@ -1,17 +1,53 @@
-# Adaptive Chatbot
+# 🤖 Adaptive Chatbot - Complete Multilingual AI Experience
 
-एक स्मार्ट चैटबॉट जो आपके द्वारा सिखाई गई बातों को याद रखता है और भविष्य में उपयोग करता है।
+An advanced conversational AI system with multilingual support, adaptive voice personalities, real-time voice visualization, and intelligent conversation management.
 
-A scalable chatbot that can learn and remember what you teach it, with predefined knowledge for electrical and electronics shops.
+![Python](https://img.shields.io/badge/python-v3.8+-blue.svg)
+![Platform](https://img.shields.io/badge/platform-windows%20|%20linux%20|%20macos-lightgrey.svg)
+![License](https://img.shields.io/badge/license-MIT-green.svg)
 
-## Features
+## 🌟 Features
 
-### 🧠 Core Capabilities
-- **Adaptive Learning**: Learns from conversations and remembers new information
-- **Multi-domain Support**: Works with different domains (shop, general, tech, etc.)
-- **Bilingual**: Supports Hindi-English mixed conversations
-- **Persistent Memory**: Stores knowledge in SQLite database
-- **Semantic Search**: Uses sentence transformers for intelligent matching
+### 🌐 **Multilingual Support**
+- **Real-time language detection** with confidence scoring
+- **Seamless language switching** mid-conversation
+- Support for **12+ languages**: English, Hindi, Spanish, French, German, Italian, Portuguese, Chinese, Japanese, Korean, Arabic, Russian
+- **Cultural adaptations** for natural conversation flow
+
+### 🎭 **Adaptive Voice Personalities**
+- **Dynamic personality selection** based on conversation context
+- **12 distinct personalities**: Professional, Friendly, Enthusiastic, Calm, Empathetic, Confident, Warm, Authoritative, Cheerful, Patient, Energetic, Sophisticated
+- **Context-aware voice adaptation** for different business scenarios
+- **User preference learning** from feedback
+
+### 🤖 **Free AI Models Integration**
+- Integration with **Hugging Face transformers**
+- Support for **conversational AI, question-answering, and text generation**
+- **Microsoft DialoGPT**, **Facebook BlenderBot**, and other free models
+- **Sentiment analysis** and **intent recognition**
+- **Asynchronous model loading** for optimal performance
+
+### 💬 **Advanced Conversation Management**
+- **Persistent conversation memory** with SQLite storage
+- **Topic tracking** and **conversation flow optimization**
+- **User profiling** with conversation history
+- **Session management** with analytics
+- **Context-aware responses**
+
+### 🎨 **Enhanced UI & Experience**
+- **Real-time voice activity visualization**
+- **Interactive conversation display** with rich formatting
+- **Language indicators** with confidence scores
+- **Voice control buttons** and settings panel
+- **Conversation analytics** and export capabilities
+- **Theme customization** support
+
+### 🔊 **Natural Text-to-Speech**
+- **Microsoft Edge TTS** integration for high-quality voices
+- **Language-appropriate voice selection**
+- **SSML support** for advanced speech control
+- **Volume and speed controls**
+- **Real-time audio visualization**
 
 ### 🛍️ Shop-Specific Features
 - Pre-loaded knowledge about electrical and electronics items
@@ -26,37 +62,42 @@ A scalable chatbot that can learn and remember what you teach it, with predefine
 - Statistics and analytics
 - Interactive teaching mode
 
-## Installation
+## 📝 Requirements
 
-### Prerequisites
-- Python 3.8 or higher
-- Git
+- **Python 3.8+**
+- **Windows/Linux/macOS**
+- **4GB+ RAM** (for AI models)
+- **Internet connection** (for TTS and model downloads)
+- **Audio output device**
+- **Microphone** (optional, for voice input)
 
-### Setup
+## 🚀 Quick Start
 
-1. **Clone the repository** (if applicable):
+### 1. Clone the Repository
 ```bash
-git clone <repository-url>
+git clone https://github.com/yourusername/adaptive-chatbot.git
 cd adaptive-chatbot
 ```
 
-2. **Create a virtual environment**:
+### 2. Create Virtual Environment
 ```bash
 python -m venv venv
-# On Windows:
+
+# Windows
 venv\Scripts\activate
-# On Linux/Mac:
+
+# Linux/macOS  
 source venv/bin/activate
 ```
 
-3. **Install dependencies**:
+### 3. Install Dependencies
 ```bash
 pip install -r requirements.txt
 ```
 
-4. **Setup the chatbot**:
+### 4. Run the Application
 ```bash
-python -m src.cli setup
+python main_adaptive_chatbot.py
 ```
 
 ## Usage

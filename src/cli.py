@@ -16,6 +16,7 @@ from typing import Optional
 
 from .chatbot import AdaptiveChatbot
 from .learning import LearningManager
+from .voice_interface import VoiceInterface, VoiceChatSession
 
 
 app = typer.Typer(
@@ -198,6 +199,161 @@ def stats(
     except Exception as e:
         console.print(f"Error: {e}", style="red")
         raise typer.Exit(1)
+
+
+@app.command(name="voice-chat")
+def voice_chat(
+    domain: str = typer.Option("general", "--domain", "-d", help="Set the domain for voice conversation"),
+    config: Optional[str] = typer.Option(None, "--config", "-c", help="Path to configuration file"),
+    test_first: bool = typer.Option(False, "--test", help="Test voice interface before starting chat")
+):
+    """Start a voice-enabled chat session with the chatbot."""
+    try:
+        console.print(Panel.fit("🎤 Voice Chat - Adaptive Chatbot", style="bold blue"))
+        console.print("Initializing voice interface... Please wait.")
+        
+        # Initialize chatbot
+        chatbot = AdaptiveChatbot(config)
+        chatbot.set_domain(domain)
+        learning_manager = LearningManager(chatbot.knowledge_store)
+        
+        # Load shop knowledge if in shop domain
+        if domain == "shop":
+            shop_knowledge_path = "data/shop_knowledge.json"
+            if Path(shop_knowledge_path).exists():
+                success, total = learning_manager.import_knowledge_file(shop_knowledge_path, "shop")
+                console.print(f"Loaded {success}/{total} shop knowledge entries", style="green")
+        
+        # Initialize voice interface
+        voice_config = {
+            'use_gtts': chatbot.config.use_gtts,
+            'language': chatbot.config.voice_language,
+            'tts_language': chatbot.config.tts_language,
+            'speech_rate': chatbot.config.speech_rate,
+            'voice_id': chatbot.config.voice_id,
+            'energy_threshold': chatbot.config.energy_threshold,
+            'pause_threshold': chatbot.config.pause_threshold,
+            'timeout': chatbot.config.timeout,
+            'phrase_time_limit': chatbot.config.phrase_time_limit
+        }
+        
+        voice_interface = VoiceInterface(voice_config)
+        
+        # Test voice interface if requested
+        if test_first:
+            console.print("Testing voice interface...")
+            if not voice_interface.test_voice_interface():
+                console.print("❌ Voice interface test failed. Please check your microphone and speakers.", style="red")
+                raise typer.Exit(1)
+            console.print("✅ Voice interface test passed!", style="green")
+        
+        # Start voice chat session
+        console.print(f"\n🎤 Voice Chat Mode Activated - Domain: {domain.title()}")
+        console.print("Press Ctrl+C to exit voice chat\n", style="dim")
+        
+        voice_chat_session = VoiceChatSession(voice_interface, chatbot)
+        voice_chat_session.start_session(learning_manager)
+        
+    except KeyboardInterrupt:
+        console.print("\n\nVoice chat stopped.", style="yellow")
+    except Exception as e:
+        console.print(f"Failed to start voice chat: {e}", style="red")
+        raise typer.Exit(1)
+    finally:
+        try:
+            voice_interface.cleanup()
+        except:
+            pass
+
+
+@app.command(name="test-voice")
+def test_voice(
+    config: Optional[str] = typer.Option(None, "--config", help="Path to configuration file")
+):
+    """Test the voice interface (microphone and speakers)."""
+    try:
+        console.print(Panel.fit("🧪 Voice Interface Test", style="bold cyan"))
+        
+        # Initialize chatbot to get config
+        chatbot = AdaptiveChatbot(config)
+        
+        # Initialize voice interface
+        voice_config = {
+            'use_gtts': chatbot.config.use_gtts,
+            'language': chatbot.config.voice_language,
+            'tts_language': chatbot.config.tts_language,
+            'speech_rate': chatbot.config.speech_rate,
+            'voice_id': chatbot.config.voice_id,
+            'energy_threshold': chatbot.config.energy_threshold,
+            'pause_threshold': chatbot.config.pause_threshold,
+            'timeout': chatbot.config.timeout,
+            'phrase_time_limit': chatbot.config.phrase_time_limit
+        }
+        
+        voice_interface = VoiceInterface(voice_config)
+        
+        # Run voice test
+        success = voice_interface.test_voice_interface()
+        
+        if success:
+            console.print("\n✅ Voice interface is working correctly!", style="bold green")
+        else:
+            console.print("\n❌ Voice interface test failed. Please check your audio devices.", style="bold red")
+            raise typer.Exit(1)
+            
+    except Exception as e:
+        console.print(f"Error testing voice interface: {e}", style="red")
+        raise typer.Exit(1)
+    finally:
+        try:
+            voice_interface.cleanup()
+        except:
+            pass
+
+
+@app.command(name="list-voices")
+def list_voices(
+    config: Optional[str] = typer.Option(None, "--config", help="Path to configuration file")
+):
+    """List available TTS voices on the system."""
+    try:
+        console.print(Panel.fit("🔊 Available TTS Voices", style="bold cyan"))
+        
+        # Initialize chatbot to get config
+        chatbot = AdaptiveChatbot(config)
+        
+        # Initialize voice interface (without gTTS to get local voices)
+        voice_config = {
+            'use_gtts': False,  # Force local voices
+            'speech_rate': chatbot.config.speech_rate,
+        }
+        
+        voice_interface = VoiceInterface(voice_config)
+        voices = voice_interface.get_available_voices()
+        
+        if voices:
+            table = Table(title="Available TTS Voices", style="blue")
+            table.add_column("ID", style="cyan")
+            table.add_column("Name", style="green")
+            table.add_column("Language", style="yellow")
+            
+            for voice in voices:
+                languages = ', '.join(voice['language']) if isinstance(voice['language'], list) else str(voice['language'])
+                table.add_row(str(voice['id']), voice['name'], languages)
+            
+            console.print(table)
+            console.print(f"\nTo use a specific voice, update voice_id in your config file.", style="dim")
+        else:
+            console.print("No TTS voices found on this system.", style="yellow")
+            
+    except Exception as e:
+        console.print(f"Error listing voices: {e}", style="red")
+        raise typer.Exit(1)
+    finally:
+        try:
+            voice_interface.cleanup()
+        except:
+            pass
 
 
 @app.command()

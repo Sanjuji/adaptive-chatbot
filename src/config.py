@@ -40,12 +40,52 @@ class Config:
     show_confidence_scores: bool = False
     colorize_output: bool = True
     
+    # Voice settings
+    voice_enabled: bool = True
+    use_gtts: bool = True  # Use Google TTS instead of local pyttsx3
+    voice_language: str = 'hi-IN'  # Speech recognition language
+    tts_language: str = 'hi'  # Text-to-speech language
+    speech_rate: int = 150  # Words per minute for local TTS
+    voice_id: int = 0  # Voice ID for local TTS
+    energy_threshold: int = 300  # Microphone sensitivity
+    pause_threshold: float = 0.8  # Pause detection threshold
+    timeout: int = 5  # Listening timeout in seconds
+    phrase_time_limit: int = 10  # Maximum phrase length in seconds
+    
     # Logging settings
     log_level: str = "INFO"
     log_file: str = "logs/chatbot.log"
     
     def __init__(self, config_path: Optional[str] = None):
         """Initialize configuration from file or defaults."""
+        # Set defaults first
+        self.database_path = "data/knowledge.db"
+        self.sentence_model_name = "all-MiniLM-L6-v2"
+        self.confidence_threshold = 0.7
+        self.max_context_length = 5
+        self.default_domain = "general"
+        self.available_domains = ["general", "shop", "tech", "personal"]
+        self.auto_learn_enabled = False
+        self.min_confidence_for_auto_learn = 0.9
+        self.max_knowledge_entries = 10000
+        self.max_response_length = 500
+        self.enable_conversation_logging = True
+        self.conversation_cleanup_days = 30
+        self.show_confidence_scores = False
+        self.colorize_output = True
+        self.voice_enabled = True
+        self.use_gtts = True
+        self.voice_language = 'hi-IN'
+        self.tts_language = 'hi'
+        self.speech_rate = 150
+        self.voice_id = 0
+        self.energy_threshold = 150  # Much lower for better sensitivity
+        self.pause_threshold = 0.5   # Faster response
+        self.timeout = 6             # Longer timeout to allow speaking
+        self.phrase_time_limit = 10
+        self.log_level = "INFO"
+        self.log_file = "logs/chatbot.log"
+        
         self.config_path = config_path or "config/config.yaml"
         self._load_config()
         self._setup_logging()
@@ -94,6 +134,16 @@ class Config:
                 'conversation_cleanup_days': self.conversation_cleanup_days,
                 'show_confidence_scores': self.show_confidence_scores,
                 'colorize_output': self.colorize_output,
+                'voice_enabled': self.voice_enabled,
+                'use_gtts': self.use_gtts,
+                'voice_language': self.voice_language,
+                'tts_language': self.tts_language,
+                'speech_rate': self.speech_rate,
+                'voice_id': self.voice_id,
+                'energy_threshold': self.energy_threshold,
+                'pause_threshold': self.pause_threshold,
+                'timeout': self.timeout,
+                'phrase_time_limit': self.phrase_time_limit,
                 'log_level': self.log_level,
                 'log_file': self.log_file
             }
@@ -144,6 +194,16 @@ class Config:
                 'conversation_cleanup_days': self.conversation_cleanup_days,
                 'show_confidence_scores': self.show_confidence_scores,
                 'colorize_output': self.colorize_output,
+                'voice_enabled': self.voice_enabled,
+                'use_gtts': self.use_gtts,
+                'voice_language': self.voice_language,
+                'tts_language': self.tts_language,
+                'speech_rate': self.speech_rate,
+                'voice_id': self.voice_id,
+                'energy_threshold': self.energy_threshold,
+                'pause_threshold': self.pause_threshold,
+                'timeout': self.timeout,
+                'phrase_time_limit': self.phrase_time_limit,
                 'log_level': self.log_level,
                 'log_file': self.log_file
             }
@@ -220,6 +280,16 @@ class Config:
             'conversation_cleanup_days': self.conversation_cleanup_days,
             'show_confidence_scores': self.show_confidence_scores,
             'colorize_output': self.colorize_output,
+            'voice_enabled': self.voice_enabled,
+            'use_gtts': self.use_gtts,
+            'voice_language': self.voice_language,
+            'tts_language': self.tts_language,
+            'speech_rate': self.speech_rate,
+            'voice_id': self.voice_id,
+            'energy_threshold': self.energy_threshold,
+            'pause_threshold': self.pause_threshold,
+            'timeout': self.timeout,
+            'phrase_time_limit': self.phrase_time_limit,
             'log_level': self.log_level,
             'log_file': self.log_file
         }

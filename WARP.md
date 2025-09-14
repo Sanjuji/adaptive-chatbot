@@ -27,6 +27,15 @@ Knowledge entries support:
 - Usage tracking and confidence scoring
 - Metadata storage for extensibility
 
+### Voice Interface
+
+The system includes comprehensive voice capabilities for hands-free interaction:
+- **Speech Recognition**: Multi-language support (Hindi, English) using Google Speech Recognition
+- **Text-to-Speech**: Dual TTS engines - Google TTS (gTTS) for better language support or local pyttsx3
+- **Bilingual Communication**: Seamless Hindi-English mixed conversations
+- **Adaptive Recognition**: Fallback through multiple language models for better accuracy
+- **Voice Commands**: All interactive chat commands work via voice (teach, domain switching, etc.)
+
 ## Development Commands
 
 ### Environment Setup
@@ -49,6 +58,15 @@ python -m src.cli chat
 
 # Start with specific domain
 python -m src.cli chat --domain shop
+
+# Start voice-enabled chat (hands-free interaction)
+python -m src.cli voice-chat --domain shop
+
+# Test voice interface before using
+python -m src.cli test-voice
+
+# List available TTS voices on system
+python -m src.cli list-voices
 ```
 
 ### Knowledge Management
@@ -138,6 +156,15 @@ Configuration is managed through `config/config.yaml` with these key sections:
 - `available_domains`: List of supported domains
 - `default_domain`: Fallback domain for new sessions
 
+### Voice Settings
+- `voice_enabled`: Enable/disable voice functionality
+- `use_gtts`: Use Google TTS (recommended) or local pyttsx3
+- `voice_language`: Speech recognition language ('hi-IN', 'en-IN')
+- `tts_language`: Text-to-speech language ('hi', 'en')
+- `speech_rate`: TTS speaking rate (words per minute)
+- `energy_threshold`: Microphone sensitivity (300 default)
+- `timeout`: Speech input timeout in seconds
+
 ## Development Guidelines
 
 ### Adding New Domains
@@ -184,6 +211,44 @@ def new_command(
     # Implementation
 ```
 
+## Voice Interface Usage
+
+### Starting Voice Chat
+```pwsh
+# Basic voice chat
+python -m src.cli voice-chat
+
+# Voice chat with specific domain
+python -m src.cli voice-chat --domain shop
+
+# Test voice interface first
+python -m src.cli voice-chat --test
+```
+
+### Voice Commands During Chat
+All regular chat commands work via voice:
+- Say "stats" to get knowledge statistics
+- Say "domain shop" to switch domains
+- Say "bye" or "बाय" to exit
+- Say "teach [question] [answer]" to teach new knowledge
+
+### Voice Configuration
+```yaml
+# In config/config.yaml
+voice_enabled: true
+use_gtts: true  # Better for Hindi-English mixed speech
+voice_language: 'hi-IN'  # Speech recognition
+tts_language: 'hi'       # Text-to-speech
+speech_rate: 150
+energy_threshold: 300    # Adjust for microphone sensitivity
+```
+
+### Troubleshooting Voice
+- **No microphone detected**: Check Windows microphone permissions
+- **TTS not working**: Install audio codecs or switch to local TTS (`use_gtts: false`)
+- **Recognition issues**: Adjust `energy_threshold` or speak closer to microphone
+- **Mixed language issues**: Use `voice_language: 'en-IN'` for better Hindi-English mixing
+
 ## File Structure Context
 
 ```
@@ -192,6 +257,7 @@ src/
 ├── knowledge_store.py  # SQLite database operations and search
 ├── learning.py         # LearningManager for training and feedback
 ├── config.py           # Configuration management and domain settings
+├── voice_interface.py  # Voice recognition and text-to-speech handling
 └── cli.py              # Command-line interface with Typer
 
 data/
