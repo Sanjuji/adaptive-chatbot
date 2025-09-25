@@ -21,6 +21,7 @@ try:
     from free_ai_models_integration import get_ai_models_system
     from voice_tone_style_adaptation import get_voice_adaptation_system
     from enhanced_ui_experience import get_ui_system
+    from advanced_debugger_tracker import get_debug_tracker, track_voice_interaction
     from logger import log_info, log_error, log_warning
 except ImportError as e:
     print(f"Failed to import required modules: {e}")
@@ -43,6 +44,7 @@ class AdaptiveChatbot:
         self.ai_models_system = None
         self.voice_adaptation_system = None
         self.ui_system = None
+        self.debug_tracker = None
         
         # System state
         self.is_running = False
@@ -87,6 +89,10 @@ class AdaptiveChatbot:
             log_info("🎨 Initializing UI System...")
             self.ui_system = get_ui_system()
             
+            # Initialize Debug Tracker
+            log_info("🔍 Initializing Advanced Debug Tracker...")
+            self.debug_tracker = get_debug_tracker()
+            
             # Connect UI callbacks
             self._setup_ui_callbacks()
             
@@ -111,9 +117,11 @@ class AdaptiveChatbot:
     
     async def process_user_input(self, text: str, detected_language: str = None) -> str:
         """
-        Process user input through the complete pipeline
+        Process user input through the complete pipeline with comprehensive debugging
         """
         start_time = time.time()
+        errors = []
+        warnings = []
         
         try:
             # Step 1: Detect language if not provided
@@ -121,6 +129,10 @@ class AdaptiveChatbot:
                 lang_result = await self.language_detector.detect_language_advanced(text)
                 detected_language = lang_result.detected_language
                 confidence = lang_result.confidence
+                
+                # Track potential language detection issues
+                if confidence < 0.7:
+                    warnings.append(f"Low language detection confidence: {confidence:.2f}")
             else:
                 confidence = 1.0
             
@@ -219,7 +231,25 @@ class AdaptiveChatbot:
             self.ui_system.set_speaking_status(False)
             self.ui_system.update_status("Ready", "success")
             
-            log_info(f"💬 Processed conversation turn in {processing_time:.2f}s")
+            # CRITICAL: Track complete voice interaction with debugger
+            tts_end_time = time.time()
+            if processing_time > 10.0:
+                warnings.append(f"Slow processing time: {processing_time:.2f}s")
+            
+            if not ai_response or not ai_response.text.strip():
+                errors.append("Empty or no AI response generated")
+            
+            session_id = self.debug_tracker.track_voice_interaction(
+                user_input=text,
+                language_detected=detected_language,
+                confidence=confidence,
+                processing_start=start_time,
+                response_text=response_text,
+                errors=errors,
+                warnings=warnings
+            )
+            
+            log_info(f"💬 Processed conversation turn in {processing_time:.2f}s (Session: {session_id})")
             
             return response_text
             
@@ -240,13 +270,12 @@ class AdaptiveChatbot:
             
             # Still try to speak the fallback
             try:
-                await self.tts_system.speak_with_auto_voice(fallback_response, detected_language or 'en', "neutral")
-            except:
-                pass
+                await self.tts_system.speak_with_auto_voice(fallback_response, detected_language or 'en', "neutral")                            except (OSError, PermissionError):
+                                continue
             
             return fallback_response
     
-    def _start_listening(self):
+    def _start_listening(self) -> None:
         """Start listening for voice input"""
         if not self.is_listening:
             self.is_listening = True
@@ -258,7 +287,7 @@ class AdaptiveChatbot:
             
             log_info("🎤 Started listening for voice input")
     
-    def _stop_listening(self):
+    def _stop_listening(self) -> None:
         """Stop listening for voice input"""
         if self.is_listening:
             self.is_listening = False
@@ -267,7 +296,7 @@ class AdaptiveChatbot:
             
             log_info("⏹️ Stopped listening for voice input")
     
-    def _toggle_mute(self, is_muted: bool):
+    def _toggle_mute(self, is_muted: bool) -> None:
         """Toggle mute state"""
         if self.tts_system:
             # Set TTS system volume based on mute state
@@ -276,10 +305,13 @@ class AdaptiveChatbot:
             
         log_info(f"🔇 Audio {'muted' if is_muted else 'unmuted'}")
     
-    def _voice_input_loop(self):
+    def _voice_input_loop(self) -> None:
         """Voice input processing loop using real speech recognition"""
         try:
             import speech_recognition as sr
+            from advanced_event_loop_manager import get_loop_manager, run_async_safely
+            from advanced_memory_manager import get_memory_manager, memory_monitor, register_memory_cleanup
+            from performance_monitoring_dashboard import get_performance_monitor, performance_timer
             
             recognizer = sr.Recognizer()
             
@@ -377,7 +409,7 @@ class AdaptiveChatbot:
         # Run the UI main loop
         self.ui_system.run()
     
-    def run(self):
+    def run(self) -> None:
         """Run the chatbot system"""
         try:
             # Check if we're already in an event loop
@@ -407,7 +439,7 @@ class AdaptiveChatbot:
             log_error(f"Fatal error: {e}")
             raise
     
-    def shutdown(self):
+    def shutdown(self) -> None:
         """Shutdown the chatbot system"""
         log_info("🔄 Shutting down Adaptive Chatbot systems...")
         
@@ -464,4 +496,4 @@ def main():
         sys.exit(1)
 
 if __name__ == "__main__":
-    main()
+    main()

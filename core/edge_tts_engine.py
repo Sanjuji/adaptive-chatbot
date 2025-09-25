@@ -88,6 +88,13 @@ class EdgeTTSEngine:
         pygame.mixer.music.set_volume(self.volume)
         logger.info(f"EdgeTTS: Volume set to {self.volume}")
     
+    async def _generate_and_play_optimized(self, text: str, output_file: str) -> bool:
+        """Optimized speech generation and playback in one async function"""
+        success = await self._generate_speech_async(text, output_file)
+        if success:
+            success = self._play_audio_file(output_file)
+        return success
+    
     async def _generate_speech_async(self, text: str, output_file: str) -> bool:
         """Generate speech asynchronously using EdgeTTS"""
         try:
@@ -185,28 +192,34 @@ class EdgeTTSEngine:
             # Create unique temp file for this speech
             temp_file = os.path.join(self.temp_dir, f"edgetts_{int(time.time() * 1000)}.mp3")
             
-            def speech_task():
+            def speech_task() -> bool:
                 try:
-                    # Run async generation in sync context
-                    loop = asyncio.new_event_loop()
-                    asyncio.set_event_loop(loop)
-                    
-                    success = loop.run_until_complete(
-                        self._generate_speech_async(processed_text, temp_file)
-                    )
-                    
-                    if success:
-                        # Play the generated audio
-                        success = self._play_audio_file(temp_file)
+                    # Optimized async handling with proper error recovery
+                    loop = None
+                    try:
+                        loop = asyncio.get_running_loop()
+                        # Running in async context - create future
+                        future = asyncio.run_coroutine_threadsafe(
+                            self._generate_and_play_optimized(processed_text, temp_file), loop
+                        )
+                        success = future.result(timeout=30)
+                    except RuntimeError:
+                        # No running loop - create new one
+                        loop = asyncio.new_event_loop()
+                        asyncio.set_event_loop(loop)
+                        try:
+                            success = loop.run_until_complete(
+                                self._generate_and_play_optimized(processed_text, temp_file)
+                            )
+                        finally:
+                            loop.close()
                     
                     # Cleanup temp file
                     try:
                         if os.path.exists(temp_file):
                             os.remove(temp_file)
-                    except:
-                        pass
-                    
-                    loop.close()
+                    except OSError as e:
+                        logger.warning(f"Failed to cleanup temp file: {e}")
                     
                     # Restore original voice if changed
                     if original_voice:
@@ -214,9 +227,13 @@ class EdgeTTSEngine:
                     
                     return success
                     
+                except asyncio.TimeoutError:
+                    logger.error("EdgeTTS: Speech generation timed out")
+                    if original_voice:
+                        self.set_voice(original_voice)
+                    return False
                 except Exception as e:
                     logger.error(f"EdgeTTS: Speech task failed: {e}")
-                    # Restore original voice on error
                     if original_voice:
                         self.set_voice(original_voice)
                     return False
@@ -295,4 +312,4 @@ def cleanup_edge_tts():
     global edge_tts_engine
     if edge_tts_engine is not None:
         edge_tts_engine.cleanup()
-        edge_tts_engine = None
+        edge_tts_engine = None

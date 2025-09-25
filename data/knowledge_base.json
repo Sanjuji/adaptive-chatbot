@@ -1,0 +1,542 @@
+{
+  "switch ki price": {
+    "answer": "Switch ka price type ke hisab se alag hai. Basic switch 15-25 rupees, modular switch 40-80 rupees, fancy switch 100-200 rupees mein milta hai.",
+    "created_at": "2025-09-13T19:39:58.819904",
+    "usage_count": 16,
+    "confidence": 1.0,
+    "category": "electronics_shop",
+    "source": "preloaded",
+    "professional": true
+  },
+  "fan ki price": {
+    "answer": "Ceiling fan ki price 2000 se 5000 rupees tak hai. Basic fan 2000-3000, branded fan 3500-5000 rupees mein milta hai.",
+    "created_at": "2025-09-13T19:39:58.823316",
+    "usage_count": 0,
+    "confidence": 1.0,
+    "category": "electronics_shop",
+    "source": "preloaded",
+    "professional": true
+  },
+  "wire ka rate": {
+    "answer": "Wire ka rate size ke hisab se hai. 1.5mm wire 35-40 rupees per meter, 2.5mm wire 55-60 rupees per meter, 4mm wire 85-90 rupees per meter.",
+    "created_at": "2025-09-13T19:39:58.832872",
+    "usage_count": 13,
+    "confidence": 1.0,
+    "category": "electronics_shop",
+    "source": "preloaded",
+    "professional": true
+  },
+  "led bulb price": {
+    "answer": "LED bulb ka price wattage ke hisab se hai. 9W LED 80-120 rupees, 12W LED 100-150 rupees, 15W LED 120-180 rupees mein milta hai.",
+    "created_at": "2025-09-13T19:39:58.841770",
+    "usage_count": 0,
+    "confidence": 1.0,
+    "category": "electronics_shop",
+    "source": "preloaded",
+    "professional": true
+  },
+  "socket ki price": {
+    "answer": "Socket ka price 25-50 rupees hai. Basic socket 25-35 rupees, modular socket 40-50 rupees mein milta hai.",
+    "created_at": "2025-09-13T19:39:58.852165",
+    "usage_count": 4,
+    "confidence": 1.0,
+    "category": "electronics_shop",
+    "source": "preloaded",
+    "professional": true
+  },
+  "mcb price": {
+    "answer": "MCB ka price amperage ke hisab se hai. 16A MCB 150-200 rupees, 25A MCB 180-250 rupees, 32A MCB 200-280 rupees.",
+    "created_at": "2025-09-13T19:39:58.861925",
+    "usage_count": 4,
+    "confidence": 1.0,
+    "category": "electronics_shop",
+    "source": "preloaded",
+    "professional": true
+  },
+  "cable price": {
+    "answer": "Cable ka price per meter hai. 2 core cable 45-55 rupees, 3 core cable 65-75 rupees per meter.",
+    "created_at": "2025-09-13T19:39:58.871716",
+    "usage_count": 3,
+    "confidence": 1.0,
+    "category": "electronics_shop",
+    "source": "preloaded",
+    "professional": true
+  },
+  "tube light price": {
+    "answer": "LED tube light ka price 300-800 rupees hai length ke hisab se. 2 feet tube 300-500, 4 feet tube 500-800 rupees.",
+    "created_at": "2025-09-13T19:39:58.882034",
+    "usage_count": 0,
+    "confidence": 1.0,
+    "category": "electronics_shop",
+    "source": "preloaded",
+    "professional": true
+  },
+  "inverter price": {
+    "answer": "Inverter ka price capacity ke hisab se hai. 800VA inverter 5000-8000, 1000VA inverter 7000-10000 rupees.",
+    "created_at": "2025-09-13T19:39:58.891669",
+    "usage_count": 0,
+    "confidence": 1.0,
+    "category": "electronics_shop",
+    "source": "preloaded",
+    "professional": true
+  },
+  "battery price": {
+    "answer": "Inverter battery ka price 150AH battery 8000-12000 rupees, 200AH battery 12000-16000 rupees.",
+    "created_at": "2025-09-13T19:39:58.901440",
+    "usage_count": 0,
+    "confidence": 1.0,
+    "category": "electronics_shop",
+    "source": "preloaded",
+    "professional": true
+  },
+  "business hours": {
+    "answer": "Humara shop subah 9 baje se raat 8 baje tak khula rehta hai. Sunday ko 10 baje se 6 baje tak.",
+    "created_at": "2025-09-13T19:39:58.913291",
+    "usage_count": 0,
+    "confidence": 1.0,
+    "category": "general_business",
+    "source": "preloaded",
+    "professional": true
+  },
+  "warranty policy": {
+    "answer": "Electrical items pe 1 saal warranty hai. Fan aur inverter pe 2 saal warranty milti hai.",
+    "created_at": "2025-09-13T19:39:58.922459",
+    "usage_count": 0,
+    "confidence": 1.0,
+    "category": "general_business",
+    "source": "preloaded",
+    "professional": true
+  },
+  "installation service": {
+    "answer": "Installation service available hai. Basic fitting 200-500 rupees, heavy work 500-1500 rupees charging hai.",
+    "created_at": "2025-09-13T19:39:58.933000",
+    "usage_count": 0,
+    "confidence": 1.0,
+    "category": "general_business",
+    "source": "preloaded",
+    "professional": true
+  },
+  "delivery service": {
+    "answer": "Delivery service available hai. Local area mein free delivery, bahar ka 50-100 rupees delivery charge.",
+    "created_at": "2025-09-13T19:39:58.943781",
+    "usage_count": 0,
+    "confidence": 1.0,
+    "category": "general_business",
+    "source": "preloaded",
+    "professional": true
+  },
+  "payment methods": {
+    "answer": "Cash, UPI, card sab accept karte hain. EMI bhi available hai 5000 rupees se upar ke items pe.",
+    "created_at": "2025-09-13T19:39:58.953802",
+    "usage_count": 0,
+    "confidence": 1.0,
+    "category": "general_business",
+    "source": "preloaded",
+    "professional": true
+  },
+  "bulk discount": {
+    "answer": "Bulk order pe discount milta hai. 10000 rupees se upar 5% discount, 25000 se upar 10% discount.",
+    "created_at": "2025-09-13T19:39:58.964193",
+    "usage_count": 0,
+    "confidence": 1.0,
+    "category": "general_business",
+    "source": "preloaded",
+    "professional": true
+  },
+  "return policy": {
+    "answer": "7 din mein return kar sakte hain original bill ke saath. Item condition achhi honi chahiye.",
+    "created_at": "2025-09-13T19:39:58.974557",
+    "usage_count": 0,
+    "confidence": 1.0,
+    "category": "general_business",
+    "source": "preloaded",
+    "professional": true
+  },
+  "wiring problem": {
+    "answer": "Wiring problem ke liye electrician call kar sakte hain. Basic checking 300-500 rupees, repair alag se charge.",
+    "created_at": "2025-09-13T19:39:58.986090",
+    "usage_count": 0,
+    "confidence": 1.0,
+    "category": "technical_support",
+    "source": "preloaded",
+    "professional": true
+  },
+  "short circuit": {
+    "answer": "Short circuit ke liye turant main switch off karein. Electrician ko call karein, khud se touch mat karein.",
+    "created_at": "2025-09-13T19:39:58.996393",
+    "usage_count": 0,
+    "confidence": 1.0,
+    "category": "technical_support",
+    "source": "preloaded",
+    "professional": true
+  },
+  "power fluctuation": {
+    "answer": "Power fluctuation ke liye stabilizer use karein. Ghar ke liye 5KVA stabilizer sufficient hai.",
+    "created_at": "2025-09-13T19:39:59.007803",
+    "usage_count": 0,
+    "confidence": 1.0,
+    "category": "technical_support",
+    "source": "preloaded",
+    "professional": true
+  },
+  "earth connection": {
+    "answer": "Earth connection jaruri hai safety ke liye. Proper earthing 2000-3000 rupees mein ho jaati hai.",
+    "created_at": "2025-09-13T19:39:59.018284",
+    "usage_count": 0,
+    "confidence": 1.0,
+    "category": "technical_support",
+    "source": "preloaded",
+    "professional": true
+  },
+  "phase problem": {
+    "answer": "3 phase problem ke liye phase sequence meter use karte hain. Checking aur repair 800-1500 rupees.",
+    "created_at": "2025-09-13T19:39:59.028543",
+    "usage_count": 0,
+    "confidence": 1.0,
+    "category": "technical_support",
+    "source": "preloaded",
+    "professional": true
+  },
+  "home wiring": {
+    "answer": "Ghar ke liye copper wire best hai. 1.5mm lights ke liye, 2.5mm plugs ke liye, 4mm AC ke liye use karein.",
+    "created_at": "2025-09-13T19:39:59.039689",
+    "usage_count": 0,
+    "confidence": 1.0,
+    "category": "product_recommendations",
+    "source": "preloaded",
+    "professional": true
+  },
+  "fan selection": {
+    "answer": "Room size ke hisab se fan select karein. 12x12 room ke liye 1200mm fan, 10x10 ke liye 1050mm fan sufficient.",
+    "created_at": "2025-09-13T19:39:59.049645",
+    "usage_count": 0,
+    "confidence": 1.0,
+    "category": "product_recommendations",
+    "source": "preloaded",
+    "professional": true
+  },
+  "led vs cfl": {
+    "answer": "LED bulb CFL se better hai. Kam bijli khata hai aur jyada chalti hai. Investment thoda jyada but fayda jyada.",
+    "created_at": "2025-09-13T19:39:59.059532",
+    "usage_count": 0,
+    "confidence": 1.0,
+    "category": "product_recommendations",
+    "source": "preloaded",
+    "professional": true
+  },
+  "stabilizer size": {
+    "answer": "Ghar ke total load ke hisab se stabilizer lein. AC, fridge, TV sab ka load add karke 20% extra capacity lein.",
+    "created_at": "2025-09-13T19:39:59.070807",
+    "usage_count": 0,
+    "confidence": 1.0,
+    "category": "product_recommendations",
+    "source": "preloaded",
+    "professional": true
+  },
+  "inverter battery": {
+    "answer": "Inverter ke saath tubular battery best hai. Maintenance kam aur backup jyada milta hai.",
+    "created_at": "2025-09-13T19:39:59.082005",
+    "usage_count": 0,
+    "confidence": 1.0,
+    "category": "product_recommendations",
+    "source": "preloaded",
+    "professional": true
+  },
+  "hello": {
+    "answer": "Namaste! Main aapki madad ke liye hun. Kya chahiye aapko electrical items mein?",
+    "created_at": "2025-09-13T19:39:59.092925",
+    "usage_count": 4,
+    "confidence": 1.0,
+    "category": "greetings_responses",
+    "source": "preloaded",
+    "professional": true
+  },
+  "good morning": {
+    "answer": "Good morning! Aaj kya kaam hai electrical ka?",
+    "created_at": "2025-09-13T19:39:59.104078",
+    "usage_count": 0,
+    "confidence": 1.0,
+    "category": "greetings_responses",
+    "source": "preloaded",
+    "professional": true
+  },
+  "thank you": {
+    "answer": "Aapka swagat hai! Koi aur help chahiye to batayiye.",
+    "created_at": "2025-09-13T19:39:59.115027",
+    "usage_count": 0,
+    "confidence": 1.0,
+    "category": "greetings_responses",
+    "source": "preloaded",
+    "professional": true
+  },
+  "how are you": {
+    "answer": "Main bilkul theek hun, dhanyawad! Aap batayiye kya chahiye?",
+    "created_at": "2025-09-13T19:39:59.125721",
+    "usage_count": 0,
+    "confidence": 1.0,
+    "category": "greetings_responses",
+    "source": "preloaded",
+    "professional": true
+  },
+  "who are you": {
+    "answer": "Main ek Adaptive Chatbot hun jo electrical aur electronics items ke baare mein jaankari deta hun.",
+    "created_at": "2025-09-13T19:39:59.135900",
+    "usage_count": 0,
+    "confidence": 1.0,
+    "category": "greetings_responses",
+    "source": "preloaded",
+    "professional": true
+  },
+  "complaint hai": {
+    "answer": "Complaint ke liye sorry! Batayiye kya problem hai, hum turant solve kar denge.",
+    "created_at": "2025-09-13T19:39:59.146890",
+    "usage_count": 0,
+    "confidence": 1.0,
+    "category": "business_scenarios",
+    "source": "demo",
+    "priority": "high"
+  },
+  "refund chahiye": {
+    "answer": "Refund ke liye original bill aur item laiye. 7 din ke andar full refund milega.",
+    "created_at": "2025-09-13T19:39:59.157401",
+    "usage_count": 0,
+    "confidence": 1.0,
+    "category": "business_scenarios",
+    "source": "demo",
+    "priority": "high"
+  },
+  "exchange karna hai": {
+    "answer": "Exchange available hai same price range mein. Size ya color change kar sakte hain.",
+    "created_at": "2025-09-13T19:39:59.168562",
+    "usage_count": 1,
+    "confidence": 1.0,
+    "category": "business_scenarios",
+    "source": "demo",
+    "priority": "high"
+  },
+  "shop address": {
+    "answer": "Hamara shop Main Market mein hai. Google Maps pe &#x27;Electrical Shop&#x27; search kariye.",
+    "created_at": "2025-09-13T19:39:59.179402",
+    "usage_count": 0,
+    "confidence": 1.0,
+    "category": "business_scenarios",
+    "source": "demo",
+    "priority": "high"
+  },
+  "contact number": {
+    "answer": "Contact ke liye 9876543210 pe call kariye ya WhatsApp kariye.",
+    "created_at": "2025-09-13T19:39:59.190919",
+    "usage_count": 0,
+    "confidence": 1.0,
+    "category": "business_scenarios",
+    "source": "demo",
+    "priority": "high"
+  },
+  "opening time": {
+    "answer": "Subah 9 baje se raat 8 baje tak open hai. Sunday 10-6 baje.",
+    "created_at": "2025-09-13T19:39:59.202213",
+    "usage_count": 0,
+    "confidence": 1.0,
+    "category": "business_scenarios",
+    "source": "demo",
+    "priority": "high"
+  },
+  "stock available hai": {
+    "answer": "Stock ki jaankari ke liye specific item ka naam batayiye. Real time update de denge.",
+    "created_at": "2025-09-13T19:39:59.212886",
+    "usage_count": 0,
+    "confidence": 1.0,
+    "category": "business_scenarios",
+    "source": "demo",
+    "priority": "high"
+  },
+  "new arrival": {
+    "answer": "New arrivals weekly update karte hain. LED lights aur smart switches aaye hain.",
+    "created_at": "2025-09-13T19:39:59.224603",
+    "usage_count": 0,
+    "confidence": 1.0,
+    "category": "business_scenarios",
+    "source": "demo",
+    "priority": "high"
+  },
+  "discount offer": {
+    "answer": "Festival season mein special discount hai. 15% tak discount electrical items pe.",
+    "created_at": "2025-09-13T19:39:59.236318",
+    "usage_count": 0,
+    "confidence": 1.0,
+    "category": "business_scenarios",
+    "source": "demo",
+    "priority": "high"
+  },
+  "safety tips": {
+    "answer": "Electrical safety ke liye: 1) Wet hands se touch na karein 2) Proper earthing karwayiye 3) Overloading se bachhiye",
+    "created_at": "2025-09-13T19:39:59.247731",
+    "usage_count": 0,
+    "confidence": 1.0,
+    "category": "business_scenarios",
+    "source": "demo",
+    "priority": "high"
+  },
+  "maintenance tips": {
+    "answer": "Regular cleaning kariye, loose connections check kariye, voltage fluctuation se bachiye stabilizer use karke.",
+    "created_at": "2025-09-13T19:39:59.259145",
+    "usage_count": 0,
+    "confidence": 1.0,
+    "category": "business_scenarios",
+    "source": "demo",
+    "priority": "high"
+  },
+  "emergency contact": {
+    "answer": "Electrical emergency ke liye 24/7 available hain. Emergency number: 9876543210",
+    "created_at": "2025-09-13T19:39:59.270093",
+    "usage_count": 0,
+    "confidence": 1.0,
+    "category": "business_scenarios",
+    "source": "demo",
+    "priority": "high"
+  },
+  "what is your name": {
+    "answer": "my name is alex",
+    "created_at": "2025-09-13T20:04:40.175785",
+    "usage_count": 3,
+    "confidence": 1.0
+  },
+  "stabilizer ka price": {
+    "answer": "2500",
+    "created_at": "2025-09-13T22:15:17.599970",
+    "usage_count": 7,
+    "confidence": 1.0
+  },
+  "socket ka price": {
+    "answer": "Socket का price 80-150 rupees है, 3-pin या 2-pin के according",
+    "created_at": "2025-09-13T23:21:17.850623",
+    "usage_count": 0,
+    "confidence": 1.0
+  },
+  "cable ka rate": {
+    "answer": "Cable का rate 60-120 rupees per meter है, size और quality के according",
+    "created_at": "2025-09-13T23:21:17.859428",
+    "usage_count": 0,
+    "confidence": 1.0
+  },
+  "fan ka price": {
+    "answer": "Ceiling fan का price 1500-4000 rupees तक है",
+    "created_at": "2025-09-13T23:21:17.875651",
+    "usage_count": 0,
+    "confidence": 1.0
+  },
+  "bulb ki price": {
+    "answer": "LED bulb का price 50-300 rupees है, watt के according",
+    "created_at": "2025-09-13T23:21:17.889255",
+    "usage_count": 0,
+    "confidence": 1.0
+  },
+  "stabilizer price": {
+    "answer": "Voltage stabilizer का price 2500-8000 rupees है",
+    "created_at": "2025-09-13T23:21:17.904283",
+    "usage_count": 0,
+    "confidence": 1.0
+  },
+  "geyser ka price": {
+    "answer": "Water heater का price 5000-25000 rupees तक है",
+    "created_at": "2025-09-13T23:21:17.917077",
+    "usage_count": 0,
+    "confidence": 1.0
+  },
+  "wiring charges": {
+    "answer": "House wiring का charge 15-25 rupees per point है",
+    "created_at": "2025-09-13T23:21:17.930820",
+    "usage_count": 0,
+    "confidence": 1.0
+  },
+  "installation charges": {
+    "answer": "Electrical installation charges 200-500 rupees per item",
+    "created_at": "2025-09-13T23:21:17.945413",
+    "usage_count": 0,
+    "confidence": 1.0
+  },
+  "repair charges": {
+    "answer": "Electrical repair charges 100-300 rupees per visit",
+    "created_at": "2025-09-13T23:21:17.959522",
+    "usage_count": 0,
+    "confidence": 1.0
+  },
+  "wire gauge": {
+    "answer": "House wiring के लिए 2.5mm और 4mm wire use करते हैं",
+    "created_at": "2025-09-13T23:21:17.973377",
+    "usage_count": 0,
+    "confidence": 1.0
+  },
+  "mcb rating": {
+    "answer": "Normal घर के लिए 16A, 20A, 32A MCB use करते हैं",
+    "created_at": "2025-09-13T23:21:17.987487",
+    "usage_count": 0,
+    "confidence": 1.0
+  },
+  "voltage": {
+    "answer": "India में standard voltage 220V single phase और 415V three phase है",
+    "created_at": "2025-09-13T23:21:18.000708",
+    "usage_count": 0,
+    "confidence": 1.0
+  },
+  "shop timings": {
+    "answer": "हमारी shop 9 AM से 8 PM तक खुली रहती है",
+    "created_at": "2025-09-13T23:21:18.017028",
+    "usage_count": 0,
+    "confidence": 1.0
+  },
+  "address": {
+    "answer": "हमारा address local electrical market में है",
+    "created_at": "2025-09-13T23:21:18.036952",
+    "usage_count": 0,
+    "confidence": 1.0
+  },
+  "warranty": {
+    "answer": "हमारे सभी products पर 1 साल warranty मिलती है",
+    "created_at": "2025-09-13T23:21:18.050636",
+    "usage_count": 0,
+    "confidence": 1.0
+  },
+  "payment": {
+    "answer": "हम cash, UPI, card सभी payment accept करते हैं",
+    "created_at": "2025-09-13T23:21:18.064303",
+    "usage_count": 0,
+    "confidence": 1.0
+  },
+  "टेस्ट सवाल एक": {
+    "answer": "यह टेस्ट जवाब एक है",
+    "created_at": "2025-09-15T08:23:41.147749",
+    "usage_count": 0,
+    "confidence": 1.0
+  },
+  "test question two": {
+    "answer": "This is test answer two",
+    "created_at": "2025-09-15T08:23:41.154120",
+    "usage_count": 0,
+    "confidence": 1.0
+  },
+  "मिक्स्ड question तीन": {
+    "answer": "Mixed answer तीन है",
+    "created_at": "2025-09-15T08:23:41.167184",
+    "usage_count": 0,
+    "confidence": 1.0
+  },
+  "mera naam kya hai": {
+    "answer": "mera naam lavit hai",
+    "created_at": "2025-09-25T22:46:12.228708",
+    "usage_count": 2,
+    "confidence": 1.0
+  },
+  "स्विच का प्राइस कितना है": {
+    "answer": "स्विच का प्राइस 20 रुपए है",
+    "created_at": "2025-09-25T22:49:33.225038",
+    "usage_count": 0,
+    "confidence": 1.0
+  },
+  "तो बताओ स्विच का प्राइस कितना है": {
+    "answer": "आरएस 20 है",
+    "created_at": "2025-09-25T22:50:23.596495",
+    "usage_count": 0,
+    "confidence": 1.0
+  }
+}

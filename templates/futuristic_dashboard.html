@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🤖 Adaptive Chatbot - Futuristic Dashboard</title>
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <style>
+        /* Futuristic Dark Theme */
+        :root {
+            --bg-primary: #0d1117;
+            --bg-secondary: #161b22;
+            --bg-tertiary: #21262d;
+            --text-primary: #f0f6fc;
+            --text-secondary: #8b949e;
+            --accent-blue: #00d8ff;
+            --accent-green: #39d353;
+            --accent-red: #ff6b6b;
+            --accent-purple: #a855f7;
+            --accent-orange: #ff8c42;
+            --border-color: #30363d;
+            --glow-color: rgba(0, 216, 255, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            overflow-x: hidden;
+        }
+
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(45deg, #0d1117, #161b22, #21262d);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        /* Header */
+        .header {
+            background: var(--bg-secondary);
+            padding: 1rem 2rem;
+            border-bottom: 1px solid var(--border-color);
+            box-shadow: 0 4px 20px rgba(0, 216, 255, 0.1);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--accent-blue);
+            text-shadow: 0 0 10px var(--glow-color);
+        }
+
+        .header-stats {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--accent-green);
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-top: 0.2rem;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Dashboard Grid */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Cards */
+        .card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent-blue), transparent);
+            animation: shine 3s ease-in-out infinite;
+        }
+
+        @keyframes shine {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 216, 255, 0.2);
+            border-color: var(--accent-blue);
+        }
+
+        .card-title {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .card-icon {
+            font-size: 1.5rem;
+            color: var(--accent-blue);
+        }
+
+        /* Metrics Cards */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .metric-card {
+            background: linear-gradient(135deg, var(--bg-secondary), var(--bg-tertiary));
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .metric-card::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 216, 255, 0.1) 0%, transparent 70%);
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(0.5); opacity: 0; }
+            50% { transform: scale(1); opacity: 1; }
+        }
+
+        .metric-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: var(--accent-blue);
+            text-shadow: 0 0 10px var(--glow-color);
+        }
+
+        .metric-label {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Chart Containers */
+        .chart-container {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .chart-img {
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Conversations List */
+        .conversations-list {
+            max-height: 400px;
+            overflow-y: auto;
+            background: var(--bg-tertiary);
+            border-radius: 8px;
+            padding: 1rem;
+        }
+
+        .conversation-item {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .conversation-item:hover {
+            border-color: var(--accent-blue);
+            transform: translateX(5px);
+        }
+
+        .conversation-text {
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .conversation-meta {
+            display: flex;
+            justify-content: between;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .language-badge {
+            background: var(--accent-purple);
+            color: white;
+            padding: 0.2rem 0.6rem;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: bold;
+        }
+
+        /* Status Indicators */
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 0.5rem;
+        }
+
+        .status-online {
+            background: var(--accent-green);
+            box-shadow: 0 0 10px var(--accent-green);
+            animation: heartbeat 2s ease-in-out infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .status-offline {
+            background: var(--accent-red);
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--border-color);
+            border-radius: 50%;
+            border-top-color: var(--accent-blue);
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-secondary);
+            border-top: 1px solid var(--border-color);
+            margin-top: 3rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .header-stats {
+                gap: 1rem;
+            }
+            
+            .metrics-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-tertiary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent-blue);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #00a8cc;
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation"></div>
+    
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <i class="fas fa-robot"></i> Adaptive Chatbot Dashboard
+            </div>
+            <div class="header-stats">
+                <div class="stat-item">
+                    <div class="stat-value" id="cpu-usage">0%</div>
+                    <div class="stat-label">CPU Usage</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="memory-usage">0%</div>
+                    <div class="stat-label">Memory</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="connected-clients">0</div>
+                    <div class="stat-label">Connected</div>
+                </div>
+                <div class="stat-item">
+                    <span class="status-indicator status-online" id="status-indicator"></span>
+                    <span id="status-text">Online</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="container">
+        
+        <!-- Metrics Overview -->
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <div class="metric-value" id="total-conversations">0</div>
+                <div class="metric-label">Total Conversations</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value" id="avg-response-time">0ms</div>
+                <div class="metric-label">Avg Response Time</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value" id="languages-detected">0</div>
+                <div class="metric-label">Languages Detected</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value" id="voice-interactions">0</div>
+                <div class="metric-label">Voice Interactions</div>
+            </div>
+        </div>
+
+        <!-- Dashboard Grid -->
+        <div class="dashboard-grid">
+            
+            <!-- Conversations Trend Chart -->
+            <div class="card">
+                <div class="card-title">
+                    <i class="fas fa-chart-line card-icon"></i>
+                    Conversation Trends
+                </div>
+                <div class="chart-container">
+                    <img id="conversations-chart" class="chart-img" alt="Loading chart..." />
+                </div>
+            </div>
+
+            <!-- System Performance Chart -->
+            <div class="card">
+                <div class="card-title">
+                    <i class="fas fa-tachometer-alt card-icon"></i>
+                    System Performance
+                </div>
+                <div class="chart-container">
+                    <img id="system-chart" class="chart-img" alt="Loading chart..." />
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Recent Conversations -->
+        <div class="card">
+            <div class="card-title">
+                <i class="fas fa-comments card-icon"></i>
+                Recent Conversations
+            </div>
+            <div class="conversations-list" id="conversations-list">
+                <div class="loading"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>🤖 Adaptive Chatbot Professional Dashboard v2.0 | Built with ❤️ for the Future</p>
+        <p>Real-time monitoring powered by Flask & SocketIO</p>
+    </footer>
+
+    <script>
+        // Initialize Socket.IO
+        const socket = io();
+
+        // DOM Elements
+        const elements = {
+            cpuUsage: document.getElementById('cpu-usage'),
+            memoryUsage: document.getElementById('memory-usage'),
+            connectedClients: document.getElementById('connected-clients'),
+            statusIndicator: document.getElementById('status-indicator'),
+            statusText: document.getElementById('status-text'),
+            totalConversations: document.getElementById('total-conversations'),
+            avgResponseTime: document.getElementById('avg-response-time'),
+            languagesDetected: document.getElementById('languages-detected'),
+            voiceInteractions: document.getElementById('voice-interactions'),
+            conversationsChart: document.getElementById('conversations-chart'),
+            systemChart: document.getElementById('system-chart'),
+            conversationsList: document.getElementById('conversations-list')
+        };
+
+        // Socket.IO Event Handlers
+        socket.on('connect', () => {
+            console.log('Connected to server');
+            elements.statusIndicator.className = 'status-indicator status-online';
+            elements.statusText.textContent = 'Online';
+            loadInitialData();
+        });
+
+        socket.on('disconnect', () => {
+            console.log('Disconnected from server');
+            elements.statusIndicator.className = 'status-indicator status-offline';
+            elements.statusText.textContent = 'Offline';
+        });
+
+        socket.on('system_update', (data) => {
+            updateSystemMetrics(data);
+        });
+
+        // Update system metrics
+        function updateSystemMetrics(data) {
+            elements.cpuUsage.textContent = `${data.cpu_percent.toFixed(1)}%`;
+            elements.memoryUsage.textContent = `${data.memory_percent.toFixed(1)}%`;
+            
+            // Update CPU color based on usage
+            if (data.cpu_percent > 80) {
+                elements.cpuUsage.style.color = 'var(--accent-red)';
+            } else if (data.cpu_percent > 60) {
+                elements.cpuUsage.style.color = 'var(--accent-orange)';
+            } else {
+                elements.cpuUsage.style.color = 'var(--accent-green)';
+            }
+            
+            // Update memory color based on usage
+            if (data.memory_percent > 80) {
+                elements.memoryUsage.style.color = 'var(--accent-red)';
+            } else if (data.memory_percent > 60) {
+                elements.memoryUsage.style.color = 'var(--accent-orange)';
+            } else {
+                elements.memoryUsage.style.color = 'var(--accent-green)';
+            }
+        }
+
+        // Load initial data
+        async function loadInitialData() {
+            try {
+                // Load conversations
+                const conversationsResponse = await fetch('/api/conversations');
+                const conversations = await conversationsResponse.json();
+                updateConversationsMetrics(conversations);
+                updateConversationsList(conversations);
+
+                // Load charts
+                loadCharts();
+
+            } catch (error) {
+                console.error('Error loading initial data:', error);
+            }
+        }
+
+        // Update conversations metrics
+        function updateConversationsMetrics(conversations) {
+            elements.totalConversations.textContent = conversations.length;
+            
+            if (conversations.length > 0) {
+                // Calculate average response time
+                const totalResponseTime = conversations.reduce((sum, conv) => sum + (conv.response_time || 0), 0);
+                const avgResponseTime = totalResponseTime / conversations.length;
+                elements.avgResponseTime.textContent = `${Math.round(avgResponseTime)}ms`;
+                
+                // Count unique languages
+                const languages = new Set(conversations.map(conv => conv.language).filter(lang => lang));
+                elements.languagesDetected.textContent = languages.size;
+                
+                // Count voice interactions (assuming all are voice for now)
+                elements.voiceInteractions.textContent = conversations.length;
+            }
+        }
+
+        // Update conversations list
+        function updateConversationsList(conversations) {
+            const listElement = elements.conversationsList;
+            listElement.innerHTML = '';
+            
+            if (conversations.length === 0) {
+                listElement.innerHTML = '<p style="text-align: center; color: var(--text-secondary);">No conversations yet</p>';
+                return;
+            }
+            
+            conversations.slice(0, 10).forEach(conv => {
+                const item = document.createElement('div');
+                item.className = 'conversation-item';
+                
+                const text = conv.input_text || 'No input text';
+                const response = conv.response || 'No response';
+                const language = conv.language || 'Unknown';
+                const timestamp = conv.timestamp ? new Date(conv.timestamp).toLocaleString() : 'Unknown time';
+                
+                item.innerHTML = `
+                    <div class="conversation-text">
+                        <strong>Input:</strong> ${text.substring(0, 100)}${text.length > 100 ? '...' : ''}
+                    </div>
+                    <div class="conversation-text">
+                        <strong>Response:</strong> ${response.substring(0, 100)}${response.length > 100 ? '...' : ''}
+                    </div>
+                    <div class="conversation-meta">
+                        <span><span class="language-badge">${language}</span></span>
+                        <span>${timestamp}</span>
+                    </div>
+                `;
+                
+                listElement.appendChild(item);
+            });
+        }
+
+        // Load charts
+        async function loadCharts() {
+            try {
+                // Load conversations trend chart
+                const convChartResponse = await fetch('/api/charts/conversations_trend');
+                const convChartData = await convChartResponse.json();
+                if (convChartData.image) {
+                    elements.conversationsChart.src = convChartData.image;
+                }
+
+                // Load system performance chart
+                const sysChartResponse = await fetch('/api/charts/system_performance');
+                const sysChartData = await sysChartResponse.json();
+                if (sysChartData.image) {
+                    elements.systemChart.src = sysChartData.image;
+                }
+
+            } catch (error) {
+                console.error('Error loading charts:', error);
+            }
+        }
+
+        // Refresh data periodically
+        setInterval(loadInitialData, 30000); // Refresh every 30 seconds
+        setInterval(loadCharts, 60000); // Refresh charts every minute
+
+        // Request real-time data
+        socket.emit('get_real_time_data');
+        setInterval(() => socket.emit('get_real_time_data'), 5000);
+
+    </script>
+</body>
+</html>

@@ -7,41 +7,48 @@ rich==13.7.0
 # Database and storage
 sqlalchemy>=2.0.30
 # sqlite3 is built-in with Python
+
 # Natural Language Processing
 nltk==3.8.1
 scikit-learn>=1.4.0
 numpy>=1.26.0
 pandas>=2.1.4
+
 # Text similarity and embeddings
 sentence-transformers>=2.3.0
 faiss-cpu>=1.9.0
+
 # Configuration and utilities
 pyyaml==6.0.1
 python-dateutil==2.8.2
+
 # Development dependencies
 pytest==7.4.3
 black==23.11.0
 flake8==6.1.0
 mypy==1.7.1
+
 # Enhanced Voice processing dependencies
 speechrecognition==3.10.0
 pyttsx3==2.90
 pyaudio>=0.2.11  # Working - found version 0.2.14
 gtts==2.4.0
 pygame>=2.6.0  # Working - found version 2.6.1
+
 # Windows-specific voice improvements
 pywin32>=306
 comtypes>=1.4.0
+
 # Optional: Azure Cognitive Services (for premium voices)
 # azure-cognitiveservices-speech==1.34.0
+
 # Optional: Amazon Polly (for AWS voices)
 # boto3==1.34.0
-# Web interface dependencies
-flask==3.0.0
-flask-socketio==5.3.6
+
 # Optional: For future web interface
 fastapi==0.104.1
 uvicorn==0.24.0
+
 # Additional dependencies for Adaptive Chatbot
 edge-tts>=6.1.9
 langdetect>=1.0.9
@@ -56,6 +63,3 @@ tqdm>=4.64.0
 click>=8.0.0
 typing-extensions>=4.0.0
 pytest-asyncio>=0.18.0
-psutil>=5.9.0
-# tracemalloc is built-in to Python 3.4+
-# uvloop is not available on Windows

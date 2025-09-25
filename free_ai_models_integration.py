@@ -268,7 +268,7 @@ class FreeAIModelsManager:
             try:
                 # Check if already loaded
                 if model_id in self.models and not force_reload:
-                    log_info(f"📦 Model {model_id} already loaded")
+                    log_debug(f"📦 Model {model_id} already loaded")
                     return True
                 
                 if not TRANSFORMERS_AVAILABLE:
@@ -1231,4 +1231,4 @@ if __name__ == "__main__":
         print("\n✅ Free AI Models Integration test completed")
     
     # Run the test
-    asyncio.run(test_ai_models())
+    asyncio.run(test_ai_models())

@@ -4,16 +4,38 @@ This file provides guidance to WARP (warp.dev) when working with code in this re
 
 ## Project Overview
 
-The Adaptive Chatbot is a bilingual (Hindi-English) conversational AI that can learn and remember information from user interactions. It's designed primarily for domain-specific use cases, with pre-built support for electrical/electronics shops, while being extensible to other domains.
+The Adaptive Chatbot is a comprehensive multilingual AI system with advanced NLP capabilities, voice interface, and intelligent business domain specialization. It's designed as a production-ready conversational AI platform with support for 50+ languages, EdgeTTS voice synthesis, and specialized electrical business knowledge.
 
 ### Core Architecture
 
-The system follows a modular design with clear separation of concerns:
+The system follows a sophisticated modular architecture with multiple integration layers:
 
-- **`AdaptiveChatbot`** - Main orchestrator that processes messages and generates responses
-- **`KnowledgeStore`** - SQLite-based persistent storage with semantic search capabilities  
-- **`LearningManager`** - Handles knowledge import, teaching, and interactive learning
-- **`Config`** - YAML-based configuration management with domain-specific settings
+**Main Application Layer:**
+- **`AdaptiveChatbot`** - Primary orchestrator with comprehensive error handling
+- **`EnhancedAdaptiveChatbot`** - Advanced version with multilingual support
+- **`main_adaptive_chatbot.py`** - Complete system integration script
+
+**Intelligence Layer:**
+- **`advanced_nlp.py`** - Transformer-based NLP engine with sentiment analysis
+- **`intelligent_integration_bridge.py`** - Multi-system response prioritization
+- **`free_ai_models_integration.py`** - Hugging Face transformers integration
+- **`electrical_business_enhancer.py`** - Domain-specific business logic
+
+**Voice Interface Layer:**
+- **`multilingual_edgetts_integration.py`** - EdgeTTS multilingual speech synthesis
+- **`enhanced_voice_interface.py`** - Advanced voice recognition and processing
+- **`voice_tone_style_adaptation.py`** - Context-aware voice personality system
+- **`multilingual_voice_system.py`** - Language-appropriate voice selection
+
+**Data Management:**
+- **`unified_learning_manager.py`** - Centralized knowledge management
+- **`advanced_conversation_manager.py`** - Session and context management
+- **`KnowledgeStore`** - SQLite with semantic search and FAISS indexing
+
+**Language Processing:**
+- **`enhanced_language_detection.py`** - 50+ language detection with confidence scoring
+- **`advanced_multilingual_bridge.py`** - Cross-language communication handling
+- **`transliteration.py`** - Script conversion and romanization
 
 ### Knowledge System
 
@@ -44,59 +66,108 @@ The system includes comprehensive voice capabilities for hands-free interaction:
 python -m venv venv
 .\venv\Scripts\Activate.ps1
 
-# Install dependencies
-pip install -r requirements.txt
+# Install core dependencies (minimal setup)
+pip install -r requirements-fixed.txt
 
-# Initial setup (creates directories and loads sample data)
-python -m src.cli setup
+# OR install all dependencies (full AI/ML features)
+pip install -r requirements.txt  # if available
+
+# Verify installation
+python test_all_dependencies.py
 ```
 
 ### Running the Chatbot
-```pwsh
-# Start interactive chat (general domain)
-python -m src.cli chat
 
-# Start with specific domain
+**Main Launch Options:**
+```pwsh
+# Full integrated system with all features
+python main_adaptive_chatbot.py
+
+# Enhanced chatbot with multilingual support
+python adaptive_chatbot_enhanced.py
+
+# AI-powered launcher with dependency checking
+python launch_ai_chatbot.py
+
+# Multi-language specialized launcher
+python launch_multilingual_ai.py
+```
+
+**Core Functionality:**
+```pwsh
+# Basic adaptive chatbot (lightweight)
+python adaptive_chatbot.py
+
+# Text-only chat interface
+python text_chat.py
+
+# Voice chat with EdgeTTS
+python voice_chat.py
+
+# Interactive voice teaching mode
+python interactive_voice_teaching.py
+```
+
+**CLI Interface (if available):**
+```pwsh
+# Traditional CLI commands (if src/ structure exists)
 python -m src.cli chat --domain shop
 
-# Start voice-enabled chat (hands-free interaction)
-python -m src.cli voice-chat --domain shop
-
-# Test voice interface before using
-python -m src.cli test-voice
-
-# List available TTS voices on system
-python -m src.cli list-voices
+# Teaching via command line
+python -m src.cli teach "switch price" "15-25 rupees" --domain shop
 ```
 
-### Knowledge Management
+### Testing and Development Tools
 ```pwsh
-# Teach single knowledge entry
-python -m src.cli teach "switch ki price" "Switch 15-25 rupees mein milta hai" --domain shop
+# Comprehensive dependency testing
+python test_all_dependencies.py
 
-# Import knowledge from JSON file
-python -m src.cli import-knowledge data/my_knowledge.json --domain general
+# Test specific components
+python test_audio_deps.py          # Audio system testing
+python test_dependencies.py        # Core dependencies
+python test_advanced_nlp.py        # NLP engine testing
 
-# Export knowledge to JSON
-python -m src.cli export-knowledge exported.json --domain shop
+# Quick system verification
+python quick_test.py
 
-# View statistics
-python -m src.cli stats
+# System health monitoring
+python system_health_check.py
+
+# Audio voice demo
+python voice_demo.py
 ```
 
-### Testing and Code Quality
+### Development and Demo Tools
 ```pwsh
-# Run tests (when test suite exists)
-python -m pytest tests/
+# Demo applications
+python demo_chatbot.py              # Basic demo
+python demo_enhanced_chatbot.py     # Advanced features demo
+python demo_text_chatbot.py         # Text-only demo
 
-# Code formatting
-black src/
+# Debugging and monitoring
+python advanced_debugger_tracker.py # Debug session tracking
+python desktop_monitor_app.py       # System monitoring
 
-# Linting
-flake8 src/
+# Web interface (if available)
+python web_interface_app.py         # FastAPI web server
+```
 
-# Type checking
-mypy src/
+### Business and Integration Tools
+```pwsh
+# Professional installer creation
+python build_professional_installer.py
+
+# License management
+python license_activation.py
+
+# Package creation
+python create_package.py
+
+# Marketing materials generation
+python marketing_materials.py
+
+# Documentation generation
+python documentation_generator.py
 ```
 
 ## Interactive Chat Commands
@@ -109,70 +180,168 @@ During chat sessions, users can use these special commands:
 
 ## Architecture Deep Dive
 
-### Message Processing Flow
+### Advanced Message Processing Pipeline
 
-1. **Input Cleaning**: Text normalization and preprocessing
-2. **Context Management**: Conversation history maintenance (max 5 exchanges)
-3. **Knowledge Retrieval**: Semantic search followed by keyword fallback
-4. **Response Generation**: Template-based with confidence scoring
-5. **Learning Integration**: Usage tracking and feedback processing
+1. **Intelligent Input Processing**: 
+   - Multi-language detection with confidence scoring
+   - Automatic script transliteration (Devanagari ↔ Roman)
+   - Intent classification using transformer models
+   - Sentiment analysis with TextBlob and advanced NLP
 
-### Domain System
+2. **Multi-System Response Generation**:
+   - Primary: Transformer-based response generation
+   - Secondary: Semantic knowledge base search (sentence-transformers + FAISS)
+   - Tertiary: Electrical business domain expertise
+   - Fallback: Rule-based template responses
 
-Domains are completely isolated knowledge spaces with their own:
-- Greeting messages and response templates
-- Category hierarchies for organization
-- Default fallback responses
-- Confidence thresholds and learning parameters
+3. **Voice Processing Integration**:
+   - EdgeTTS multilingual speech synthesis with 200+ voices
+   - Context-aware voice personality selection (Professional, Friendly, etc.)
+   - Real-time speech recognition with multiple language models
+   - Audio stream processing and noise handling
 
-Pre-configured domains:
-- **shop**: Electrical/electronics retail (Hindi-English mixed)
-- **general**: Open-ended conversations
-- **tech**: Technology and programming topics
+4. **Advanced Conversation Management**:
+   - Session-based conversation tracking
+   - Multi-turn dialogue state management
+   - Topic continuity and context switching
+   - User preference learning and adaptation
 
-### Database Schema
+### Multilingual Intelligence System
 
-SQLite database with two main tables:
-- **knowledge**: Stores input-response pairs with metadata
-- **conversations**: Logs chat sessions for analytics
+The system handles 50+ languages through:
+- **Language Detection**: Confidence-scored detection with cultural context
+- **Cross-Language Bridging**: Seamless mixing of Hindi, English, and regional languages
+- **Voice Synthesis**: Language-appropriate voice selection and pronunciation
+- **Cultural Adaptation**: Context-aware responses for different linguistic backgrounds
 
-Key indexes on domain, category, and input fields for performance.
+### Business Domain Specialization
+
+**Electrical/Electronics Domain**:
+- Product identification and categorization
+- Price inquiry handling with market rate knowledge
+- Technical specification responses
+- Installation and service guidance
+- Warranty and policy information
+
+**Extensible Domain Framework**:
+- Plug-and-play domain modules
+- Domain-specific NLP models
+- Custom voice personalities per domain
+- Business rule integration
+
+### Data Architecture
+
+**Multi-tier Storage System**:
+- **Primary**: SQLite with FTS (Full-Text Search) indexes
+- **Semantic**: FAISS vector database for embeddings
+- **Cache**: In-memory conversation state and user preferences
+- **Backup**: JSON export/import for knowledge portability
+
+**Advanced Indexing**:
+- Semantic similarity indexes using sentence-transformers
+- Language-specific keyword indexes
+- Usage frequency tracking for response optimization
+- Multi-dimensional vector space for context clustering
 
 ## Configuration Management
 
-Configuration is managed through `config/config.yaml` with these key sections:
+Configuration is managed through `config/config.yaml` with comprehensive system settings:
 
-### Model Settings
-- `sentence_model_name`: Transformer model for embeddings
-- `confidence_threshold`: Minimum similarity for knowledge matching
-- `max_context_length`: Conversation history window
+### Core System Settings
+```yaml
+sentence_model_name: all-MiniLM-L6-v2    # Transformer model for embeddings
+confidence_threshold: 0.7                 # Minimum similarity for knowledge matching
+max_context_length: 5                     # Conversation history window
+max_knowledge_entries: 10000               # Database size limits
+database_path: data/knowledge.db          # Knowledge storage location
+default_domain: general                   # Fallback domain for new sessions
+```
 
-### Learning Settings
-- `auto_learn_enabled`: Automatic learning from high-confidence interactions
-- `max_knowledge_entries`: Database size limits
-- `min_confidence_for_auto_learn`: Threshold for automatic knowledge capture
+### Advanced Voice Configuration
+```yaml
+voice_enabled: true
+use_gtts: true                           # Google TTS vs local pyttsx3
+voice_language: hi-IN                    # Speech recognition language
+tts_language: hi                         # Text-to-speech language
+speech_rate: 150                         # TTS speaking rate (WPM)
+energy_threshold: 300                    # Microphone sensitivity
+timeout: 5                               # Speech input timeout
+phrase_time_limit: 10                    # Max phrase duration
+pause_threshold: 0.8                     # Speech pause detection
+voice_id: 0                              # Default voice selection
+```
 
-### Domain Settings
-- `available_domains`: List of supported domains
-- `default_domain`: Fallback domain for new sessions
+### Domain and Learning Settings
+```yaml
+available_domains:
+  - general
+  - shop
+  - tech
+  - personal
 
-### Voice Settings
-- `voice_enabled`: Enable/disable voice functionality
-- `use_gtts`: Use Google TTS (recommended) or local pyttsx3
-- `voice_language`: Speech recognition language ('hi-IN', 'en-IN')
-- `tts_language`: Text-to-speech language ('hi', 'en')
-- `speech_rate`: TTS speaking rate (words per minute)
-- `energy_threshold`: Microphone sensitivity (300 default)
-- `timeout`: Speech input timeout in seconds
+auto_learn_enabled: false                # Automatic learning toggle
+min_confidence_for_auto_learn: 0.9       # Auto-learning threshold
+show_confidence_scores: false            # Debug confidence display
+conversation_cleanup_days: 30            # History retention period
+```
+
+### System Optimization
+```yaml
+log_level: INFO                          # Logging verbosity
+log_file: logs/chatbot.log              # Log file location
+colorize_output: true                    # Colored terminal output
+enable_conversation_logging: true        # Session logging toggle
+max_response_length: 500                 # Response length limit
+```
+
+## Advanced Features Integration
+
+### AI Model Integration
+
+The system integrates multiple AI models:
+
+**Transformers Integration** (`free_ai_models_integration.py`):
+- Hugging Face transformers for conversation generation
+- Microsoft DialoGPT for contextual responses
+- Facebook BlenderBot for personality-driven chat
+- Custom fine-tuned models for domain specialization
+
+**NLP Processing** (`advanced_nlp.py`):
+- Intent classification with confidence scoring
+- Sentiment analysis for response tone adaptation
+- Entity extraction for business domain queries
+- Language detection supporting 50+ languages
+
+### Voice Technology Stack
+
+**EdgeTTS Integration** (`multilingual_edgetts_integration.py`):
+- 200+ realistic AI voices across languages
+- SSML support for advanced speech control
+- Streaming audio for real-time interaction
+- Voice personality matching to conversation context
+
+**Speech Recognition** (`enhanced_voice_interface.py`):
+- Multi-engine fallback (Google, Sphinx, Azure)
+- Noise reduction and audio preprocessing
+- Continuous listening with wake word detection
+- Multi-language recognition with auto-switching
+
+### Business Intelligence Features
+
+**Electrical Domain Expertise** (`electrical_business_enhancer.py`):
+- Product catalog integration
+- Dynamic pricing information
+- Technical specification matching
+- Service request routing
+- Inventory management integration
+
+**Professional Tools**:
+- License management system (`license_activation.py`)
+- Professional installer creation (`build_professional_installer.py`)
+- Marketing materials generation (`marketing_materials.py`)
+- Monetization system integration (`monetization_system.py`)
 
 ## Development Guidelines
-
-### Adding New Domains
-
-1. Add domain to `available_domains` in config
-2. Create domain-specific knowledge files in JSON format
-3. Add greeting and response templates in `config.py`
-4. Import initial knowledge: `python -m src.cli import-knowledge data/domain.json --domain new_domain`
 
 ### Knowledge File Format
 
@@ -211,61 +380,160 @@ def new_command(
     # Implementation
 ```
 
-## Voice Interface Usage
+## Voice Interface and Multilingual Features
 
-### Starting Voice Chat
+### Voice Interface Capabilities
+
+The system provides comprehensive voice interaction through multiple components:
+
+**EdgeTTS Integration** (`multilingual_edgetts_integration.py`):
+- 200+ AI voices across 50+ languages
+- Real-time streaming audio generation
+- SSML support for advanced speech control (rate, pitch, emphasis)
+- Context-aware voice personality selection
+
+**Enhanced Voice Recognition** (`enhanced_voice_interface.py`):
+- Multi-engine speech recognition with fallback
+- Continuous listening with noise reduction
+- Multi-language support with automatic language detection
+- Voice activity detection and silence handling
+
+**Voice Personality System** (`voice_tone_style_adaptation.py`):
+- 12 distinct personalities (Professional, Friendly, Enthusiastic, etc.)
+- Context-aware personality selection based on conversation tone
+- User preference learning and adaptation
+- Business scenario-appropriate voice matching
+
+### Starting Voice-Enabled Sessions
+
 ```pwsh
-# Basic voice chat
-python -m src.cli voice-chat
+# Interactive voice teaching mode
+python interactive_voice_teaching.py
 
-# Voice chat with specific domain
-python -m src.cli voice-chat --domain shop
+# Voice conversation interface
+python voice_chat.py
 
-# Test voice interface first
-python -m src.cli voice-chat --test
+# Enhanced voice interface with multilingual support
+python enhanced_voice_interface.py
+
+# Voice demo and testing
+python voice_demo.py
 ```
 
-### Voice Commands During Chat
-All regular chat commands work via voice:
-- Say "stats" to get knowledge statistics
-- Say "domain shop" to switch domains
-- Say "bye" or "बाय" to exit
-- Say "teach [question] [answer]" to teach new knowledge
+### Multilingual Language Detection
 
-### Voice Configuration
-```yaml
-# In config/config.yaml
-voice_enabled: true
-use_gtts: true  # Better for Hindi-English mixed speech
-voice_language: 'hi-IN'  # Speech recognition
-tts_language: 'hi'       # Text-to-speech
-speech_rate: 150
-energy_threshold: 300    # Adjust for microphone sensitivity
+The system automatically detects and handles 50+ languages:
+
+**Language Detection Features** (`enhanced_language_detection.py`):
+- Confidence-scored language detection
+- Mixed language handling (Hinglish, Spanglish, etc.)
+- Cultural context awareness
+- Script transliteration support
+
+**Cross-Language Communication** (`advanced_multilingual_bridge.py`):
+- Seamless language switching mid-conversation
+- Context preservation across languages
+- Cultural adaptation for natural conversation flow
+- Regional dialect recognition
+
+## System Dependencies and Requirements
+
+### Core Dependencies (Minimal Setup)
+
+The `requirements-fixed.txt` contains minimal dependencies:
+```
+speechrecognition==3.10.0       # Voice input processing
+pyttsx3==2.90                   # Local text-to-speech
+gtts==2.4.0                     # Google Text-to-Speech
+pygame==2.6.1                   # Audio playback
+pywin32>=306                    # Windows integration (Windows only)
+comtypes>=1.2.0                 # COM interface support (Windows only)
 ```
 
-### Troubleshooting Voice
-- **No microphone detected**: Check Windows microphone permissions
-- **TTS not working**: Install audio codecs or switch to local TTS (`use_gtts: false`)
-- **Recognition issues**: Adjust `energy_threshold` or speak closer to microphone
-- **Mixed language issues**: Use `voice_language: 'en-IN'` for better Hindi-English mixing
+### Full AI/ML Dependencies
+
+For complete functionality, the system supports:
+- **PyTorch** with CUDA support for GPU acceleration
+- **Transformers** (Hugging Face) for advanced NLP
+- **Sentence-transformers** for semantic search
+- **FAISS** for vector similarity search
+- **Scikit-learn** for traditional ML features
+- **EdgeTTS** for premium voice synthesis
+- **FastAPI/Uvicorn** for web interface
+- **Rich/Typer** for enhanced CLI experience
+
+### Hardware Recommendations
+
+**Minimum**:
+- 4GB RAM
+- 1GB storage space
+- Audio input/output devices
+- Windows 10+ or Linux
+
+**Recommended**:
+- 8GB+ RAM for full AI features
+- NVIDIA GPU with CUDA support
+- SSD storage for faster model loading
+- Professional microphone for voice features
 
 ## File Structure Context
 
+### Root Directory Structure
 ```
-src/
-├── chatbot.py          # Main AdaptiveChatbot class with message processing
-├── knowledge_store.py  # SQLite database operations and search
-├── learning.py         # LearningManager for training and feedback
-├── config.py           # Configuration management and domain settings
-├── voice_interface.py  # Voice recognition and text-to-speech handling
-└── cli.py              # Command-line interface with Typer
+adaptive-chatbot/
+├── main_adaptive_chatbot.py     # Primary system entry point
+├── adaptive_chatbot_enhanced.py # Enhanced multilingual version
+├── launch_ai_chatbot.py         # AI-powered launcher with dependency checking
+├── launch_multilingual_ai.py    # Multi-language specialized launcher
+├── config.py                    # Unified configuration system
+├── logger.py                    # Centralized logging
+├── validators.py                # Input validation and security
+├── unified_learning_manager.py  # Knowledge management
+└── requirements-fixed.txt       # Minimal dependencies
+```
 
+### Voice and Audio Components
+```
+voice_chat.py                   # Voice conversation interface
+enhanced_voice_interface.py     # Advanced voice processing
+multilingual_edgetts_integration.py # EdgeTTS voice synthesis
+multilingual_voice_system.py    # Multi-language voice handling
+voice_tone_style_adaptation.py  # Context-aware voice personalities
+interactive_voice_teaching.py   # Voice-driven learning system
+```
+
+### AI and NLP Engine
+```
+advanced_nlp.py                 # Transformer-based NLP engine
+free_ai_models_integration.py   # Hugging Face model integration
+intelligent_integration_bridge.py # Multi-system response coordination
+enhanced_language_detection.py  # Multi-language detection system
+advanced_multilingual_bridge.py # Cross-language communication
+transliteration.py              # Script conversion utilities
+```
+
+### Business and Professional Tools
+```
+electrical_business_enhancer.py # Domain-specific business logic
+license_activation.py           # License management
+monetization_system.py         # Commercial features
+build_professional_installer.py # Deployment tools
+marketing_materials.py         # Business material generation
+```
+
+### Data and Configuration
+```
 data/
-├── shop_knowledge.json # Pre-built electrical shop knowledge base
-└── knowledge.db        # SQLite database (auto-created)
+├── knowledge_base.json         # Core knowledge storage
+├── preloaded_knowledge.json    # Pre-built knowledge
+└── shop_knowledge.json         # Electrical business knowledge (if exists)
 
 config/
-└── config.yaml         # Main configuration file (auto-created)
+├── config.yaml                 # Main configuration
+└── [domain-specific configs]   # Domain configurations
+
+logs/
+└── chatbot.log                 # System logs
 ```
 
 ## Bilingual Language Support
@@ -278,24 +546,142 @@ The system is designed for Hindi-English code-mixed conversations:
 
 When adding new knowledge or domains, maintain this bilingual approach for consistency with existing patterns.
 
+## Common Development Tasks
+
+### Adding New AI Models
+
+1. **Register in `free_ai_models_integration.py`**:
+```python
+from transformers import AutoModel, AutoTokenizer
+
+def load_custom_model(model_name):
+    tokenizer = AutoTokenizer.from_pretrained(model_name)
+    model = AutoModel.from_pretrained(model_name)
+    return model, tokenizer
+```
+
+2. **Integrate with intelligent bridge**:
+```python
+# In intelligent_integration_bridge.py
+def process_with_custom_model(query, model):
+    # Add custom model processing logic
+    pass
+```
+
+### Creating New Voice Personalities
+
+1. **Define in `voice_tone_style_adaptation.py`**:
+```python
+VOICE_PERSONALITIES = {
+    "custom_personality": {
+        "voice_name": "en-US-AriaNeural",
+        "speed": "medium",
+        "pitch": "default",
+        "style": "cheerful"
+    }
+}
+```
+
+2. **Register with EdgeTTS integration**:
+```python
+# In multilingual_edgetts_integration.py
+def apply_personality(text, personality):
+    # Apply SSML tags based on personality
+    pass
+```
+
+### Extending Business Domain Logic
+
+1. **Create domain-specific enhancer**:
+```python
+# new_domain_enhancer.py
+class NewDomainEnhancer:
+    def __init__(self):
+        self.domain_knowledge = self.load_domain_data()
+    
+    def process_query(self, query):
+        # Domain-specific processing logic
+        return enhanced_response
+```
+
+2. **Register in intelligent bridge**:
+```python
+# Add to response priority system
+DOMAIN_ENHANCERS = {
+    "new_domain": NewDomainEnhancer()
+}
+```
+
 ## Performance Considerations
 
-- **Embedding Model**: all-MiniLM-L6-v2 balances accuracy with speed
-- **Knowledge Retrieval**: Cached embeddings recommended for production
-- **Database**: SQLite suitable for single-user applications; consider PostgreSQL for multi-user
-- **Memory Usage**: Sentence transformer model requires ~100MB RAM
-- **First Run**: Initial model download may take several minutes
+### System Optimization
 
-## Extension Points
+**Model Loading**:
+- Pre-load frequently used models at startup
+- Use model caching to avoid repeated downloads
+- Consider model quantization for memory efficiency
+- GPU acceleration with CUDA when available
 
-The codebase is designed for extensibility:
+**Voice Processing**:
+- EdgeTTS streaming for real-time audio generation
+- Audio buffer management for smooth playback
+- Voice recognition timeout optimization
+- Background model warm-up during idle time
 
-1. **Custom Knowledge Sources**: Extend `KnowledgeStore` for different databases
-2. **Advanced NLP**: Replace/enhance sentence transformer with custom models  
-3. **Web Interface**: FastAPI dependencies already included in requirements
-4. **Multi-user Support**: Add user authentication and session management
-5. **Voice Interface**: Integrate speech recognition/synthesis
-6. **Analytics Dashboard**: Build on existing conversation logging
+**Knowledge Management**:
+- FAISS indexing for semantic search acceleration
+- SQLite FTS indexes for keyword search
+- Conversation history pruning (configurable retention)
+- Batch knowledge imports for large datasets
+
+**Memory Management**:
+- Transformer models: ~500MB-2GB depending on size
+- Voice models: ~100-500MB for EdgeTTS cache
+- Embedding cache: ~50MB per 10,000 knowledge entries
+- Session data: ~1-5MB per active conversation
+
+### Troubleshooting Common Issues
+
+**Dependency Problems**:
+```pwsh
+# Test all dependencies
+python test_all_dependencies.py
+
+# Test specific audio components
+python test_audio_deps.py
+
+# Quick system health check
+python system_health_check.py
+```
+
+**Voice Interface Issues**:
+- Check Windows microphone permissions
+- Adjust `energy_threshold` in config for different microphones
+- Test EdgeTTS connectivity: `python voice_demo.py`
+- Verify audio device selection in `config.yaml`
+
+**Model Loading Failures**:
+- Clear Hugging Face cache: `~/.cache/huggingface/`
+- Check internet connectivity for model downloads
+- Verify sufficient disk space for model storage
+- Use `test_advanced_nlp.py` to isolate NLP issues
+
+**Performance Issues**:
+- Monitor system resources with `desktop_monitor_app.py`
+- Enable GPU acceleration if available
+- Reduce model complexity for lower-spec systems
+- Adjust conversation history limits in configuration
+
+## Extension Points and Integration
+
+The codebase provides multiple integration layers:
+
+1. **Multi-Model AI Integration**: Add custom AI models through `free_ai_models_integration.py`
+2. **Business Domain Expansion**: Create domain-specific enhancers following `electrical_business_enhancer.py`
+3. **Voice Technology**: Extend voice capabilities via `multilingual_edgetts_integration.py`
+4. **Web Interface**: FastAPI foundation available in `web_interface_app.py`
+5. **Professional Tools**: Commercial features framework in `monetization_system.py`
+6. **Cross-Platform Deployment**: Installer creation tools in `build_professional_installer.py`
 
 <citations>
 <document>

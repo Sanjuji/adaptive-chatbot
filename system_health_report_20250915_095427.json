@@ -1,0 +1,139 @@
+{
+  "timestamp": "2025-09-15T09:54:25.465926",
+  "system_info": {
+    "platform": "Windows-11-10.0.26100-SP0",
+    "system": "Windows",
+    "machine": "AMD64",
+    "processor": "AMD64 Family 23 Model 113 Stepping 0, AuthenticAMD",
+    "python_version": "3.13.5 | packaged by Anaconda, Inc. | (main, Jun 12 2025, 16:37:03) [MSC v.1929 64 bit (AMD64)]",
+    "python_executable": "C:\\Users\\Sanju\\miniconda3\\python.exe",
+    "current_dir": "C:\\Users\\Sanju\\adaptive-chatbot",
+    "user": "Sanju",
+    "path_separator": "\\"
+  },
+  "dependencies": {
+    "edge-tts": {
+      "status": "AVAILABLE",
+      "version": "7.2.3",
+      "description": "EdgeTTS for voice synthesis"
+    },
+    "pygame": {
+      "status": "AVAILABLE",
+      "version": "2.6.1",
+      "description": "Audio playback"
+    },
+    "speechrecognition": {
+      "status": "AVAILABLE",
+      "version": "3.10.0",
+      "description": "Speech recognition"
+    },
+    "pyaudio": {
+      "status": "AVAILABLE",
+      "version": "0.2.14",
+      "description": "Audio input (optional)"
+    },
+    "requests": {
+      "status": "AVAILABLE",
+      "version": "2.32.5",
+      "description": "HTTP requests"
+    },
+    "configparser": {
+      "status": "AVAILABLE",
+      "version": "unknown",
+      "description": "Configuration management"
+    }
+  },
+  "modules": {
+    "config.py": {
+      "status": "OK",
+      "size": 3514,
+      "lines": 112
+    },
+    "logger.py": {
+      "status": "OK",
+      "size": 6860,
+      "lines": 182
+    },
+    "simple_voice.py": {
+      "status": "OK",
+      "size": 8708,
+      "lines": 234
+    },
+    "unified_learning_manager.py": {
+      "status": "OK",
+      "size": 26517,
+      "lines": 616
+    },
+    "validators.py": {
+      "status": "OK",
+      "size": 11090,
+      "lines": 314
+    },
+    "adaptive_chatbot.py": {
+      "status": "OK",
+      "size": 23313,
+      "lines": 599
+    }
+  },
+  "performance": {
+    "memory_available_mb": 3714,
+    "disk_free_gb": 220,
+    "cpu_percent": 12.5,
+    "cpu_count": 12
+  },
+  "security": {
+    "checks": [
+      {
+        "check": "file_permissions",
+        "status": "OK",
+        "message": "adaptive_chatbot.py permissions: 666"
+      },
+      {
+        "check": "file_permissions",
+        "status": "OK",
+        "message": "config.py permissions: 666"
+      },
+      {
+        "check": "config_secrets",
+        "status": "WARN",
+        "message": "Potential secrets in config: ['key']"
+      }
+    ]
+  },
+  "files": {
+    "directories": {
+      "data": {
+        "status": "EXISTS",
+        "required": true
+      },
+      "logs": {
+        "status": "EXISTS",
+        "required": true
+      }
+    },
+    "data_files": {
+      "data/knowledge_base.json": {
+        "status": "EXISTS",
+        "size": 18698,
+        "modified": "2025-09-15T08:23:41.167446"
+      },
+      "data/config.ini": {
+        "status": "MISSING"
+      }
+    },
+    "log_files": {}
+  },
+  "issues": [
+    {
+      "category": "SECURITY",
+      "severity": "MEDIUM",
+      "message": "Potential secrets in config: ['key']",
+      "timestamp": "2025-09-15T09:54:27.294526"
+    }
+  ],
+  "recommendations": [
+    "Review and fix security warnings in the detailed report"
+  ],
+  "health_score": 88,
+  "health_status": "GOOD"
+}

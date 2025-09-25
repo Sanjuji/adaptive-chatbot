@@ -1,0 +1,87 @@
+{
+  "product_overview": {
+    "name": "Adaptive Chatbot Professional",
+    "version": "1.0",
+    "tagline": "Intelligent AI chatbot that learns and adapts to your business",
+    "key_benefits": [
+      "70-80% reduction in query response time",
+      "1000%+ annual ROI for most businesses",
+      "Voice and text interface in Hindi/English",
+      "Self-learning system improves with use",
+      "One-time payment, lifetime license"
+    ]
+  },
+  "target_customers": {
+    "primary": [
+      {
+        "segment": "Electronics & Gadgets Stores",
+        "size": "10,000+ shops in India",
+        "pain_points": [
+          "Repetitive product specification queries",
+          "Technical support requirements",
+          "Price and availability questions"
+        ],
+        "value_proposition": "Automate 70% of customer queries, increase sales"
+      },
+      {
+        "segment": "Customer Service Centers",
+        "size": "5,000+ service centers",
+        "pain_points": [
+          "High volume of FAQ queries",
+          "Staff burnout from repetitive work",
+          "Long customer wait times"
+        ],
+        "value_proposition": "Reduce staff workload, improve response times"
+      }
+    ]
+  },
+  "competitive_analysis": {
+    "vs_cloud_solutions": {
+      "advantages": [
+        "No monthly subscription fees",
+        "Complete data privacy and control",
+        "Offline operation capability",
+        "One-time cost vs escalating fees"
+      ]
+    },
+    "vs_custom_development": {
+      "advantages": [
+        "Ready to deploy immediately",
+        "₹4,999 vs ₹2-5 lakhs development cost",
+        "Proven solution with support",
+        "No maintenance overhead"
+      ]
+    }
+  },
+  "pricing_strategy": {
+    "trial": {
+      "price": 0,
+      "duration": "7 days",
+      "strategy": "Risk-free evaluation, builds confidence"
+    },
+    "professional": {
+      "price": 4999,
+      "strategy": "Sweet spot for small/medium businesses",
+      "justification": "ROI achieved in <1 month for most businesses"
+    },
+    "business": {
+      "price": 9999,
+      "strategy": "Enterprise features for larger deployments",
+      "justification": "Multi-machine deployment, priority support"
+    }
+  },
+  "sales_objections": {
+    "too_expensive": {
+      "response": "One-time cost of ₹4,999 typically pays for itself in less than 1 month through time savings. Compare to hiring additional staff at ₹15,000+ monthly."
+    },
+    "already_have_solution": {
+      "response": "Most solutions lack voice interface and learning capabilities. Our AI adapts to your specific business knowledge and improves over time."
+    },
+    "technical_complexity": {
+      "response": "Simple installation with professional packaging. Voice teaching makes training intuitive - just speak to the bot like a human employee."
+    },
+    "data_security": {
+      "response": "Complete local deployment means your data never leaves your premises. No cloud dependency or privacy concerns."
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "app_name": "AdaptiveChatbot",
+  "version": "2.0.0",
+  "company": "Adaptive AI Solutions",
+  "description": "Professional Multilingual Voice Assistant",
+  "install_dir": "C:\\\\Program Files\\\\AdaptiveChatbot",
+  "start_menu_dir": "AdaptiveChatbot",
+  "registry_key": "HKLM\\\\Software\\\\AdaptiveChatbot",
+  "uninstall_key": "HKLM\\\\Software\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Uninstall\\\\AdaptiveChatbot",
+  "features": [
+    "Voice Chat Interface",
+    "50+ Language Support",
+    "Advanced AI Models",
+    "Real-time Debugging",
+    "Professional TTS System",
+    "Electrical Business Assistant"
+  ],
+  "dependencies": [
+    "Microsoft Visual C++ Redistributable",
+    "Windows 10/11 (64-bit)",
+    ".NET Framework 4.8+"
+  ]
+}
