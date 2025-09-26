@@ -7,7 +7,9 @@ Provides security and data integrity checks
 import re
 import html
 from typing import Any, Optional, Union, List, Dict
-from utils.logger import log_warning, log_error
+from utils.logger import get_logger
+
+logger = get_logger()
 
 class InputValidator:
     """Comprehensive input validation and sanitization"""
@@ -51,7 +53,7 @@ class InputValidator:
             # SQL injection patterns
             r"(union|select|insert|update|delete|drop|alter|create)\s+",
             r"'\s*;\s*",
-            r'"\s*;\s*',
+            r'"\s*;\s*",
             r"'\s*(or|and)\s+",
             r'"\s*(or|and)\s+',
             
@@ -60,12 +62,12 @@ class InputValidator:
             r'with\s+open\s*\(',
             
             # Network operations (be more specific to avoid false positives)
-            r'\bsocket\s*\.',           # socket.method() calls only
+            r'\bsocket\s*\.           # socket.method() calls only',
             r'import\s+socket\b',       # import socket only
             r'\burllib\b',              # urllib module
             r'\brequests\b',            # requests module  
             r'\bhttp://|\bhttps://',    # HTTP protocols
-            r'\bftp://',                # FTP protocol
+            r'\bfTP://',                # FTP protocol
             r'import\s+urllib',
             r'import\s+requests',
         ]
@@ -103,21 +105,21 @@ class InputValidator:
     def validate_question(self, question: str) -> bool:
         """Validate question input"""
         if not question or not isinstance(question, str):
-            log_warning("Invalid question: empty or not string")
+            logger.warning("Invalid question: empty or not string")
             return False
         
         # Check length
         if len(question.strip()) < 2:
-            log_warning("Question too short")
+            logger.warning("Question too short")
             return False
         
         if len(question) > 500:
-            log_warning("Question too long")
+            logger.warning("Question too long")
             return False
         
         # Check for dangerous patterns
         if self._contains_dangerous_patterns(question):
-            log_warning("Question contains dangerous patterns")
+            logger.warning("Question contains dangerous patterns")
             return False
         
         return True
@@ -125,21 +127,21 @@ class InputValidator:
     def validate_answer(self, answer: str) -> bool:
         """Validate answer input"""
         if not answer or not isinstance(answer, str):
-            log_warning("Invalid answer: empty or not string")
+            logger.warning("Invalid answer: empty or not string")
             return False
         
         # Check length
         if len(answer.strip()) < 1:
-            log_warning("Answer too short")
+            logger.warning("Answer too short")
             return False
         
         if len(answer) > 1000:
-            log_warning("Answer too long")
+            logger.warning("Answer too long")
             return False
         
         # Check for dangerous patterns
         if self._contains_dangerous_patterns(answer):
-            log_warning("Answer contains dangerous patterns")
+            logger.warning("Answer contains dangerous patterns")
             return False
         
         return True
@@ -154,12 +156,12 @@ class InputValidator:
             return False
         
         if len(command) > 200:
-            log_warning("Voice command too long")
+            logger.warning("Voice command too long")
             return False
         
         # Check for dangerous patterns
         if self._contains_dangerous_patterns(command):
-            log_warning("Voice command contains dangerous patterns")
+            logger.warning("Voice command contains dangerous patterns")
             return False
         
         return True
@@ -223,7 +225,7 @@ class InputValidator:
             return self._validate_dict_recursive(data)
         
         except Exception as e:
-            log_error("JSON validation error", error=e)
+            logger.error("JSON validation error", exc_info=True)
             return False
     
     def _validate_dict_recursive(self, data: dict, max_depth: int = 10) -> bool:
@@ -264,7 +266,7 @@ class SafeInput:
                 return sanitized
             return None
         except Exception as e:
-            log_error("Error getting safe question", error=e)
+            logger.error("Error getting safe question", exc_info=True)
             return None
     
     def get_answer(self, raw_input: str) -> Optional[str]:
@@ -275,7 +277,7 @@ class SafeInput:
                 return sanitized
             return None
         except Exception as e:
-            log_error("Error getting safe answer", error=e)
+            logger.error("Error getting safe answer", exc_info=True)
             return None
     
     def get_voice_command(self, raw_input: str) -> Optional[str]:
@@ -286,7 +288,7 @@ class SafeInput:
                 return sanitized
             return None
         except Exception as e:
-            log_error("Error getting safe voice command", error=e)
+            logger.error("Error getting safe voice command", exc_info=True)
             return None
 
 # Global instances

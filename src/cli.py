@@ -86,8 +86,23 @@ def chat(
                     console.print(greeting, style="cyan")
                     continue
                 
-                # Get chatbot response
-                response = chatbot.process_message(user_input)
+                # Retrieval-first to prevent hallucinations; fallback to generator
+                response = None
+                try:
+                    # Choose threshold (per-domain override)
+                    th = getattr(chatbot.config, 'retrieval_similarity_threshold', 0.65)
+                    per = getattr(chatbot.config, 'retrieval_similarity_thresholds', {}) or {}
+                    if domain in per:
+                        th = per[domain]
+                    from .retrieval import hybrid_search  # lazy import
+                    rows = hybrid_search(chatbot.knowledge_store, user_input, domain=domain, top_k=1, min_semantic_similarity=th)
+                    if rows:
+                        response = rows[0].get('response')
+                except Exception:
+                    pass
+                if not response:
+                    # Fallback to generator if retrieval didn’t return a confident match
+                    response = chatbot.process_message(user_input)
                 console.print(f"\n[bold green]Bot[/bold green]: {response}")
                 
                 # Ask for feedback occasionally (every 5 messages)
@@ -234,9 +249,12 @@ def voice_chat(
             'energy_threshold': chatbot.config.energy_threshold,
             'pause_threshold': chatbot.config.pause_threshold,
             'timeout': chatbot.config.timeout,
-            'phrase_time_limit': chatbot.config.phrase_time_limit
+            'phrase_time_limit': chatbot.config.phrase_time_limit,
+            'mic_device_name': getattr(chatbot.config, 'mic_device_name', None),
+            'use_vad': getattr(chatbot.config, 'use_vad', False)
         }
         
+        voice_interface = VoiceInterface(voice_config)
         voice_interface = VoiceInterface(voice_config)
         
         # Test voice interface if requested
@@ -287,9 +305,12 @@ def test_voice(
             'energy_threshold': chatbot.config.energy_threshold,
             'pause_threshold': chatbot.config.pause_threshold,
             'timeout': chatbot.config.timeout,
-            'phrase_time_limit': chatbot.config.phrase_time_limit
+            'phrase_time_limit': chatbot.config.phrase_time_limit,
+            'mic_device_name': getattr(chatbot.config, 'mic_device_name', None),
+            'use_vad': getattr(chatbot.config, 'use_vad', False)
         }
         
+        voice_interface = VoiceInterface(voice_config)
         voice_interface = VoiceInterface(voice_config)
         
         # Run voice test
@@ -354,6 +375,262 @@ def list_voices(
             voice_interface.cleanup()
         except:
             pass
+
+
+@app.command(name="build-index")
+def build_index(
+    domain: Optional[str] = typer.Option(None, "--domain", "-d", help="Domain to build (all if not provided)"),
+    config: Optional[str] = typer.Option(None, "--config", help="Path to configuration file")
+):
+    """Build or rebuild the semantic index (hnswlib) for one or all domains."""
+    try:
+        console.print(Panel.fit("🧱 Building Semantic Index", style="bold cyan"))
+        chatbot = AdaptiveChatbot(config)
+        # optional import (graceful if user hasn't installed extras)
+        try:
+            from .semantic_index import SemanticIndex  # type: ignore
+        except Exception:
+            console.print("Semantic index not available (install hnswlib and sentence-transformers)", style="red")
+            raise typer.Exit(1)
+        si = SemanticIndex(model_name=chatbot.config.sentence_model_name)
+        ks = chatbot.knowledge_store
+        domains = [domain] if domain else chatbot.config.available_domains
+        total = 0
+        for d in domains:
+            console.print(f"Indexing domain: [yellow]{d}[/yellow]")
+            items = ks.get_inputs_for_domain(d)
+            if not items:
+                console.print(f"No items in domain '{d}'", style="yellow")
+                continue
+            ok = si.build(items, d)
+            if ok:
+                console.print(f"✅ Built index for '{d}' with {len(items)} items", style="green")
+                total += len(items)
+            else:
+                console.print(f"❌ Failed to build index for '{d}'", style="red")
+        if total == 0:
+            raise typer.Exit(1)
+    except Exception as e:
+        console.print(f"Error building index: {e}", style="red")
+        raise typer.Exit(1)
+
+
+@app.command(name="search-knowledge")
+def search_knowledge(
+    query: str = typer.Argument(..., help="Query text to search"),
+    domain: Optional[str] = typer.Option(None, "--domain", "-d", help="Limit search to a domain"),
+    top_k: int = typer.Option(5, "--top-k", "-k", help="Number of results to return"),
+    fts_only: bool = typer.Option(False, "--fts-only", help="Use only FTS/LIKE (skip semantic)"),
+    config: Optional[str] = typer.Option(None, "--config", help="Path to configuration file")
+):
+    """Run a hybrid knowledge search (FTS/LIKE first, then semantic)."""
+    try:
+        from time import perf_counter
+        chatbot = AdaptiveChatbot(config)
+        ks = chatbot.knowledge_store
+        console.print(Panel.fit(f"🔎 Search: {query}", style="bold blue"))
+        # Pick similarity threshold (per-domain overrides default)
+        th = chatbot.config.retrieval_similarity_threshold
+        if domain and isinstance(chatbot.config.retrieval_similarity_thresholds, dict):
+            th = chatbot.config.retrieval_similarity_thresholds.get(domain, th)
+        t0 = perf_counter()
+        results = []
+        if fts_only:
+            # FTS if available, otherwise LIKE fallback via keywords
+            if hasattr(ks, 'search_fulltext'):
+                results = ks.search_fulltext(query, domain=domain, limit=top_k)
+                results = [{**r, '_source': 'fts', '_score': None} for r in results]
+            else:
+                words = [w for w in query.split() if len(w) > 1]
+                results = ks.search_by_keywords(words, domain=domain)[:top_k]
+                results = [{**r, '_source': 'like', '_score': None} for r in results]
+        else:
+            from .retrieval import hybrid_search  # type: ignore
+            results = hybrid_search(ks, query, domain=domain, top_k=top_k, min_semantic_similarity=th)
+        dt = (perf_counter() - t0) * 1000.0
+        table = Table(title=f"Results (in {dt:.1f} ms)", style="blue")
+        table.add_column("ID", justify="right", style="cyan")
+        table.add_column("Input", style="green")
+        table.add_column("Source", style="magenta")
+        table.add_column("Score", style="yellow")
+        for r in results:
+            rid = str(r.get('id'))
+            src = r.get('_source', '')
+            score = f"{r.get('_score', 0):.3f}" if r.get('_score') is not None else ""
+            inp = (r.get('input') or '')[:80]
+            table.add_row(rid, inp, src, score)
+        if not results:
+            console.print("No results found.", style="yellow")
+        else:
+            console.print(table)
+    except Exception as e:
+        console.print(f"Error searching knowledge: {e}", style="red")
+        raise typer.Exit(1)
+
+
+@app.command(name="benchmark-retrieval")
+def benchmark_retrieval(
+    domain: Optional[str] = typer.Option(None, "--domain", "-d", help="Domain to benchmark (default: all)"),
+    samples: int = typer.Option(100, "--samples", "-n", help="Number of queries to test"),
+    top_k: int = typer.Option(5, "--top-k", "-k", help="Results to consider for accuracy"),
+    config: Optional[str] = typer.Option(None, "--config", help="Path to configuration file")
+):
+    """Measure latency and top-1 accuracy for FTS/LIKE vs Hybrid (semantic)."""
+    try:
+        import random
+        from statistics import median
+        from time import perf_counter
+        chatbot = AdaptiveChatbot(config)
+        ks = chatbot.knowledge_store
+        # Thresholds
+        th = chatbot.config.retrieval_similarity_threshold
+        domains = [domain] if domain else chatbot.config.available_domains
+        # Collect items
+        items = []
+        for d in domains:
+            items.extend(ks.get_inputs_for_domain(d))
+        if not items:
+            console.print("No knowledge available to benchmark.", style="yellow")
+            raise typer.Exit(1)
+        random.shuffle(items)
+        items = items[:max(1, samples)]
+        # Metrics
+        fts_lat = []
+        fts_hit = 0
+        hyb_lat = []
+        hyb_hit = 0
+        # Loop
+        from .retrieval import hybrid_search  # type: ignore
+        for kid, text in items:
+            # FTS-like
+            t0 = perf_counter()
+            if hasattr(ks, 'search_fulltext'):
+                fres = ks.search_fulltext(text, limit=top_k)
+            else:
+                words = [w for w in text.split() if len(w) > 1]
+                fres = ks.search_by_keywords(words)[:top_k]
+            fts_lat.append((perf_counter() - t0) * 1000.0)
+            if fres and (fres[0].get('id') == kid):
+                fts_hit += 1
+            # Hybrid
+            t1 = perf_counter()
+            hres = hybrid_search(ks, text, top_k=top_k, min_semantic_similarity=th)
+            hyb_lat.append((perf_counter() - t1) * 1000.0)
+            if hres and (hres[0].get('id') == kid):
+                hyb_hit += 1
+        # Summaries
+        def p95(vals: list[float]) -> float:
+            if not vals:
+                return 0.0
+            vs = sorted(vals)
+            idx = int(0.95 * (len(vs) - 1))
+            return vs[idx]
+        result_panel = Panel.fit(
+            f"""
+Samples: {len(items)}
+
+FTS/LIKE:  median={median(fts_lat):.1f} ms  p95={p95(fts_lat):.1f} ms  top1_acc={fts_hit/len(items):.2%}
+Hybrid:    median={median(hyb_lat):.1f} ms  p95={p95(hyb_lat):.1f} ms  top1_acc={hyb_hit/len(items):.2%}
+""",
+            title="Retrieval Benchmark", style="bold green")
+        console.print(result_panel)
+    except Exception as e:
+        console.print(f"Error benchmarking retrieval: {e}", style="red")
+        raise typer.Exit(1)
+
+
+@app.command()
+def setup():
+    """List available microphone devices and indices"""
+    try:
+        from speech_recognition import Microphone
+        names = Microphone.list_microphone_names()
+        table = Table(title="Available Microphones", style="blue")
+        table.add_column("Index", style="cyan")
+        table.add_column("Name", style="green")
+        for idx, nm in enumerate(names):
+            table.add_row(str(idx), nm or f"Device {idx}")
+        console.print(table)
+        console.print("\nSet mic_device_name in config (regex) to auto-select by name.", style="dim")
+    except Exception as e:
+        console.print(f"Error listing microphones: {e}", style="red")
+
+@app.command(name="build-index")
+def build_index(
+    domain: Optional[str] = typer.Option(None, "--domain", "-d", help="Domain to build (all if not provided)"),
+    config: Optional[str] = typer.Option(None, "--config", help="Path to configuration file")
+):
+    """Build or rebuild the semantic index (hnswlib) for one or all domains."""
+    try:
+        console.print(Panel.fit("🧱 Building Semantic Index", style="bold cyan"))
+        chatbot = AdaptiveChatbot(config)
+        from .semantic_index import SemanticIndex  # optional import
+        si = SemanticIndex(model_name=chatbot.config.sentence_model_name)
+        if not si.available():
+            console.print("Semantic index not available (install hnswlib and sentence-transformers)", style="red")
+            raise typer.Exit(1)
+        ks = chatbot.knowledge_store
+        domains = [domain] if domain else chatbot.config.available_domains
+        total = 0
+        for d in domains:
+            console.print(f"Indexing domain: [yellow]{d}[/yellow]")
+            items = ks.get_inputs_for_domain(d)
+            if not items:
+                console.print(f"No items in domain '{d}'", style="yellow")
+                continue
+            ok = si.build(items, d)
+            if ok:
+                console.print(f"✅ Built index for '{d}' with {len(items)} items", style="green")
+                total += len(items)
+            else:
+                console.print(f"❌ Failed to build index for '{d}'", style="red")
+        if total == 0:
+            raise typer.Exit(1)
+    except Exception as e:
+        console.print(f"Error building index: {e}", style="red")
+        raise typer.Exit(1)
+
+@app.command(name="search-knowledge")
+def search_knowledge(
+    query: str = typer.Argument(..., help="Query text to search"),
+    domain: Optional[str] = typer.Option(None, "--domain", "-d", help="Limit search to a domain"),
+    top_k: int = typer.Option(5, "--top-k", "-k", help="Number of results to return"),
+    fts_only: bool = typer.Option(False, "--fts-only", help="Use only FTS (skip semantic)") ,
+    config: Optional[str] = typer.Option(None, "--config", help="Path to configuration file")
+):
+    """Run a hybrid knowledge search (FTS then semantic)."""
+    try:
+        from time import perf_counter
+        chatbot = AdaptiveChatbot(config)
+        ks = chatbot.knowledge_store
+        console.print(Panel.fit(f"🔎 Search: {query}", style="bold blue"))
+        t0 = perf_counter()
+        results = []
+        if fts_only:
+            results = ks.search_fulltext(query, domain=domain, limit=top_k)
+            results = [{**r, '_source': 'fts', '_score': None} for r in results]
+        else:
+            from .retrieval import hybrid_search
+            results = hybrid_search(ks, query, domain=domain, top_k=top_k)
+        dt = (perf_counter() - t0) * 1000.0
+        table = Table(title=f"Results (in {dt:.1f} ms)", style="blue")
+        table.add_column("ID", justify="right", style="cyan")
+        table.add_column("Input", style="green")
+        table.add_column("Source", style="magenta")
+        table.add_column("Score", style="yellow")
+        for r in results:
+            rid = str(r.get('id'))
+            src = r.get('_source', '')
+            score = f"{r.get('_score', 0):.3f}" if r.get('_score') is not None else ""
+            inp = (r.get('input') or '')[:60]
+            table.add_row(rid, inp, src, score)
+        if not results:
+            console.print("No results found.", style="yellow")
+        else:
+            console.print(table)
+    except Exception as e:
+        console.print(f"Error searching knowledge: {e}", style="red")
+        raise typer.Exit(1)
 
 
 @app.command()

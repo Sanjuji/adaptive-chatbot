@@ -14,7 +14,9 @@ import threading
 import time
 import atexit
 from typing import Optional
-from utils.logger import log_info, log_error, log_warning
+from utils.logger import get_logger
+
+logger = get_logger()
 
 class SimpleVoiceInterface:
     """Simple voice interface with EdgeTTS and basic speech recognition"""
@@ -36,9 +38,9 @@ class SimpleVoiceInterface:
                 pygame.mixer.pre_init(frequency=22050, size=-16, channels=2, buffer=1024)
                 pygame.mixer.init()
                 self._pygame_initialized = True
-                log_info("✅ Audio output initialized")
+                logger.info("[OK] Audio output initialized")
             else:
-                log_info("✅ Audio output already initialized")
+                logger.info("[OK] Audio output already initialized")
             
             # Setup microphone with better error handling
             try:
@@ -56,13 +58,13 @@ class SimpleVoiceInterface:
                 
                 with self.microphone as source:
                     self.recognizer.adjust_for_ambient_noise(source, duration=0.5)
-                log_info(f"✅ Microphone initialized ({len(mic_list)} devices available)")
+                logger.info(f"[OK] Microphone initialized ({len(mic_list)} devices available)")
             except Exception as e:
-                log_warning(f"Microphone setup issue: {e}")
+                logger.warning(f"Microphone setup issue: {e}")
                 self.microphone = None
                 
         except Exception as e:
-            log_error(f"Audio setup failed: {e}")
+            logger.error(f"Audio setup failed: {e}")
             self._pygame_initialized = False
     
     def speak(self, text: str) -> bool:
@@ -71,11 +73,11 @@ class SimpleVoiceInterface:
             return False
             
         if not self._pygame_initialized:
-            log_warning("Audio not initialized, cannot speak")
+            logger.warning("Audio not initialized, cannot speak")
             return False
         
         try:
-            log_info(f"🔊 Speaking: {text[:50]}...")
+            logger.info(f"[SOUND] Speaking: {text[:50]}...")
             
             # Use advanced event loop manager for proper async handling
             from utils.advanced_event_loop_manager import get_loop_manager
@@ -106,16 +108,16 @@ class SimpleVoiceInterface:
                 
                 if waited >= max_wait:
                     pygame.mixer.music.stop()
-                    log_warning("Speech playback timeout")
+                    logger.warning("Speech playback timeout")
                 
-                log_info("✅ Speech completed")
+                logger.info("[OK] Speech completed")
                 return True
             else:
-                log_error("Failed to generate speech or empty audio")
+                logger.error("Failed to generate speech or empty audio")
                 return False
                 
         except Exception as e:
-            log_error(f"Speech generation failed: {e}")
+            logger.error(f"Speech generation failed: {e}")
             # Try to stop any stuck audio
             try:
                 pygame.mixer.music.stop()
@@ -138,24 +140,24 @@ class SimpleVoiceInterface:
             return audio_data
             
         except Exception as e:
-            log_error(f"EdgeTTS generation failed: {e}")
+            logger.error(f"EdgeTTS generation failed: {e}")
             return None
     
     def listen(self, timeout: int = 10) -> Optional[str]:
         """Listen for speech and return recognized text"""
         if not self.microphone:
-            log_warning("Microphone not available")
+            logger.warning("Microphone not available")
             return None
         
         try:
-            log_info(f"🎤 Listening... (timeout: {timeout}s)")
+            logger.info(f"[MIC] Listening... (timeout: {timeout}s)")
             
             with self.microphone as source:
                 # Listen for audio with timeout
                 try:
                     audio = self.recognizer.listen(source, timeout=timeout, phrase_time_limit=10)
                 except sr.WaitTimeoutError:
-                    log_warning("Listening timeout")
+                    logger.warning("Listening timeout")
                     return None
             
             # Try recognition with different engines
@@ -169,19 +171,19 @@ class SimpleVoiceInterface:
                 try:
                     result = method()
                     if result and result.strip():
-                        log_info(f"✅ Recognized ({method_name}): {result}")
+                        logger.info(f"[OK] Recognized ({method_name}): {result}")
                         return result.strip()
                 except sr.UnknownValueError:
                     continue
                 except sr.RequestError as e:
-                    log_warning(f"{method_name} request failed: {e}")
+                    logger.warning(f"{method_name} request failed: {e}")
                     continue
             
-            log_warning("Speech recognition failed - could not understand audio")
+            logger.warning("Speech recognition failed - could not understand audio")
             return None
             
         except Exception as e:
-            log_error(f"Speech recognition error: {e}")
+            logger.error(f"Speech recognition error: {e}")
             return None
     
     def is_available(self) -> bool:
@@ -191,25 +193,25 @@ class SimpleVoiceInterface:
     def cleanup(self):
         """Cleanup resources properly"""
         try:
-            log_info("Cleaning up voice interface...")
+            logger.info("Cleaning up voice interface...")
             
             # Stop any playing audio
             if self._pygame_initialized:
                 try:
                     pygame.mixer.music.stop()
                     pygame.mixer.quit()
-                    log_info("✅ Audio resources cleaned up")
+                    logger.info("[OK] Audio resources cleaned up")
                 except Exception as e:
-                    log_warning(f"Audio cleanup issue: {e}")
+                    logger.warning(f"Audio cleanup issue: {e}")
             
             # Clear microphone
             self.microphone = None
             self._pygame_initialized = False
             
-            log_info("✅ Voice interface cleanup completed")
+            logger.info("[OK] Voice interface cleanup completed")
             
         except Exception as e:
-            log_error(f"Voice cleanup error: {e}")
+            logger.error(f"Voice cleanup error: {e}")
 
 # Global instance
 _voice_interface = None

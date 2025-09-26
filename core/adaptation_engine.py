@@ -11,7 +11,6 @@ from typing import Dict, Any, Optional, List, Tuple
 from pathlib import Path
 import threading
 from configs.config import config
-from utils.logger import log_info, log_error, log_warning, log_learning_event
 from utils.validator import safe_input, validate_teaching_input
 from nlp.processing.hindi_transliterator import transliterate_hindi, normalize_hindi_query, get_query_variations
 
@@ -22,7 +21,8 @@ class LearningManagerError(Exception):
 class UnifiedLearningManager:
     """Production-ready learning manager with comprehensive error handling"""
     
-    def __init__(self, knowledge_file: str = None):
+    def __init__(self, logger, knowledge_file: str = None):
+        self.logger = logger
         self.knowledge_file = knowledge_file or config.get_knowledge_file_path()
         self.knowledge_base = {}
         self.knowledge_lock = threading.Lock()
@@ -36,7 +36,7 @@ class UnifiedLearningManager:
         
         # Initialize knowledge base with error recovery
         if not self._load_knowledge_base():
-            log_warning("Knowledge base initialization failed, starting with empty base")
+            self.logger.warning("Knowledge base initialization failed, starting with empty base")
     
     def _load_knowledge_base(self) -> bool:
         """Load knowledge base from file with error handling"""
@@ -45,24 +45,24 @@ class UnifiedLearningManager:
                 with open(self.knowledge_file, 'r', encoding='utf-8') as f:
                     self.knowledge_base = json.load(f)
                 
-                log_info(f"Knowledge base loaded: {len(self.knowledge_base)} entries")
+                self.logger.info(f"Knowledge base loaded: {len(self.knowledge_base)} entries")
                 return True
             else:
                 # Create empty knowledge base
                 self.knowledge_base = {}
                 self._save_knowledge_base()  # Create file
-                log_info("Created new knowledge base file")
+                self.logger.info("Created new knowledge base file")
                 return True
                 
         except json.JSONDecodeError as e:
-            log_error("Invalid JSON in knowledge file", error=e)
+            self.logger.error("Invalid JSON in knowledge file", exc_info=True)
             # Backup corrupted file and start fresh
             self._backup_corrupted_file()
             self.knowledge_base = {}
             return False
             
         except Exception as e:
-            log_error("Failed to load knowledge base", error=e)
+            self.logger.error("Failed to load knowledge base", exc_info=True)
             self.knowledge_base = {}
             return False
     
@@ -89,18 +89,18 @@ class UnifiedLearningManager:
             else:  # Unix-like
                 os.rename(temp_file, self.knowledge_file)
             
-            log_info(f"Knowledge base saved: {len(self.knowledge_base)} entries")
+            self.logger.info(f"Knowledge base saved: {len(self.knowledge_base)} entries")
             return True
             
         except Exception as e:
-            log_error("Failed to save knowledge base", error=e)
+            self.logger.error("Failed to save knowledge base", exc_info=True)
             # Clean up temp file
             try:
                 temp_file = f"{self.knowledge_file}.tmp"
                 if os.path.exists(temp_file):
                     os.remove(temp_file)
             except (OSError, PermissionError) as cleanup_error:
-                log_warning(f"Failed to remove temp file {temp_file}: {cleanup_error}")
+                self.logger.warning(f"Failed to remove temp file {temp_file}: {cleanup_error}")
             return False
     
     def _create_backup(self):
@@ -113,13 +113,13 @@ class UnifiedLearningManager:
                 with open(backup_file, 'w', encoding='utf-8') as dst:
                     dst.write(src.read())
             
-            log_info(f"Backup created: {backup_file}")
+            self.logger.info(f"Backup created: {backup_file}")
             
             # Clean old backups (keep only last 5)
             self._cleanup_old_backups()
             
         except Exception as e:
-            log_warning("Failed to create backup", error=e)
+            self.logger.warning("Failed to create backup", exc_info=True)
     
     def _cleanup_old_backups(self):
         """Remove old backup files"""
@@ -135,19 +135,19 @@ class UnifiedLearningManager:
             backup_files.sort(key=os.path.getctime, reverse=True)
             for old_backup in backup_files[5:]:
                 os.remove(old_backup)
-                log_info(f"Removed old backup: {old_backup}")
+                self.logger.info(f"Removed old backup: {old_backup}")
                 
         except Exception as e:
-            log_warning("Failed to cleanup old backups", error=e)
+            self.logger.warning("Failed to cleanup old backups", exc_info=True)
     
     def _backup_corrupted_file(self):
         """Backup corrupted knowledge file"""
         try:
             corrupted_file = f"{self.knowledge_file}.corrupted_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
             os.rename(self.knowledge_file, corrupted_file)
-            log_warning(f"Corrupted file backed up as: {corrupted_file}")
+            self.logger.warning(f"Corrupted file backed up as: {corrupted_file}")
         except Exception as e:
-            log_error("Failed to backup corrupted file", error=e)
+            self.logger.error("Failed to backup corrupted file", exc_info=True)
     
     def add_knowledge(self, question: str, answer: str, metadata: Dict[str, Any] = None) -> bool:
         """Add new knowledge with comprehensive validation"""
@@ -157,18 +157,18 @@ class UnifiedLearningManager:
             safe_answer = safe_input.get_answer(answer)
             
             if not safe_question or not safe_answer:
-                log_warning("Knowledge rejected: validation failed")
-                log_learning_event(question, answer, success=False)
+                self.logger.warning("Knowledge rejected: validation failed")
+                self.logger.info(f"LEARNING_EVENT: success=False, question='{question}', answer='{answer}'")
                 return False
             
             # Check for duplicates
             if self._is_duplicate(safe_question):
-                log_info(f"Knowledge already exists: {safe_question[:50]}...")
+                self.logger.info(f"Knowledge already exists: {safe_question[:50]}...")
                 return True  # Not an error, just already exists
             
             # Check capacity limits
             if len(self.knowledge_base) >= self.max_entries:
-                log_warning(f"Knowledge base full (max {self.max_entries} entries)")
+                self.logger.warning(f"Knowledge base full (max {self.max_entries} entries)")
                 return False
             
             with self.knowledge_lock:
@@ -189,7 +189,7 @@ class UnifiedLearningManager:
                 
                 # Save to file
                 if self._save_knowledge_base():
-                    log_learning_event(safe_question, safe_answer, success=True)
+                    self.logger.info(f"LEARNING_EVENT: success=True, question='{safe_question}', answer='{safe_answer}'")
                     return True
                 else:
                     # Rollback on save failure
@@ -197,7 +197,7 @@ class UnifiedLearningManager:
                     return False
                     
         except Exception as e:
-            log_error("Failed to add knowledge", error=e)
+            self.logger.error("Failed to add knowledge", exc_info=True)
             return False
     
     def find_answer(self, query: str, update_usage: bool = True) -> Optional[str]:
@@ -221,7 +221,7 @@ class UnifiedLearningManager:
             normalized_query = normalize_hindi_query(clean_query)
             query_lower = normalized_query.lower().strip()
             
-            log_info(f"🔍 Searching for: Original='{clean_query}', Normalized='{query_lower}'")
+            self.logger.info(f"[SEARCH] Searching for: Original='{clean_query}', Normalized='{query_lower}'")
             
             # Generate query variations including transliterations
             query_variations = get_query_variations(query_lower)
@@ -231,7 +231,7 @@ class UnifiedLearningManager:
             all_variations = [query_lower] + query_variations + normalized_queries
             all_variations = list(dict.fromkeys(all_variations))  # Remove duplicates while preserving order
             
-            log_info(f"📝 Query variations: {all_variations[:5]}")
+            self.logger.info(f"[NOTE] Query variations: {all_variations[:5]}")
             
             with self.knowledge_lock:
                 # Try all variations for direct match
@@ -239,7 +239,7 @@ class UnifiedLearningManager:
                     if variation in self.knowledge_base:
                         entry = self.knowledge_base[variation]
                         answer = entry['answer']
-                        log_info(f"✅ Found match with variation: '{variation}'")
+                        self.logger.info(f"[OK] Found match with variation: '{variation}'")
                         
                         # Update usage count
                         if update_usage:
@@ -259,7 +259,7 @@ class UnifiedLearningManager:
                 if best_match:
                     entry = self.knowledge_base[best_match]
                     answer = entry['answer']
-                    log_info(f"✅ Found fuzzy match: '{best_match}'")
+                    self.logger.info(f"[OK] Found fuzzy match: '{best_match}'")
                     
                     # Update usage count
                     if update_usage:
@@ -268,11 +268,11 @@ class UnifiedLearningManager:
                     
                     return answer
                 
-                log_warning(f"❌ No match found for query: '{clean_query}'")
+                self.logger.warning(f"[ERROR] No match found for query: '{clean_query}'")
                 return None
                 
         except Exception as e:
-            log_error("Failed to find answer", error=e)
+            self.logger.error("Failed to find answer", exc_info=True)
             return None
     
     def _normalize_hindi_query(self, query: str) -> List[str]:
@@ -367,12 +367,12 @@ class UnifiedLearningManager:
             
             # Lower threshold for better Hindi/Hinglish matching (60% or better)
             if best_score >= 0.6:
-                log_info(f"🎯 Fuzzy match found: '{best_match}' with score {best_score:.2f}")
+                self.logger.info(f"[TARGET] Fuzzy match found: '{best_match}' with score {best_score:.2f}")
                 return best_match
             return None
             
         except Exception as e:
-            log_error("Error in fuzzy matching", error=e)
+            self.logger.error("Error in fuzzy matching", exc_info=True)
             return None
     
     def _is_duplicate(self, question: str) -> bool:
@@ -435,7 +435,7 @@ class UnifiedLearningManager:
                 }
                 
         except Exception as e:
-            log_error("Failed to get statistics", error=e)
+            self.logger.error("Failed to get statistics", exc_info=True)
             return {'error': str(e)}
     
     def export_knowledge(self, export_file: str) -> bool:
@@ -445,25 +445,25 @@ class UnifiedLearningManager:
                 with open(export_file, 'w', encoding='utf-8') as f:
                     json.dump(self.knowledge_base, f, ensure_ascii=False, indent=2)
                 
-                log_info(f"Knowledge exported to: {export_file}")
+                self.logger.info(f"Knowledge exported to: {export_file}")
                 return True
                 
         except Exception as e:
-            log_error("Failed to export knowledge", error=e)
+            self.logger.error("Failed to export knowledge", exc_info=True)
             return False
     
     def import_knowledge(self, import_file: str, merge: bool = True) -> Tuple[int, int]:
         """Import knowledge from a file"""
         try:
             if not os.path.exists(import_file):
-                log_error(f"Import file not found: {import_file}")
+                self.logger.error(f"Import file not found: {import_file}")
                 return 0, 0
             
             with open(import_file, 'r', encoding='utf-8') as f:
                 imported_data = json.load(f)
             
             if not isinstance(imported_data, dict):
-                log_error("Invalid import format: expected dictionary")
+                self.logger.error("Invalid import format: expected dictionary")
                 return 0, 0
             
             success_count = 0
@@ -474,7 +474,7 @@ class UnifiedLearningManager:
                     try:
                         # Validate entry format
                         if not isinstance(entry, dict) or 'answer' not in entry:
-                            log_warning(f"Invalid entry format: {question}")
+                            self.logger.warning(f"Invalid entry format: {question}")
                             continue
                         
                         # Check if already exists
@@ -486,18 +486,18 @@ class UnifiedLearningManager:
                         success_count += 1
                         
                     except Exception as e:
-                        log_warning(f"Failed to import entry: {question}", error=e)
+                        self.logger.warning(f"Failed to import entry: {question}", exc_info=True)
                         continue
                 
                 # Save updated knowledge base
                 if success_count > 0:
                     self._save_knowledge_base()
             
-            log_info(f"Imported {success_count}/{total_count} knowledge entries")
+            self.logger.info(f"Imported {success_count}/{total_count} knowledge entries")
             return success_count, total_count
             
         except Exception as e:
-            log_error("Failed to import knowledge", error=e)
+            self.logger.error("Failed to import knowledge", exc_info=True)
             return 0, 0
     
     def _check_memory_usage(self):
@@ -510,11 +510,11 @@ class UnifiedLearningManager:
             kb_size = len(str(self.knowledge_base).encode('utf-8')) // 1024
             
             if kb_size > self._memory_limit_mb * 1024:  # Convert MB to KB
-                log_warning(f"Knowledge base size {kb_size}KB exceeds limit {self._memory_limit_mb}MB")
+                self.logger.warning(f"Knowledge base size {kb_size}KB exceeds limit {self._memory_limit_mb}MB")
                 self._emergency_cleanup()
                 
         except Exception as e:
-            log_warning(f"Memory check failed: {e}")
+            self.logger.warning(f"Memory check failed: {e}")
     
     def _periodic_cleanup(self):
         """Periodic maintenance tasks"""
@@ -538,13 +538,13 @@ class UnifiedLearningManager:
                         removed += 1
                 
                 if removed > 0:
-                    log_info(f"Periodic cleanup: removed {removed} unused entries")
+                    self.logger.info(f"Periodic cleanup: removed {removed} unused entries")
                     self._save_knowledge_base()
                 
                 self._last_cleanup = now
                 
         except Exception as e:
-            log_warning(f"Periodic cleanup failed: {e}")
+            self.logger.warning(f"Periodic cleanup failed: {e}")
     
     def _emergency_cleanup(self):
         """Emergency cleanup when memory limit exceeded"""
@@ -561,57 +561,29 @@ class UnifiedLearningManager:
                 self.knowledge_base = {k: v for k, v in entries_to_keep}
                 
                 removed = len(entries) - keep_count
-                log_warning(f"Emergency cleanup: removed {removed} entries due to memory limit")
+                self.logger.warning(f"Emergency cleanup: removed {removed} entries due to memory limit")
                 
                 # Force save
                 self._save_knowledge_base()
                 
         except Exception as e:
-            log_error(f"Emergency cleanup failed: {e}")
+            self.logger.error(f"Emergency cleanup failed: {e}")
     
     def cleanup(self):
         """Cleanup resources with comprehensive error handling"""
         try:
-            log_info("Starting learning manager cleanup...")
+            self.logger.info("Starting learning manager cleanup...")
             
             # Final memory check
             self._check_memory_usage()
             
             # Final save
             if self._save_knowledge_base():
-                log_info("✅ Knowledge base saved successfully")
+                self.logger.info("[OK] Knowledge base saved successfully")
             else:
-                log_error("❌ Failed to save knowledge base during cleanup")
+                self.logger.error("[ERROR] Failed to save knowledge base during cleanup")
             
-            log_info("✅ Learning manager cleanup completed")
+            self.logger.info("[OK] Learning manager cleanup completed")
             
         except Exception as e:
-            log_error("Learning manager cleanup failed", error=e)
-
-# Global instance
-_learning_manager = None
-_learning_lock = threading.Lock()
-
-def get_learning_manager() -> UnifiedLearningManager:
-    """Get global learning manager instance (singleton pattern)"""
-    global _learning_manager
-    
-    if _learning_manager is None:
-        with _learning_lock:
-            if _learning_manager is None:
-                _learning_manager = UnifiedLearningManager()
-    
-    return _learning_manager
-
-# Convenience functions
-def learn(question: str, answer: str) -> bool:
-    """Convenience function to add knowledge"""
-    return get_learning_manager().add_knowledge(question, answer)
-
-def ask(question: str) -> Optional[str]:
-    """Convenience function to get answer"""
-    return get_learning_manager().find_answer(question)
-
-def get_stats() -> Dict[str, Any]:
-    """Convenience function to get statistics"""
-    return get_learning_manager().get_statistics()
+            self.logger.error("Learning manager cleanup failed", exc_info=True)

@@ -1,0 +1,19 @@
+{
+  "license_type": "trial",
+  "machine_id": "E9A8734CBFB72FAA",
+  "created_at": "2025-09-13T19:48:26.332494",
+  "expires_at": "2025-09-20T19:48:26.332518",
+  "features": {
+    "voice_chat": true,
+    "text_chat": true,
+    "voice_teaching": true,
+    "knowledge_export": false,
+    "commercial_use": false,
+    "max_knowledge_entries": 100
+  },
+  "usage_stats": {
+    "total_conversations": 0,
+    "knowledge_entries_created": 0,
+    "voice_sessions": 0
+  }
+}

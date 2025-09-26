@@ -22,6 +22,10 @@ class Config:
     confidence_threshold: float = 0.7
     max_context_length: int = 5
     
+    # Retrieval settings
+    retrieval_similarity_threshold: float = 0.65
+    retrieval_similarity_thresholds: dict = field(default_factory=dict)
+    
     # Domain settings
     default_domain: str = "general"
     available_domains: list = field(default_factory=lambda: ["general", "shop", "tech", "personal"])
@@ -51,6 +55,7 @@ class Config:
     pause_threshold: float = 0.8  # Pause detection threshold
     timeout: int = 5  # Listening timeout in seconds
     phrase_time_limit: int = 10  # Maximum phrase length in seconds
+    mic_device_name: Optional[str] = None  # Optional regex to select microphone by name
     
     # Logging settings
     log_level: str = "INFO"
@@ -63,6 +68,8 @@ class Config:
         self.sentence_model_name = "all-MiniLM-L6-v2"
         self.confidence_threshold = 0.7
         self.max_context_length = 5
+        self.retrieval_similarity_threshold = 0.65
+        self.retrieval_similarity_thresholds = {}
         self.default_domain = "general"
         self.available_domains = ["general", "shop", "tech", "personal"]
         self.auto_learn_enabled = False
@@ -83,6 +90,7 @@ class Config:
         self.pause_threshold = 0.5   # Faster response
         self.timeout = 6             # Longer timeout to allow speaking
         self.phrase_time_limit = 10
+        self.mic_device_name = None  # Regex or exact name to pick microphone device
         self.log_level = "INFO"
         self.log_file = "logs/chatbot.log"
         
@@ -91,26 +99,44 @@ class Config:
         self._setup_logging()
     
     def _load_config(self) -> None:
-        """Load configuration from YAML file."""
-        config_file = Path(self.config_path)
-        
-        if config_file.exists():
+        """Load configuration from YAML files with overlays.
+        Precedence (later overrides earlier):
+        1) configs/app_config.yaml
+        2) configs/nlp_config.yaml
+        3) configs/environment/{APP_ENV}.yaml (APP_ENV=production by default)
+        4) configs/config_production.yaml (canonical)
+        5) legacy config/config.yaml (user overrides)
+        """
+        def _merge_from_file(path: Path):
+            if not path.exists():
+                return
             try:
-                with open(config_file, 'r', encoding='utf-8') as f:
-                    config_data = yaml.safe_load(f) or {}
-                
-                # Update fields with loaded values
-                for key, value in config_data.items():
-                    if hasattr(self, key):
-                        setattr(self, key, value)
-                
-                logging.info(f"Configuration loaded from {config_file}")
-                
+                with open(path, 'r', encoding='utf-8') as f:
+                    data = yaml.safe_load(f) or {}
+                if isinstance(data, dict):
+                    for key, value in data.items():
+                        if hasattr(self, key):
+                            setattr(self, key, value)
+                logging.info(f"Loaded config overlay: {path}")
             except Exception as e:
-                logging.warning(f"Failed to load config from {config_file}: {e}")
-                logging.info("Using default configuration")
-        else:
-            # Create default config file
+                logging.warning(f"Failed to load overlay {path}: {e}")
+
+        # 1) Base overlays from configs/* if present
+        overlays: list[Path] = []
+        overlays.append(Path('configs/app_config.yaml'))
+        overlays.append(Path('configs/nlp_config.yaml'))
+        env_name = os.environ.get('APP_ENV', 'production').strip()
+        overlays.append(Path(f'configs/environment/{env_name}.yaml'))
+        overlays.append(Path('configs/config_production.yaml'))
+        # 2) Legacy single-file config (user overrides)
+        legacy = Path(self.config_path)
+
+        for p in overlays:
+            _merge_from_file(p)
+        _merge_from_file(legacy)
+
+        # If neither overlays nor legacy existed, create default legacy config
+        if not any(p.exists() for p in overlays) and not legacy.exists():
             self._create_default_config()
     
     def _create_default_config(self) -> None:
@@ -124,8 +150,10 @@ class Config:
                 'sentence_model_name': self.sentence_model_name,
                 'confidence_threshold': self.confidence_threshold,
                 'max_context_length': self.max_context_length,
-                'default_domain': self.default_domain,
+'default_domain': self.default_domain,
                 'available_domains': self.available_domains,
+                'retrieval_similarity_threshold': self.retrieval_similarity_threshold,
+                'retrieval_similarity_thresholds': self.retrieval_similarity_thresholds,
                 'auto_learn_enabled': self.auto_learn_enabled,
                 'min_confidence_for_auto_learn': self.min_confidence_for_auto_learn,
                 'max_knowledge_entries': self.max_knowledge_entries,
@@ -143,7 +171,8 @@ class Config:
                 'energy_threshold': self.energy_threshold,
                 'pause_threshold': self.pause_threshold,
                 'timeout': self.timeout,
-                'phrase_time_limit': self.phrase_time_limit,
+'phrase_time_limit': self.phrase_time_limit,
+                'mic_device_name': self.mic_device_name,
                 'log_level': self.log_level,
                 'log_file': self.log_file
             }
@@ -184,8 +213,10 @@ class Config:
                 'sentence_model_name': self.sentence_model_name,
                 'confidence_threshold': self.confidence_threshold,
                 'max_context_length': self.max_context_length,
-                'default_domain': self.default_domain,
+'default_domain': self.default_domain,
                 'available_domains': self.available_domains,
+                'retrieval_similarity_threshold': self.retrieval_similarity_threshold,
+                'retrieval_similarity_thresholds': self.retrieval_similarity_thresholds,
                 'auto_learn_enabled': self.auto_learn_enabled,
                 'min_confidence_for_auto_learn': self.min_confidence_for_auto_learn,
                 'max_knowledge_entries': self.max_knowledge_entries,
@@ -203,7 +234,8 @@ class Config:
                 'energy_threshold': self.energy_threshold,
                 'pause_threshold': self.pause_threshold,
                 'timeout': self.timeout,
-                'phrase_time_limit': self.phrase_time_limit,
+'phrase_time_limit': self.phrase_time_limit,
+                'mic_device_name': self.mic_device_name,
                 'log_level': self.log_level,
                 'log_file': self.log_file
             }
@@ -270,8 +302,10 @@ class Config:
             'sentence_model_name': self.sentence_model_name,
             'confidence_threshold': self.confidence_threshold,
             'max_context_length': self.max_context_length,
-            'default_domain': self.default_domain,
+'default_domain': self.default_domain,
             'available_domains': self.available_domains,
+            'retrieval_similarity_threshold': self.retrieval_similarity_threshold,
+            'retrieval_similarity_thresholds': self.retrieval_similarity_thresholds,
             'auto_learn_enabled': self.auto_learn_enabled,
             'min_confidence_for_auto_learn': self.min_confidence_for_auto_learn,
             'max_knowledge_entries': self.max_knowledge_entries,
@@ -289,7 +323,8 @@ class Config:
             'energy_threshold': self.energy_threshold,
             'pause_threshold': self.pause_threshold,
             'timeout': self.timeout,
-            'phrase_time_limit': self.phrase_time_limit,
+'phrase_time_limit': self.phrase_time_limit,
+            'mic_device_name': self.mic_device_name,
             'log_level': self.log_level,
             'log_file': self.log_file
         }

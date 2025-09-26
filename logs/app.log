@@ -1,0 +1,1 @@
+2025-09-26 08:46:50,874 - AdaptiveChatbot - ERROR - chatbot:33 - Voice interface disabled due to missing dependencies: cannot import name 'log_info' from 'utils.logger' (C:\Users\Sanju\adaptive-chatbot\utils\logger.py)

@@ -9,6 +9,7 @@ from datetime import datetime
 import re
 
 from .knowledge_store import KnowledgeStore
+import threading
 
 
 class LearningManager:
@@ -51,6 +52,12 @@ class LearningManager:
                     logging.warning(f"Failed to import: {knowledge.get('input', 'Unknown')}")
             
             logging.info(f"Imported {success_count}/{total_count} knowledge entries from {filepath}")
+            # Trigger background semantic index rebuild for this domain when any entries imported
+            if success_count > 0:
+                try:
+                    self._rebuild_semantic_index_async(domain)
+                except Exception as _:
+                    pass
             return success_count, total_count
             
         except Exception as e:
@@ -89,6 +96,11 @@ class LearningManager:
             
             if success:
                 logging.info(f"Successfully taught: {user_input[:50]}...")
+                # Rebuild semantic index for this domain in background (if available)
+                try:
+                    self._rebuild_semantic_index_async(domain)
+                except Exception as _:
+                    pass
                 return True
             else:
                 logging.error("Failed to store knowledge")
@@ -340,4 +352,22 @@ class LearningManager:
             
         except Exception as e:
             logging.error(f"Error exporting training data: {e}")
-            return False
+        return False
+
+    # -------------------- Semantic index integration --------------------
+    def _rebuild_semantic_index_async(self, domain: str) -> None:
+        """Rebuild semantic index for a domain in a background thread (best-effort)."""
+        t = threading.Thread(target=self._rebuild_semantic_index, args=(domain,), daemon=True)
+        t.start()
+
+    def _rebuild_semantic_index(self, domain: str) -> None:
+        try:
+            # Lazy import to avoid hard dependency when user doesn't install extras
+            from .semantic_index import SemanticIndex  # type: ignore
+            si = SemanticIndex()
+            # Pull all inputs for the domain
+            items = self.knowledge_store.get_inputs_for_domain(domain)
+            if items:
+                si.build(items, domain)
+        except Exception as e:
+            logging.debug(f"Semantic index rebuild skipped/failed for '{domain}': {e}")

@@ -20,7 +20,9 @@ from enum import Enum
 import weakref
 import gc
 
-from utils.logger import log_info, log_error, log_warning
+from utils.logger import get_logger
+
+logger = get_logger()
 
 class AlertLevel(Enum):
     """Alert severity levels"""
@@ -167,7 +169,7 @@ class PerformanceMonitor:
         # Setup default alert rules
         self._setup_default_alerts()
         
-        log_info("📊 Performance Monitor initialized")
+        logger.info("📊 Performance Monitor initialized")
     
     def _initialize_database(self):
         """Initialize performance metrics database"""
@@ -214,10 +216,10 @@ class PerformanceMonitor:
                 conn.execute('CREATE INDEX IF NOT EXISTS idx_metrics_component ON metrics(component)')
                 conn.execute('CREATE INDEX IF NOT EXISTS idx_health_timestamp ON health_snapshots(timestamp)')
                 
-            log_info("📈 Performance database initialized")
+            logger.info("📈 Performance database initialized")
             
         except Exception as e:
-            log_error(f"Failed to initialize performance database: {e}")
+            logger.error(f"Failed to initialize performance database: {e}")
     
     def _setup_default_alerts(self):
         """Setup default performance alert rules"""
@@ -271,14 +273,14 @@ class PerformanceMonitor:
         """Add performance alert rule"""
         with self._lock:
             self.alert_rules.append(rule)
-            log_info(f"📢 Added alert rule: {rule.name} ({rule.level.value})")
+            logger.info(f"📢 Added alert rule: {rule.name} ({rule.level.value})")
     
     def register_component(self, name: str) -> ComponentMonitor:
         """Register a system component for monitoring"""
         with self._lock:
             if name not in self.components:
                 self.components[name] = ComponentMonitor(name)
-                log_info(f"📋 Registered component for monitoring: {name}")
+                logger.info(f"📋 Registered component for monitoring: {name}")
             return self.components[name]
     
     def record_metric(self, 
@@ -323,7 +325,7 @@ class PerformanceMonitor:
                 ))
                 
         except Exception as e:
-            log_error(f"Failed to store metric: {e}")
+            logger.error(f"Failed to store metric: {e}")
     
     def _check_alerts(self, metric: PerformanceMetric):
         """Check if metric triggers any alerts"""
@@ -362,18 +364,18 @@ class PerformanceMonitor:
         )
         
         if rule.level == AlertLevel.CRITICAL:
-            log_error(alert_msg)
+            logger.error(alert_msg)
         elif rule.level == AlertLevel.WARNING:
-            log_warning(alert_msg)
+            logger.warning(alert_msg)
         else:
-            log_info(alert_msg)
+            logger.info(alert_msg)
         
         # Call custom callback if provided
         if rule.callback:
             try:
                 rule.callback(rule, metric)
             except Exception as e:
-                log_error(f"Alert callback failed: {e}")
+                logger.error(f"Alert callback failed: {e}")
     
     def get_system_health(self) -> SystemHealth:
         """Get current system health snapshot"""
@@ -426,7 +428,7 @@ class PerformanceMonitor:
             return health
             
         except Exception as e:
-            log_error(f"Failed to get system health: {e}")
+            logger.error(f"Failed to get system health: {e}")
             return SystemHealth(
                 timestamp=datetime.now(),
                 cpu_usage=0.0,
@@ -446,7 +448,7 @@ class PerformanceMonitor:
             return
         
         self._monitoring_active = True
-        log_info("🔄 Starting performance monitoring...")
+        logger.info("🔄 Starting performance monitoring...")
         
         while self._monitoring_active:
             try:
@@ -473,7 +475,7 @@ class PerformanceMonitor:
                 await asyncio.sleep(self.monitoring_interval)
                 
             except Exception as e:
-                log_error(f"Monitoring cycle error: {e}")
+                logger.error(f"Monitoring cycle error: {e}")
                 await asyncio.sleep(10)  # Short delay before retry
     
     async def _store_health_snapshot(self, health: SystemHealth):
@@ -501,7 +503,7 @@ class PerformanceMonitor:
                 ))
                 
         except Exception as e:
-            log_error(f"Failed to store health snapshot: {e}")
+            logger.error(f"Failed to store health snapshot: {e}")
     
     async def _cleanup_old_data(self):
         """Clean up old performance data"""
@@ -519,16 +521,16 @@ class PerformanceMonitor:
                 deleted_snapshots = cursor.rowcount
                 
                 if deleted_metrics > 0 or deleted_snapshots > 0:
-                    log_info(f"🧹 Cleaned {deleted_metrics} old metrics, {deleted_snapshots} old snapshots")
+                    logger.info(f"🧹 Cleaned {deleted_metrics} old metrics, {deleted_snapshots} old snapshots")
                     
         except Exception as e:
-            log_error(f"Failed to cleanup old data: {e}")
+            logger.error(f"Failed to cleanup old data: {e}")
     
     async def _log_health_summary(self, health: SystemHealth):
         """Log system health summary"""
         status_emoji = "✅" if health.is_healthy else "⚠️"
         
-        log_info(f"""
+        logger.info(f'''
 {status_emoji} System Health Summary:
   • Memory: {health.memory_usage:.1f}MB ({health.memory_available:.1f}MB available)
   • CPU: {health.cpu_usage:.1f}%
@@ -537,12 +539,12 @@ class PerformanceMonitor:
   • Error Rate: {health.error_rate:.1f}%
   • Cache Hit Rate: {health.cache_hit_rate:.1f}%
   • Active Components: {len(health.active_components)}
-        """)
+        ''')
     
     def stop_monitoring(self):
         """Stop background monitoring"""
         self._monitoring_active = False
-        log_info("🛑 Performance monitoring stopped")
+        logger.info("🛑 Performance monitoring stopped")
     
     def get_metrics_summary(self, 
                            hours: int = 1, 
@@ -585,7 +587,7 @@ class PerformanceMonitor:
             return summary
             
         except Exception as e:
-            log_error(f"Failed to get metrics summary: {e}")
+            logger.error(f"Failed to get metrics summary: {e}")
             return {"error": str(e)}
     
     def get_component_stats(self) -> Dict[str, Any]:
@@ -660,7 +662,7 @@ class PerformanceMonitor:
     
     async def cleanup(self):
         """Clean up monitoring resources"""
-        log_info("🧹 Cleaning up Performance Monitor...")
+        logger.info("🧹 Cleaning up Performance Monitor...")
         
         # Stop monitoring
         self.stop_monitoring()
@@ -672,7 +674,7 @@ class PerformanceMonitor:
             self.alert_rules.clear()
             self.active_alerts.clear()
         
-        log_info("✅ Performance Monitor cleanup completed")
+        logger.info("✅ Performance Monitor cleanup completed")
 
 
 # Global monitor instance

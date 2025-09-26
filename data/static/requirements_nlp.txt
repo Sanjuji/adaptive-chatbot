@@ -1,0 +1,19 @@
+# Advanced NLP Requirements
+# Core transformer and NLP libraries
+transformers>=4.21.0
+sentence-transformers>=2.2.2
+torch>=1.12.0
+langdetect>=1.0.9
+textblob>=0.17.1
+
+# Additional ML libraries
+scikit-learn>=1.1.0
+numpy>=1.21.0
+pandas>=1.4.0
+
+# For edge TTS integration (if not already installed)
+edge-tts>=6.1.0
+
+# Optional: For better performance
+accelerate>=0.20.0
+tokenizers>=0.13.0

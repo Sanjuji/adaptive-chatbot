@@ -1,0 +1,1932 @@
+{
+  "code_analysis": {
+    "adaptive_chatbot.py": {
+      "file": "adaptive_chatbot.py",
+      "issues": {
+        "type_hints": [
+          {
+            "function": "main",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "__init__",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_initialize_components",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_signal_handler",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "run_interactive_menu",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_display_main_menu",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "run_voice_teaching",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_voice_teaching_workflow",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "run_voice_chat",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "run_text_chat",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_text_teaching_mode",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "show_statistics",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "manage_knowledge",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_export_knowledge",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_import_knowledge",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "cleanup",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "speak",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "listen",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "is_voice_available",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "sanitize_user_input",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "is_safe_input",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "with_reliability",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "__init__",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "call",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "__init__",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "safe_import",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "__init__",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_start_scheduler",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_scheduler_worker",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "submit",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "shutdown",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "__init__",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "get_optimal_tts_engine",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "__init__",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "start_monitoring",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_monitor_buffer",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_emergency_flush",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "stop_monitoring",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "__init__",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "__init__",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "__init__",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "start_system_monitoring",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_resource_monitor_loop",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_trigger_memory_cleanup",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_trigger_file_handle_cleanup",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "register_cleanup_callback",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "shutdown",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "decorator",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_import_module",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "sync_wrapper",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "forward_result",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "with_critical_issue_protection",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "with_language_caching",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "with_input_sanitization",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "__init__",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_initialize_systems",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "safe_import_module",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "register_cleanup_callback",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "optimize_for_language_switching",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "shutdown",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "decorator",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "decorator",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "__init__",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "__init__",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "wrapper",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "sync_wrapper",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "get_simple_voice",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "__init__",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_setup_audio",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "cleanup",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "__init__",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_create_backup",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_cleanup_old_backups",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_backup_corrupted_file",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_check_memory_usage",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_periodic_cleanup",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_emergency_cleanup",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "cleanup",
+            "issue": "Missing return type hint"
+          }
+        ]
+      },
+      "optimizations": [],
+      "metrics": {
+        "imports": 18,
+        "async_functions": 0
+      }
+    },
+    "system_reliability_security.py": {
+      "file": "system_reliability_security.py",
+      "issues": {
+        "type_hints": [
+          {
+            "function": "main",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "__init__",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_initialize_components",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_signal_handler",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "run_interactive_menu",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_display_main_menu",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "run_voice_teaching",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_voice_teaching_workflow",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "run_voice_chat",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "run_text_chat",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_text_teaching_mode",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "show_statistics",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "manage_knowledge",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_export_knowledge",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_import_knowledge",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "cleanup",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "speak",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "listen",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "is_voice_available",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "sanitize_user_input",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "is_safe_input",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "with_reliability",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "__init__",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "call",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "__init__",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "safe_import",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "__init__",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_start_scheduler",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_scheduler_worker",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "submit",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "shutdown",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "__init__",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "get_optimal_tts_engine",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "__init__",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "start_monitoring",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_monitor_buffer",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_emergency_flush",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "stop_monitoring",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "__init__",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "__init__",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "__init__",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "start_system_monitoring",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_resource_monitor_loop",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_trigger_memory_cleanup",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_trigger_file_handle_cleanup",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "register_cleanup_callback",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "shutdown",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "decorator",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_import_module",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "sync_wrapper",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "forward_result",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "with_critical_issue_protection",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "with_language_caching",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "with_input_sanitization",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "__init__",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_initialize_systems",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "safe_import_module",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "register_cleanup_callback",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "optimize_for_language_switching",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "shutdown",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "decorator",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "decorator",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "__init__",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "__init__",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "wrapper",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "sync_wrapper",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "get_simple_voice",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "__init__",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_setup_audio",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "cleanup",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "__init__",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_create_backup",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_cleanup_old_backups",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_backup_corrupted_file",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_check_memory_usage",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_periodic_cleanup",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_emergency_cleanup",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "cleanup",
+            "issue": "Missing return type hint"
+          }
+        ],
+        "error_handling": [
+          {
+            "line": 119,
+            "issue": "Bare except clause",
+            "suggestion": "Specify exception types"
+          },
+          {
+            "line": 139,
+            "issue": "Bare except clause",
+            "suggestion": "Specify exception types"
+          },
+          {
+            "line": 364,
+            "issue": "Bare except clause",
+            "suggestion": "Specify exception types"
+          },
+          {
+            "line": 100,
+            "issue": "Bare except clause",
+            "suggestion": "Specify exception types"
+          },
+          {
+            "line": 401,
+            "issue": "Bare except clause",
+            "suggestion": "Specify exception types"
+          }
+        ]
+      },
+      "optimizations": [],
+      "metrics": {
+        "imports": 18,
+        "async_functions": 0
+      }
+    },
+    "critical_issues_integration.py": {
+      "file": "critical_issues_integration.py",
+      "issues": {
+        "type_hints": [
+          {
+            "function": "main",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "__init__",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_initialize_components",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_signal_handler",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "run_interactive_menu",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_display_main_menu",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "run_voice_teaching",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_voice_teaching_workflow",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "run_voice_chat",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "run_text_chat",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_text_teaching_mode",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "show_statistics",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "manage_knowledge",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_export_knowledge",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_import_knowledge",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "cleanup",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "speak",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "listen",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "is_voice_available",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "sanitize_user_input",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "is_safe_input",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "with_reliability",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "__init__",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "call",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "__init__",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "safe_import",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "__init__",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_start_scheduler",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_scheduler_worker",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "submit",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "shutdown",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "__init__",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "get_optimal_tts_engine",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "__init__",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "start_monitoring",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_monitor_buffer",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_emergency_flush",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "stop_monitoring",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "__init__",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "__init__",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "__init__",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "start_system_monitoring",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_resource_monitor_loop",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_trigger_memory_cleanup",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_trigger_file_handle_cleanup",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "register_cleanup_callback",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "shutdown",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "decorator",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_import_module",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "sync_wrapper",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "forward_result",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "with_critical_issue_protection",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "with_language_caching",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "with_input_sanitization",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "__init__",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_initialize_systems",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "safe_import_module",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "register_cleanup_callback",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "optimize_for_language_switching",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "shutdown",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "decorator",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "decorator",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "__init__",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "__init__",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "wrapper",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "sync_wrapper",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "get_simple_voice",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "__init__",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_setup_audio",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "cleanup",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "__init__",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_create_backup",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_cleanup_old_backups",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_backup_corrupted_file",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_check_memory_usage",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_periodic_cleanup",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_emergency_cleanup",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "cleanup",
+            "issue": "Missing return type hint"
+          }
+        ],
+        "error_handling": [
+          {
+            "line": 119,
+            "issue": "Bare except clause",
+            "suggestion": "Specify exception types"
+          },
+          {
+            "line": 139,
+            "issue": "Bare except clause",
+            "suggestion": "Specify exception types"
+          },
+          {
+            "line": 364,
+            "issue": "Bare except clause",
+            "suggestion": "Specify exception types"
+          },
+          {
+            "line": 100,
+            "issue": "Bare except clause",
+            "suggestion": "Specify exception types"
+          },
+          {
+            "line": 401,
+            "issue": "Bare except clause",
+            "suggestion": "Specify exception types"
+          }
+        ]
+      },
+      "optimizations": [],
+      "metrics": {
+        "imports": 18,
+        "async_functions": 0
+      }
+    },
+    "simple_voice.py": {
+      "file": "simple_voice.py",
+      "issues": {
+        "type_hints": [
+          {
+            "function": "main",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "__init__",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_initialize_components",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_signal_handler",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "run_interactive_menu",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_display_main_menu",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "run_voice_teaching",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_voice_teaching_workflow",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "run_voice_chat",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "run_text_chat",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_text_teaching_mode",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "show_statistics",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "manage_knowledge",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_export_knowledge",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_import_knowledge",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "cleanup",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "speak",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "listen",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "is_voice_available",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "sanitize_user_input",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "is_safe_input",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "with_reliability",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "__init__",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "call",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "__init__",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "safe_import",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "__init__",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_start_scheduler",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_scheduler_worker",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "submit",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "shutdown",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "__init__",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "get_optimal_tts_engine",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "__init__",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "start_monitoring",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_monitor_buffer",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_emergency_flush",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "stop_monitoring",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "__init__",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "__init__",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "__init__",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "start_system_monitoring",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_resource_monitor_loop",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_trigger_memory_cleanup",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_trigger_file_handle_cleanup",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "register_cleanup_callback",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "shutdown",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "decorator",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_import_module",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "sync_wrapper",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "forward_result",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "with_critical_issue_protection",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "with_language_caching",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "with_input_sanitization",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "__init__",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_initialize_systems",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "safe_import_module",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "register_cleanup_callback",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "optimize_for_language_switching",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "shutdown",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "decorator",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "decorator",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "__init__",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "__init__",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "wrapper",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "sync_wrapper",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "get_simple_voice",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "__init__",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_setup_audio",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "cleanup",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "__init__",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_create_backup",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_cleanup_old_backups",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_backup_corrupted_file",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_check_memory_usage",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_periodic_cleanup",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_emergency_cleanup",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "cleanup",
+            "issue": "Missing return type hint"
+          }
+        ],
+        "error_handling": [
+          {
+            "line": 119,
+            "issue": "Bare except clause",
+            "suggestion": "Specify exception types"
+          },
+          {
+            "line": 139,
+            "issue": "Bare except clause",
+            "suggestion": "Specify exception types"
+          },
+          {
+            "line": 364,
+            "issue": "Bare except clause",
+            "suggestion": "Specify exception types"
+          },
+          {
+            "line": 100,
+            "issue": "Bare except clause",
+            "suggestion": "Specify exception types"
+          },
+          {
+            "line": 401,
+            "issue": "Bare except clause",
+            "suggestion": "Specify exception types"
+          }
+        ],
+        "complexity": [
+          {
+            "function": "speak",
+            "complexity": 15,
+            "suggestion": "Consider breaking down this complex function"
+          },
+          {
+            "function": "find_answer",
+            "complexity": 13,
+            "suggestion": "Consider breaking down this complex function"
+          },
+          {
+            "function": "_find_best_match",
+            "complexity": 14,
+            "suggestion": "Consider breaking down this complex function"
+          },
+          {
+            "function": "import_knowledge",
+            "complexity": 11,
+            "suggestion": "Consider breaking down this complex function"
+          }
+        ]
+      },
+      "optimizations": [],
+      "metrics": {
+        "imports": 18,
+        "async_functions": 0
+      }
+    },
+    "unified_learning_manager.py": {
+      "file": "unified_learning_manager.py",
+      "issues": {
+        "type_hints": [
+          {
+            "function": "main",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "__init__",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_initialize_components",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_signal_handler",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "run_interactive_menu",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_display_main_menu",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "run_voice_teaching",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_voice_teaching_workflow",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "run_voice_chat",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "run_text_chat",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_text_teaching_mode",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "show_statistics",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "manage_knowledge",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_export_knowledge",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_import_knowledge",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "cleanup",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "speak",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "listen",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "is_voice_available",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "sanitize_user_input",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "is_safe_input",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "with_reliability",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "__init__",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "call",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "__init__",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "safe_import",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "__init__",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_start_scheduler",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_scheduler_worker",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "submit",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "shutdown",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "__init__",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "get_optimal_tts_engine",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "__init__",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "start_monitoring",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_monitor_buffer",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_emergency_flush",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "stop_monitoring",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "__init__",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "__init__",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "__init__",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "start_system_monitoring",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_resource_monitor_loop",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_trigger_memory_cleanup",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_trigger_file_handle_cleanup",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "register_cleanup_callback",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "shutdown",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "decorator",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_import_module",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "sync_wrapper",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "forward_result",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "with_critical_issue_protection",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "with_language_caching",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "with_input_sanitization",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "__init__",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_initialize_systems",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "safe_import_module",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "register_cleanup_callback",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "optimize_for_language_switching",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "shutdown",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "decorator",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "decorator",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "__init__",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "__init__",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "wrapper",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "sync_wrapper",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "get_simple_voice",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "__init__",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_setup_audio",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "cleanup",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "__init__",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_create_backup",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_cleanup_old_backups",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_backup_corrupted_file",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_check_memory_usage",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_periodic_cleanup",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "_emergency_cleanup",
+            "issue": "Missing return type hint"
+          },
+          {
+            "function": "cleanup",
+            "issue": "Missing return type hint"
+          }
+        ],
+        "error_handling": [
+          {
+            "line": 119,
+            "issue": "Bare except clause",
+            "suggestion": "Specify exception types"
+          },
+          {
+            "line": 139,
+            "issue": "Bare except clause",
+            "suggestion": "Specify exception types"
+          },
+          {
+            "line": 364,
+            "issue": "Bare except clause",
+            "suggestion": "Specify exception types"
+          },
+          {
+            "line": 100,
+            "issue": "Bare except clause",
+            "suggestion": "Specify exception types"
+          },
+          {
+            "line": 401,
+            "issue": "Bare except clause",
+            "suggestion": "Specify exception types"
+          }
+        ],
+        "complexity": [
+          {
+            "function": "speak",
+            "complexity": 15,
+            "suggestion": "Consider breaking down this complex function"
+          },
+          {
+            "function": "find_answer",
+            "complexity": 13,
+            "suggestion": "Consider breaking down this complex function"
+          },
+          {
+            "function": "_find_best_match",
+            "complexity": 14,
+            "suggestion": "Consider breaking down this complex function"
+          },
+          {
+            "function": "import_knowledge",
+            "complexity": 11,
+            "suggestion": "Consider breaking down this complex function"
+          }
+        ],
+        "performance": [
+          {
+            "pattern": "string_concatenation_in_loop",
+            "line": 400,
+            "suggestion": "Use list.append() and join() instead"
+          },
+          {
+            "pattern": "string_concatenation_in_loop",
+            "line": 467,
+            "suggestion": "Use list.append() and join() instead"
+          },
+          {
+            "pattern": "string_concatenation_in_loop",
+            "line": 517,
+            "suggestion": "Use list.append() and join() instead"
+          }
+        ]
+      },
+      "optimizations": [],
+      "metrics": {
+        "imports": 18,
+        "async_functions": 0
+      }
+    }
+  },
+  "debug_results": {
+    "imports": {
+      "missing_modules": [],
+      "version_issues": [
+        {
+          "component": "asyncio",
+          "note": "Some asyncio patterns may need updating for Python 3.10+",
+          "severity": "LOW"
+        }
+      ]
+    },
+    "async": {
+      "async_issues": [
+        {
+          "type": "deprecated_pattern",
+          "description": "Use asyncio.get_running_loop() instead of get_event_loop()",
+          "severity": "LOW"
+        }
+      ]
+    },
+    "memory": {
+      "memory_stats": {
+        "objects": 47842,
+        "garbage": 0,
+        "collections": [
+          1,
+          0,
+          0
+        ]
+      },
+      "potential_leaks": [],
+      "circular_refs": [
+        {
+          "type": "large_dict",
+          "size": 778,
+          "referents": 1556
+        },
+        {
+          "type": "large_dict",
+          "size": 116,
+          "referents": 232
+        },
+        {
+          "type": "large_dict",
+          "size": 86,
+          "referents": 172
+        },
+        {
+          "type": "large_dict",
+          "size": 111,
+          "referents": 111
+        },
+        {
+          "type": "large_dict",
+          "size": 640,
+          "referents": 640
+        }
+      ]
+    },
+    "threads": {
+      "thread_count": 1,
+      "threads": [
+        {
+          "name": "MainThread",
+          "daemon": false,
+          "alive": true,
+          "ident": 14644
+        }
+      ],
+      "deadlock_risk": false,
+      "recommendation": null
+    }
+  },
+  "integration": {
+    "voice_integration": {
+      "status": "OK",
+      "issues": []
+    },
+    "learning_integration": {
+      "status": "OK",
+      "issues": []
+    },
+    "async_integration": {
+      "status": "OK",
+      "issues": []
+    }
+  },
+  "memory_optimization": {
+    "initial_memory_mb": 63.47265625,
+    "final_memory_mb": 63.98828125,
+    "freed_mb": -0.515625,
+    "gc_stats": [
+      {
+        "collections": 45,
+        "collected": 1311,
+        "uncollectable": 0
+      },
+      {
+        "collections": 3,
+        "collected": 119,
+        "uncollectable": 0
+      },
+      {
+        "collections": 3,
+        "collected": 33,
+        "uncollectable": 0
+      }
+    ]
+  },
+  "summary": {
+    "total_code_issues": 421,
+    "total_debug_issues": 0,
+    "integration_status": "OK",
+    "critical_issues": [
+      "error_handling: Bare except clause",
+      "error_handling: Bare except clause",
+      "error_handling: Bare except clause",
+      "error_handling: Bare except clause",
+      "error_handling: Bare except clause",
+      "error_handling: Bare except clause",
+      "error_handling: Bare except clause",
+      "error_handling: Bare except clause",
+      "error_handling: Bare except clause",
+      "error_handling: Bare except clause",
+      "error_handling: Bare except clause",
+      "error_handling: Bare except clause",
+      "error_handling: Bare except clause",
+      "error_handling: Bare except clause",
+      "error_handling: Bare except clause",
+      "error_handling: Bare except clause",
+      "error_handling: Bare except clause",
+      "error_handling: Bare except clause",
+      "error_handling: Bare except clause",
+      "error_handling: Bare except clause"
+    ],
+    "recommendations": [
+      "Consider refactoring to reduce code complexity"
+    ]
+  }
+}

@@ -4,13 +4,29 @@ Voice Interface for Adaptive Chatbot - Speech Recognition and Text-to-Speech
 
 import speech_recognition as sr
 import logging
-from typing import Optional, Dict, Any
+from typing import Optional, Dict, Any, List
 from pathlib import Path
 import threading
 import queue
 import time
 import tempfile
 import os
+import re
+from core.edge_tts_engine import get_edge_tts_engine, cleanup_edge_tts
+
+# Optional WebRTC VAD for better speech detection in noise
+try:
+    import webrtcvad  # type: ignore
+    _HAVE_VAD = True
+except Exception:
+    _HAVE_VAD = False
+
+# Optional PyAudio for streaming mic capture
+try:
+    import pyaudio  # type: ignore
+    _HAVE_PYAUDIO = True
+except Exception:
+    _HAVE_PYAUDIO = False
 from core.edge_tts_engine import get_edge_tts_engine, cleanup_edge_tts
 
 
@@ -27,19 +43,12 @@ class VoiceInterface:
         # Initialize speech recognition
         self.recognizer = sr.Recognizer()
         
-        # Initialize microphone with error handling
+        # Initialize microphone with error handling and configurable selection
         try:
-            # Try to use Realtek microphone first (index 13 from our test)
-            self.microphone = sr.Microphone(device_index=13)  # Realtek HD Audio Mic
-            print("🎤 Using Realtek microphone")
-        except:
-            try:
-                # Fallback to default microphone
-                self.microphone = sr.Microphone()
-                print("🎤 Using default microphone")
-            except Exception as e:
-                logging.error(f"Failed to initialize any microphone: {e}")
-                raise
+            self.microphone = self._select_microphone(self.config.get('mic_device_name'))
+        except Exception as e:
+            logging.error(f"Failed to initialize any microphone: {e}")
+            raise
         
         # Initialize EdgeTTS engine for realistic speech
         self.edge_tts = get_edge_tts_engine()
@@ -55,6 +64,11 @@ class VoiceInterface:
         self.pause_threshold = self.config.get('pause_threshold', 0.5)     # Faster response
         self.timeout = self.config.get('timeout', 3)                      # Shorter timeout
         self.phrase_time_limit = self.config.get('phrase_time_limit', 8)   # Reasonable phrase limit
+        self.use_vad = bool(self.config.get('use_vad', False)) and _HAVE_VAD
+        if bool(self.config.get('use_vad', False)) and not _HAVE_VAD:
+            logging.warning("Requested VAD but webrtcvad is not installed; continuing without VAD")
+        self.stream_listen = bool(self.config.get('stream_listen', True))
+        self._have_pyaudio = _HAVE_PYAUDIO
         
         # Configure EdgeTTS voice
         self.edge_tts.set_voice(self.tts_voice)
@@ -65,8 +79,36 @@ class VoiceInterface:
         
         logging.info("Voice interface initialized with realistic EdgeTTS")
     
-    
-    
+    def _select_microphone(self, name_pattern: Optional[str]) -> sr.Microphone:
+        """Select microphone by regex pattern on device name; fallback to default"""
+        names = sr.Microphone.list_microphone_names()
+        selected_index = None
+        if name_pattern:
+            try:
+                pattern = re.compile(name_pattern, re.IGNORECASE)
+                for idx, nm in enumerate(names):
+                    if nm and pattern.search(nm):
+                        selected_index = idx
+                        break
+            except re.error:
+                logging.warning(f"Invalid mic_device_name regex: {name_pattern}")
+        mic: Optional[sr.Microphone] = None
+        if selected_index is not None:
+            mic = sr.Microphone(device_index=selected_index)
+            print(f"🎤 Using microphone #{selected_index}: {names[selected_index]}")
+        else:
+            try:
+                mic = sr.Microphone()
+                print("🎤 Using default microphone")
+            except Exception:
+                # As a last resort, try the first available index if any
+                if names:
+                    mic = sr.Microphone(device_index=0)
+                    print(f"🎤 Using fallback microphone #0: {names[0]}")
+                else:
+                    raise RuntimeError("No microphones found")
+        return mic
+
     def _calibrate_microphone(self) -> None:
         """Calibrate microphone for ambient noise."""
         try:
@@ -90,6 +132,37 @@ class VoiceInterface:
             print(f"⚠️ Calibration failed, using manual settings. Energy: {self.recognizer.energy_threshold}")
             logging.error(f"Error calibrating microphone: {e}")
     
+    def _audio_contains_speech(self, audio: sr.AudioData) -> bool:
+        """Heuristic VAD check on captured audio (post-capture)."""
+        if not self.use_vad:
+            return True
+        try:
+            vad = webrtcvad.Vad(2)  # 0-3, 2 is moderately aggressive
+            # Convert to 16-bit mono PCM @ 16000 Hz frames of 30ms
+            sample_rate = getattr(audio, 'sample_rate', 16000)
+            if sample_rate != 16000:
+                # SpeechRecognition usually provides 16000; if not, skip VAD
+                return True
+            raw = audio.get_raw_data(convert_rate=16000, convert_width=2)
+            frame_ms = 30
+            frame_len = int(16000 * (frame_ms/1000.0)) * 2  # bytes for 16-bit mono
+            voiced = 0
+            total = 0
+            for i in range(0, len(raw), frame_len):
+                chunk = raw[i:i+frame_len]
+                if len(chunk) < frame_len:
+                    break
+                total += 1
+                if vad.is_speech(chunk, 16000):
+                    voiced += 1
+            if total == 0:
+                return False
+            # Consider speech present if >20% frames voiced
+            return (voiced / total) >= 0.2
+        except Exception as e:
+            logging.debug(f"VAD check failed, ignoring: {e}")
+            return True
+
     def listen_for_speech(self, prompt: str = "Listening...") -> Optional[str]:
         """
         Listen for speech input and convert to text.
@@ -112,6 +185,14 @@ class VoiceInterface:
                 )
             
             print("🔄 Processing speech...")
+            
+            # Optional VAD screening to avoid false triggers in noise
+            try:
+                if not self._audio_contains_speech(audio):
+                    print("⚠️ No clear speech detected (VAD)")
+                    return None
+            except Exception:
+                pass
             
             # Try to recognize speech with multiple languages
             languages_to_try = [self.language, 'en-IN', 'hi-IN', 'en-US', 'en']
@@ -208,6 +289,19 @@ class VoiceInterface:
         except Exception as e:
             logging.error(f"Error getting EdgeTTS voices: {e}")
             return {}
+
+    @staticmethod
+    def list_microphones() -> List[dict]:
+        """List available microphone devices with indices"""
+        try:
+            names = sr.Microphone.list_microphone_names()
+            result = []
+            for idx, nm in enumerate(names):
+                result.append({"id": idx, "name": nm or f"Device {idx}"})
+            return result
+        except Exception as e:
+            logging.error(f"Error listing microphones: {e}")
+            return []
     
     def set_voice(self, voice_name: str) -> bool:
         """Set EdgeTTS voice by name."""
@@ -263,6 +357,83 @@ class VoiceInterface:
             print(f"❌ Test failed: {e}")
             return False
     
+    def start_stream_listen_loop(self, on_text, segment_silence_ms: int = 600, min_speech_ms: int = 300) -> None:
+        """Continuous listening with VAD endpointing; calls on_text(text) per utterance.
+        Requires PyAudio and (optionally) webrtcvad for robust endpointing.
+        """
+        if not self._have_pyaudio:
+            logging.warning("Streaming listen not available (PyAudio missing). Using fallback loop.")
+            # Fallback: basic loop with blocking listen
+            while True:
+                text = self.get_voice_input("Listening...")
+                if text:
+                    on_text(text)
+            return
+        # Initialize PyAudio stream
+        pa = pyaudio.PyAudio()
+        sample_rate = 16000
+        channels = 1
+        width = 2  # 16-bit
+        frame_ms = 30
+        frame_bytes = int(sample_rate * (frame_ms / 1000.0)) * width
+        vad = webrtcvad.Vad(2) if self.use_vad and _HAVE_VAD else None
+        stream = pa.open(format=pyaudio.paInt16, channels=channels, rate=sample_rate, input=True,
+                         frames_per_buffer=frame_bytes, stream_callback=None)
+        try:
+            stream.start_stream()
+            voiced_frames: List[bytes] = []
+            in_speech = False
+            silence_acc_ms = 0
+            speech_acc_ms = 0
+            while True:
+                data = stream.read(frame_bytes, exception_on_overflow=False)
+                is_speech = True
+                if vad is not None:
+                    try:
+                        is_speech = vad.is_speech(data, sample_rate)
+                    except Exception:
+                        is_speech = True
+                if is_speech:
+                    voiced_frames.append(data)
+                    in_speech = True
+                    silence_acc_ms = 0
+                    speech_acc_ms += frame_ms
+                else:
+                    if in_speech:
+                        silence_acc_ms += frame_ms
+                        # If enough silence and we have enough speech, finalize utterance
+                        if silence_acc_ms >= segment_silence_ms and speech_acc_ms >= min_speech_ms:
+                            raw = b"".join(voiced_frames)
+                            try:
+                                audio = sr.AudioData(raw, sample_rate, width)
+                                text = self.recognizer.recognize_google(audio, language=self.language)
+                                if text and text.strip():
+                                    on_text(text.strip())
+                            except sr.UnknownValueError:
+                                pass
+                            except Exception as e:
+                                logging.debug(f"Streaming recognition error: {e}")
+                            # reset
+                            voiced_frames.clear()
+                            in_speech = False
+                            silence_acc_ms = 0
+                            speech_acc_ms = 0
+                        elif silence_acc_ms >= segment_silence_ms:
+                            # No sufficient speech; reset
+                            voiced_frames.clear()
+                            in_speech = False
+                            silence_acc_ms = 0
+                            speech_acc_ms = 0
+                # Throttle a tiny bit to avoid busy loop
+                time.sleep(0.001)
+        finally:
+            try:
+                stream.stop_stream()
+                stream.close()
+            except Exception:
+                pass
+            pa.terminate()
+
     def cleanup(self) -> None:
         """Cleanup resources."""
         try:
@@ -294,6 +465,34 @@ class VoiceChatSession:
         # Welcome message in Hinglish
         welcome_msg = "Namaste! Main aapki realistic voice assistant hun. Aap mujhse baat kar sakte hain ya mujhe nayi cheezein sikha sakte hain. 'Bye' kahkar chat band kar sakte hain."
         self.voice_interface.speak_text(welcome_msg)
+        
+        # If streaming listen is available and enabled, use it
+        if getattr(self.voice_interface, 'stream_listen', False) and getattr(self.voice_interface, '_have_pyaudio', False):
+            def _on_text(txt: str):
+                if not txt:
+                    return
+                lower = txt.lower()
+                if any(word in lower for word in ['bye', 'baay', 'exit', 'quit', 'goodbye']):
+                    self.voice_interface.speak_text("Alvida! Phir milenge. Dhanyawad realistic voice experience ke liye!")
+                    self.stop_session()
+                    return
+                if self._is_teaching_command(txt):
+                    self._handle_teaching(txt)
+                else:
+                    try:
+                        response = self.chatbot.process_message(txt)
+                        self.voice_interface.speak_text(response)
+                    except Exception as e:
+                        logging.error(f"Error generating response: {e}")
+                        self.voice_interface.speak_text("कुछ गलती हुई है। कृपया दोबारा कोशिश करें।")
+            try:
+                self.voice_interface.start_stream_listen_loop(_on_text)
+            except KeyboardInterrupt:
+                self.voice_interface.speak_text("Voice chat बंद हो रहा है।")
+                self.is_active = False
+            except Exception as e:
+                logging.error(f"Streaming listen failed, falling back: {e}")
+                # Fallback to blocking loop
         
         while self.is_active:
             try:

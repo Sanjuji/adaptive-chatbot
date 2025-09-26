@@ -6,7 +6,7 @@ import sqlite3
 import json
 import logging
 from datetime import datetime
-from typing import List, Dict, Any, Optional
+from typing import List, Dict, Any, Optional, Tuple
 from pathlib import Path
 
 
@@ -24,10 +24,20 @@ class KnowledgeStore:
         logging.info(f"KnowledgeStore initialized with database: {self.db_path}")
     
     def _init_database(self) -> None:
-        """Initialize the database schema."""
+        """Initialize the database schema with WAL and optional FTS5."""
         try:
             with sqlite3.connect(self.db_path) as conn:
                 cursor = conn.cursor()
+
+                # Pragmas for performance and durability
+                try:
+                    cursor.execute("PRAGMA journal_mode=WAL;")
+                    cursor.execute("PRAGMA synchronous=NORMAL;")
+                    cursor.execute("PRAGMA temp_store=MEMORY;")
+                    # Cache size in pages; set ~64MB (assuming 4096-byte pages -> -16384 pages)
+                    cursor.execute("PRAGMA cache_size=-16384;")
+                except Exception as pe:
+                    logging.warning(f"Failed to set SQLite pragmas: {pe}")
                 
                 # Create knowledge table
                 cursor.execute("""
@@ -71,8 +81,40 @@ class KnowledgeStore:
                     )
                 """)
                 
+                # Create FTS5 virtual table and triggers (if available)
+                try:
+                    cursor.execute(
+                        "CREATE VIRTUAL TABLE IF NOT EXISTS knowledge_fts USING fts5(\n"
+                        "  input,\n"
+                        "  response,\n"
+                        "  content='knowledge',\n"
+                        "  content_rowid='id',\n"
+                        "  tokenize='unicode61'\n"
+                        ");"
+                    )
+                    # Triggers to keep FTS in sync
+                    cursor.execute(
+                        "CREATE TRIGGER IF NOT EXISTS knowledge_ai AFTER INSERT ON knowledge BEGIN\n"
+                        "  INSERT INTO knowledge_fts(rowid, input, response) VALUES (new.id, new.input, new.response);\n"
+                        "END;"
+                    )
+                    cursor.execute(
+                        "CREATE TRIGGER IF NOT EXISTS knowledge_ad AFTER DELETE ON knowledge BEGIN\n"
+                        "  INSERT INTO knowledge_fts(knowledge_fts, rowid, input, response) VALUES('delete', old.id, old.input, old.response);\n"
+                        "END;"
+                    )
+                    cursor.execute(
+                        "CREATE TRIGGER IF NOT EXISTS knowledge_au AFTER UPDATE ON knowledge BEGIN\n"
+                        "  INSERT INTO knowledge_fts(knowledge_fts, rowid, input, response) VALUES('delete', old.id, old.input, old.response);\n"
+                        "  INSERT INTO knowledge_fts(rowid, input, response) VALUES (new.id, new.input, new.response);\n"
+                        "END;"
+                    )
+                    logging.info("SQLite FTS5 enabled for knowledge table")
+                except sqlite3.OperationalError as fe:
+                    logging.warning(f"FTS5 not available or failed to initialize: {fe}")
+                
                 conn.commit()
-                logging.info("Database schema initialized successfully")
+                logging.info("Database schema initialized successfully (WAL, indices, FTS if available)")
                 
         except Exception as e:
             logging.error(f"Error initializing database: {e}")
@@ -154,7 +196,17 @@ class KnowledgeStore:
             return []
     
     def search_by_keywords(self, keywords: List[str], domain: str = None) -> List[Dict[str, Any]]:
-        """Search knowledge by keywords."""
+        """Search knowledge by keywords (FTS5 if available, otherwise LIKE)."""
+        try:
+            # Try FTS5 first using joined MATCH query
+            query_text = ' '.join(keywords)
+            fts_results = self.search_fulltext(query_text, domain=domain, limit=10)
+            if fts_results:
+                return fts_results
+        except Exception as _:
+            # Ignore and fallback to LIKE
+            pass
+        
         try:
             with sqlite3.connect(self.db_path) as conn:
                 conn.row_factory = sqlite3.Row
@@ -296,6 +348,23 @@ class KnowledgeStore:
         except Exception as e:
             logging.error(f"Error getting all knowledge: {e}")
             return []
+
+    def get_inputs_for_domain(self, domain: Optional[str] = None) -> List[Tuple[int, str]]:
+        """Return list of (id, input) for building semantic indexes."""
+        items: List[Tuple[int, str]] = []
+        try:
+            with sqlite3.connect(self.db_path) as conn:
+                conn.row_factory = sqlite3.Row
+                cursor = conn.cursor()
+                if domain:
+                    cursor.execute("SELECT id, input FROM knowledge WHERE domain = ? ORDER BY id ASC", (domain,))
+                else:
+                    cursor.execute("SELECT id, input FROM knowledge ORDER BY id ASC")
+                for row in cursor.fetchall():
+                    items.append((row["id"], row["input"]))
+        except Exception as e:
+            logging.error(f"Error fetching inputs for domain: {e}")
+        return items
     
     def get_stats(self) -> Dict[str, Any]:
         """Get statistics about the knowledge store."""
@@ -346,6 +415,117 @@ class KnowledgeStore:
         except Exception as e:
             logging.error(f"Error getting stats: {e}")
             return {}
+
+    # -------------------- Metadata utilities --------------------
+    def update_metadata(self, knowledge_id: int, updates: Dict[str, Any]) -> bool:
+        """Merge update keys into the metadata JSON for a knowledge row."""
+        try:
+            with sqlite3.connect(self.db_path) as conn:
+                conn.row_factory = sqlite3.Row
+                cursor = conn.cursor()
+                cursor.execute("SELECT metadata FROM knowledge WHERE id = ?", (knowledge_id,))
+                row = cursor.fetchone()
+                if not row:
+                    return False
+                current_meta = {}
+                if row["metadata"]:
+                    try:
+                        current_meta = json.loads(row["metadata"]) or {}
+                    except Exception:
+                        current_meta = {}
+                current_meta.update(updates or {})
+                cursor.execute("UPDATE knowledge SET metadata = ?, updated_at = ? WHERE id = ?",
+                               (json.dumps(current_meta), datetime.now().isoformat(), knowledge_id))
+                conn.commit()
+                return cursor.rowcount > 0
+        except Exception as e:
+            logging.error(f"Error updating metadata: {e}")
+            return False
+
+    def set_validation_status(self, knowledge_id: int, status: str) -> bool:
+        """Set validation_status in metadata for the given knowledge row."""
+        return self.update_metadata(knowledge_id, {"validation_status": status})
+
+    def get_pending_knowledge(self, domain: Optional[str] = None, limit: int = 100) -> List[Dict[str, Any]]:
+        """Return rows whose metadata indicates validation_status == 'pending'."""
+        try:
+            with sqlite3.connect(self.db_path) as conn:
+                conn.row_factory = sqlite3.Row
+                cursor = conn.cursor()
+                if domain:
+                    cursor.execute(
+                        """
+                        SELECT * FROM knowledge 
+                        WHERE domain = ? AND metadata LIKE '%"validation_status": "pending"%'
+                        ORDER BY created_at DESC LIMIT ?
+                        """,
+                        (domain, limit)
+                    )
+                else:
+                    cursor.execute(
+                        """
+                        SELECT * FROM knowledge 
+                        WHERE metadata LIKE '%"validation_status": "pending"%'
+                        ORDER BY created_at DESC LIMIT ?
+                        """,
+                        (limit,)
+                    )
+                results: List[Dict[str, Any]] = []
+                for row in cursor.fetchall():
+                    item = dict(row)
+                    if item.get('metadata'):
+                        try:
+                            md = json.loads(item['metadata'])
+                            item.update(md)
+                        except Exception:
+                            pass
+                    results.append(item)
+                return results
+        except Exception as e:
+            logging.error(f"Error getting pending knowledge: {e}")
+            return []
+
+    def search_fulltext(self, query_text: str, domain: Optional[str] = None, limit: int = 10) -> List[Dict[str, Any]]:
+        """Full-text search using FTS5 if available, with safe fallbacks."""
+        results: List[Dict[str, Any]] = []
+        try:
+            with sqlite3.connect(self.db_path) as conn:
+                conn.row_factory = sqlite3.Row
+                cursor = conn.cursor()
+                # First try with bm25 ranking if supported
+                sql = (
+                    "SELECT k.*, k.id as kid FROM knowledge_fts f "
+                    "JOIN knowledge k ON k.id = f.rowid "
+                    "WHERE f MATCH ?"
+                )
+                params: List[Any] = [query_text]
+                if domain:
+                    sql += " AND k.domain = ?"
+                    params.append(domain)
+                try:
+                    sql_ranked = sql + " ORDER BY bm25(f) LIMIT ?"
+                    params_ranked = params + [limit]
+                    cursor.execute(sql_ranked, params_ranked)
+                except sqlite3.OperationalError:
+                    # Fallback without bm25
+                    sql_plain = sql + " LIMIT ?"
+                    params_plain = params + [limit]
+                    cursor.execute(sql_plain, params_plain)
+                for row in cursor.fetchall():
+                    item = dict(row)
+                    if item.get('metadata'):
+                        try:
+                            md = json.loads(item['metadata'])
+                            item.update(md)
+                        except Exception:
+                            pass
+                    results.append(item)
+        except sqlite3.OperationalError as e:
+            # No FTS table - return empty to allow fallback
+            logging.debug(f"FTS search unavailable: {e}")
+        except Exception as e:
+            logging.error(f"Error in FTS search: {e}")
+        return results
     
     def log_conversation(self, session_id: str, message_type: str, 
                         message: str, response: str = None, 

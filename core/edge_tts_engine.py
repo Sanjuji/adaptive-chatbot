@@ -15,6 +15,13 @@ from concurrent.futures import ThreadPoolExecutor
 import time
 from core.hinglish_voice_processor import hinglish_processor
 
+# Optional streaming playback via PyAudio
+try:
+    import pyaudio  # type: ignore
+    _HAVE_PYAUDIO = True
+except Exception:
+    _HAVE_PYAUDIO = False
+
 logger = logging.getLogger(__name__)
 
 class EdgeTTSEngine:
@@ -63,14 +70,15 @@ class EdgeTTSEngine:
         self.volume = 0.8
         self.temp_dir = tempfile.gettempdir()
         self.executor = ThreadPoolExecutor(max_workers=2)
+        self.streaming_enabled = True  # Prefer streaming when PyAudio is available
         
-        # Initialize pygame mixer for audio playback
+        # Initialize pygame mixer for fallback audio playback
         try:
             pygame.mixer.init(frequency=22050, size=-16, channels=2, buffer=512)
-            logger.info("EdgeTTS: Pygame mixer initialized")
+            logger.info("EdgeTTS: Pygame mixer initialized (fallback player)")
         except Exception as e:
             logger.error(f"EdgeTTS: Failed to initialize pygame mixer: {e}")
-            raise
+            # Do not raise; streaming path might still work with PyAudio
     
     def set_voice(self, voice_name: str) -> bool:
         """Set the current voice"""
@@ -96,7 +104,7 @@ class EdgeTTSEngine:
         return success
     
     async def _generate_speech_async(self, text: str, output_file: str) -> bool:
-        """Generate speech asynchronously using EdgeTTS"""
+        """Generate speech asynchronously using EdgeTTS (file-based fallback)."""
         try:
             voice_config = self.available_voices[self.current_voice]
             
@@ -128,10 +136,9 @@ class EdgeTTSEngine:
             communicate = edge_tts.Communicate(
                 text=clean_text,
                 voice=voice_config['voice']
-                # Removing rate and pitch parameters to prevent leakage
             )
             
-            # Save to file
+            # Save to file (mp3)
             await communicate.save(output_file)
             
             if os.path.exists(output_file) and os.path.getsize(output_file) > 0:
@@ -162,6 +169,33 @@ class EdgeTTSEngine:
             logger.error(f"EdgeTTS: Audio playback failed: {e}")
             return False
     
+    async def _stream_pcm_async(self, text: str) -> bool:
+        """Stream PCM audio via PyAudio while synthesizing with EdgeTTS."""
+        if not _HAVE_PYAUDIO:
+            return False
+        try:
+            voice_config = self.available_voices[self.current_voice]
+            communicate = edge_tts.Communicate(text=text, voice=voice_config['voice'])
+            pa = pyaudio.PyAudio()
+            stream = pa.open(format=pyaudio.paInt16, channels=1, rate=16000, output=True, frames_per_buffer=1024)
+            try:
+                async for chunk in communicate.stream(output_format="raw-16khz-16bit-mono-pcm"):
+                    if chunk["type"].lower() == "audio":
+                        data = chunk.get("data", b"")
+                        if data:
+                            stream.write(data)
+                return True
+            finally:
+                try:
+                    stream.stop_stream()
+                    stream.close()
+                except Exception:
+                    pass
+                pa.terminate()
+        except Exception as e:
+            logger.error(f"EdgeTTS: Streaming synthesis failed: {e}")
+            return False
+
     def speak(self, text: str, blocking: bool = True, auto_voice_select: bool = True) -> bool:
         """
         Speak the given text using realistic EdgeTTS voice with intelligent processing
@@ -238,11 +272,36 @@ class EdgeTTSEngine:
                         self.set_voice(original_voice)
                     return False
             
+            # Prefer streaming path when possible
+            if self.streaming_enabled and _HAVE_PYAUDIO:
+                def stream_task() -> bool:
+                    try:
+                        # Handle async context
+                        try:
+                            loop = asyncio.get_running_loop()
+                            fut = asyncio.run_coroutine_threadsafe(self._stream_pcm_async(processed_text), loop)
+                            return fut.result(timeout=30)
+                        except RuntimeError:
+                            loop = asyncio.new_event_loop()
+                            asyncio.set_event_loop(loop)
+                            try:
+                                return loop.run_until_complete(self._stream_pcm_async(processed_text))
+                            finally:
+                                loop.close()
+                    except Exception as e:
+                        logger.error(f"EdgeTTS: Streaming task failed, falling back: {e}")
+                        return False
+                # Try streaming, fallback to file if it fails
+                ok = stream_task() if blocking else self.executor.submit(stream_task) or True
+                if ok:
+                    return True
+                # fallthrough to file-based path
+            
             if blocking:
                 return speech_task()
             else:
                 # Run in background thread
-                future = self.executor.submit(speech_task)
+                self.executor.submit(speech_task)
                 return True
                 
         except Exception as e:
