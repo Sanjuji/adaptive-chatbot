@@ -1,0 +1,403 @@
+# Adaptive Chatbot - Production Configuration
+# Optimized for performance, scalability, and production deployment
+# Version: 2.0 (Performance Optimized)
+
+# =============================================================================
+# CORE APPLICATION SETTINGS
+# =============================================================================
+app:
+  name: "Adaptive Chatbot Pro"
+  version: "2.0"
+  environment: "production"
+  debug: false
+  log_level: "INFO"
+  max_workers: 4
+  enable_metrics: true
+  
+  # Performance optimizations
+  lazy_loading: true
+  preload_critical_models: true
+  enable_caching: true
+  
+# =============================================================================
+# MODEL OPTIMIZATION SETTINGS  
+# =============================================================================
+models:
+  # Lazy loading configuration
+  lazy_loading:
+    enabled: true
+    load_on_demand: true
+    unload_unused: true
+    unload_timeout: 1800  # 30 minutes
+    
+  # Quantization settings
+  quantization:
+    enabled: true
+    bits: 8  # 8-bit quantization
+    optimize_for_inference: true
+    
+  # Model-specific settings
+  sentence_transformer:
+    model_name: "all-MiniLM-L6-v2"
+    lazy_load: true
+    cache_folder: "./models/sentence_transformers"
+    device: "auto"  # Automatically select best device
+    quantize: true
+    
+  nlp:
+    model_name: "en_core_web_sm" 
+    lazy_load: true
+    disable_unused_pipes: ["ner", "parser"]  # Keep only tokenizer, tagger
+    
+  # Memory limits
+  memory_limits:
+    max_model_memory_mb: 1500  # Limit per model
+    total_memory_limit_mb: 4000  # Total system limit
+    enable_monitoring: true
+
+# =============================================================================
+# CACHING CONFIGURATION
+# =============================================================================
+cache:
+  # Query cache (knowledge retrieval)
+  query_cache:
+    enabled: true
+    max_size: 2000
+    ttl_seconds: 600  # 10 minutes
+    
+  # Embedding cache
+  embedding_cache:
+    enabled: true
+    max_size: 5000
+    ttl_seconds: 1800  # 30 minutes
+    
+  # Response cache
+  response_cache:
+    enabled: true
+    max_size: 1000
+    ttl_seconds: 300  # 5 minutes
+    
+  # Voice synthesis cache
+  voice_cache:
+    enabled: true
+    max_size: 500
+    ttl_seconds: 3600  # 1 hour
+    cleanup_on_exit: true
+
+# =============================================================================
+# KNOWLEDGE RETRIEVAL OPTIMIZATION
+# =============================================================================
+knowledge:
+  # Database settings
+  database:
+    path: "./data/knowledge_production.db"
+    pool_size: 10
+    enable_wal: true  # Write-ahead logging
+    cache_size_mb: 50
+    vacuum_interval_hours: 24
+    
+  # Search optimization
+  search:
+    similarity_threshold: 0.65  # Slightly lower for better recall
+    max_results: 10
+    enable_semantic_search: true
+    enable_fulltext_fallback: true
+    
+  # FAISS index settings
+  vector_index:
+    enabled: true
+    index_type: "IVFFlat"  # Best for medium datasets
+    nlist: 100  # Number of clusters
+    nprobe: 10  # Number of clusters to search
+    rebuild_threshold: 1000  # Rebuild after N new entries
+    
+  # Batch processing
+  batch_processing:
+    enabled: true
+    batch_size: 32
+    max_wait_time_ms: 100
+
+# =============================================================================
+# VOICE SYNTHESIS OPTIMIZATION
+# =============================================================================
+voice:
+  # Streaming EdgeTTS settings
+  edge_tts:
+    enabled: true
+    streaming: true
+    chunk_size: 1024
+    buffer_size: 8192
+    max_concurrent: 3
+    
+  # Voice settings
+  default_voice: "hi-IN-MadhurNeural"  # Hindi voice
+  fallback_voice: "en-US-AriaNeural"
+  speech_rate: "+0%"
+  speech_pitch: "+0Hz"
+  
+  # Audio optimization
+  audio:
+    sample_rate: 22050  # Optimized for quality/size
+    channels: 1  # Mono for efficiency
+    format: "mp3"  # Compressed format
+    quality: 128  # kbps
+    
+  # Caching and cleanup
+  cache_audio: true
+  cleanup_temp_files: true
+  max_audio_cache_mb: 100
+
+# =============================================================================
+# MEMORY MANAGEMENT
+# =============================================================================
+memory:
+  # Smart memory manager settings
+  manager:
+    enabled: true
+    check_interval_minutes: 5
+    cleanup_threshold_mb: 3000  # Start cleanup at 3GB
+    aggressive_threshold_mb: 3500  # Aggressive cleanup at 3.5GB
+    
+  # Conversation management
+  conversations:
+    max_history_length: 20  # Limit conversation history
+    auto_prune: true
+    prune_after_minutes: 60
+    compress_old_conversations: true
+    
+  # Model unloading
+  model_management:
+    auto_unload: true
+    unload_after_minutes: 30
+    keep_critical_models: ["sentence_transformer"]
+    
+  # Garbage collection
+  gc:
+    enabled: true
+    frequency_minutes: 10
+    force_gc_threshold_mb: 4000
+
+# =============================================================================
+# BUSINESS DOMAIN SETTINGS
+# =============================================================================
+business:
+  electrical:
+    enabled: true
+    inventory_check: true
+    pricing_enabled: true
+    installation_services: true
+    
+    # Product categories
+    categories:
+      - "switches"
+      - "wires" 
+      - "mcb"
+      - "led_lights"
+      - "fans"
+      - "sockets"
+      
+    # Price ranges (in INR)
+    price_ranges:
+      switches: [30, 500]
+      wires: [10, 50]  # per meter
+      mcb: [80, 300]
+      led_lights: [100, 2000]
+      fans: [800, 8000]
+      sockets: [25, 200]
+
+# =============================================================================
+# MULTILINGUAL SETTINGS
+# =============================================================================
+languages:
+  # Supported languages
+  supported: ["hi", "en", "hi-en"]  # Hindi, English, Hinglish
+  default: "hi"
+  
+  # Language detection
+  detection:
+    enabled: true
+    confidence_threshold: 0.7
+    fallback_to_default: true
+    
+  # Code-switching (Hinglish) handling
+  code_switching:
+    enabled: true
+    segment_threshold: 0.6
+    preserve_context: true
+
+# =============================================================================
+# LOGGING AND MONITORING
+# =============================================================================
+logging:
+  level: "INFO"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  
+  # File logging
+  file:
+    enabled: true
+    path: "./logs/chatbot.log"
+    max_size_mb: 10
+    backup_count: 5
+    rotation: "daily"
+    
+  # Performance logging
+  performance:
+    enabled: true
+    log_slow_queries: true
+    slow_query_threshold_ms: 1000
+    log_memory_usage: true
+    
+  # Error tracking
+  errors:
+    log_stack_traces: true
+    alert_on_critical: true
+    max_error_rate_per_minute: 10
+
+# =============================================================================
+# API AND WEB INTERFACE
+# =============================================================================
+api:
+  # FastAPI settings (for future web interface)
+  host: "0.0.0.0"
+  port: 8000
+  workers: 2
+  
+  # Security
+  cors_enabled: true
+  rate_limiting:
+    enabled: true
+    requests_per_minute: 60
+    burst_limit: 10
+    
+  # Request/Response optimization
+  compression: true
+  response_timeout_seconds: 30
+
+# =============================================================================
+# DEVELOPMENT AND TESTING
+# =============================================================================
+development:
+  # Hot reload (disabled in production)
+  hot_reload: false
+  
+  # Testing
+  test_mode: false
+  mock_external_apis: false
+  
+  # Debugging
+  profile_performance: false
+  dump_conversation_logs: false
+
+# =============================================================================
+# FEATURE FLAGS
+# =============================================================================
+features:
+  # Core features
+  voice_synthesis: true
+  knowledge_learning: true  
+  business_intelligence: true
+  multilingual_support: true
+  
+  # Advanced features  
+  context_awareness: true
+  personality_adaptation: true
+  error_recovery: true
+  
+  # Experimental features (disabled in production)
+  experimental_nlp: false
+  beta_voice_models: false
+  advanced_reasoning: false
+
+# =============================================================================
+# PERFORMANCE THRESHOLDS
+# =============================================================================
+performance:
+  # Response time targets (milliseconds)
+  targets:
+    text_response: 500  # Max text response time
+    voice_synthesis: 2000  # Max voice generation time
+    knowledge_search: 100  # Max knowledge retrieval time
+    
+  # Resource limits
+  limits:
+    max_concurrent_requests: 10
+    max_query_length: 500
+    max_response_length: 1000
+    
+  # Monitoring and alerts
+  monitoring:
+    enabled: true
+    alert_slow_responses: true
+    alert_high_memory: true
+    alert_error_rate: true
+    
+# =============================================================================
+# DATA PERSISTENCE
+# =============================================================================
+persistence:
+  # Database settings
+  databases:
+    knowledge: "./data/knowledge_production.db"
+    conversations: "./data/conversations_production.db"
+    metrics: "./data/metrics_production.db"
+    
+  # Backup settings
+  backup:
+    enabled: true
+    frequency_hours: 24
+    keep_backups: 7
+    compress: true
+    
+  # Data retention
+  retention:
+    conversations_days: 30
+    metrics_days: 90
+    logs_days: 14
+    temp_files_hours: 6
+
+# =============================================================================
+# SECURITY SETTINGS
+# =============================================================================
+security:
+  # Input validation
+  validation:
+    max_input_length: 1000
+    filter_malicious_input: true
+    sanitize_output: true
+    
+  # Rate limiting
+  rate_limiting:
+    enabled: true
+    max_requests_per_hour: 1000
+    cooldown_minutes: 5
+    
+  # Privacy
+  privacy:
+    anonymize_logs: true
+    encrypt_sensitive_data: false  # Set to true if handling sensitive data
+    data_retention_days: 30
+
+# =============================================================================
+# DEPLOYMENT CONFIGURATION  
+# =============================================================================
+deployment:
+  # Environment
+  platform: "local"  # local, docker, cloud
+  scale_type: "single"  # single, multi-instance
+  
+  # Health checks
+  health_checks:
+    enabled: true
+    endpoint: "/health"
+    interval_seconds: 30
+    
+  # Graceful shutdown
+  shutdown:
+    timeout_seconds: 30
+    save_state: true
+    
+  # Container settings (for Docker deployment)
+  container:
+    memory_limit: "4g"
+    cpu_limit: "2.0"
+    restart_policy: "unless-stopped"
