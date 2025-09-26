@@ -1,0 +1,27 @@
+# Base Application Configuration
+
+app:
+  name: "Adaptive Chatbot"
+  version: "2.0.0"
+  log_level: "INFO"
+
+state:
+  provider: "local_file" # Can be 'redis', 'database', etc.
+  path: "state/"
+  session_timeout_minutes: 60
+
+conversation:
+  default_language: "en"
+  enable_history: true
+  max_history_length: 20
+
+voice:
+  enabled: true
+  provider: "edgetts" # Can be 'google', 'pyttsx3'
+  recognition_timeout: 10
+  default_language: "en-US"
+
+learning:
+  enabled: true
+  confidence_threshold: 0.7
+  auto_save: true

@@ -1,0 +1,17 @@
+models:
+  intent_classifier:
+    path: "nlp/models/intent_classifier_v2.1"
+    type: "transformer"
+    framework: "pytorch"
+  entity_extractor:
+    path: "nlp/models/ner_model_v1.5"
+    type: "spacy" # Example of using a different framework
+
+processing:
+  language_detection_confidence: 0.65
+  default_fallback_intent: "general_inquiry"
+
+training:
+  batch_size: 16
+  learning_rate: 0.00002
+  epochs: 3

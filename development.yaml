@@ -1,0 +1,9 @@
+app:
+  log_level: "DEBUG"
+
+nlp:
+  model_path: "assets/models/dev_model"
+  use_gpu: false
+
+voice:
+  provider: "pyttsx3" # Use a local, faster engine for dev

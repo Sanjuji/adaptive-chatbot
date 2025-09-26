@@ -1,0 +1,15 @@
+app:
+  log_level: "WARNING"
+
+nlp:
+  model_path: "assets/models/prod_model_quantized"
+  use_gpu: true
+
+voice:
+  provider: "edgetts"
+  recognition_timeout: 8
+
+state:
+  provider: "redis"
+  host: "prod-redis.internal"
+  port: 6379
