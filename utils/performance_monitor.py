@@ -20,7 +20,7 @@ from enum import Enum
 import weakref
 import gc
 
-from logger import log_info, log_error, log_warning
+from utils.logger import log_info, log_error, log_warning
 
 class AlertLevel(Enum):
     """Alert severity levels"""

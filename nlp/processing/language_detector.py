@@ -37,8 +37,8 @@ try:
 except ImportError:
     TRANSLATOR_AVAILABLE = False
 
-from logger import log_info, log_error, log_warning
-from performance_monitor import monitor_performance, MetricType, get_performance_monitor
+from utils.logger import log_info, log_error, log_warning
+from utils.performance_monitor import monitor_performance, MetricType, get_performance_monitor
 
 class LanguageCode(Enum):
     """Supported language codes"""

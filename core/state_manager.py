@@ -19,8 +19,8 @@ from enum import Enum
 import hashlib
 import re
 
-from logger import log_info, log_error, log_warning
-from performance_monitor import monitor_performance, MetricType, get_performance_monitor
+from utils.logger import log_info, log_error, log_warning
+from utils.performance_monitor import monitor_performance, MetricType, get_performance_monitor
 
 class ConversationState(Enum):
     """Current state of conversation"""

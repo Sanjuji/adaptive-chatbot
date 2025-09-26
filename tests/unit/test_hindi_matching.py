@@ -8,8 +8,8 @@ import sys
 import os
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
-from unified_learning_manager import get_learning_manager
-from hindi_transliterator import transliterate_hindi, normalize_hindi_query
+from core.adaptation_engine import get_learning_manager
+from nlp.processing.hindi_transliterator import transliterate_hindi, normalize_hindi_query
 import json
 
 def print_test_header(test_name):

@@ -7,7 +7,7 @@ Provides security and data integrity checks
 import re
 import html
 from typing import Any, Optional, Union, List, Dict
-from logger import log_warning, log_error
+from utils.logger import log_warning, log_error
 
 class InputValidator:
     """Comprehensive input validation and sanitization"""

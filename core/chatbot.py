@@ -14,15 +14,15 @@ import atexit
 
 # Import our modules with error handling
 try:
-    from config import config
-    from logger import log_info, log_error, log_warning
+    from configs.config import config
+    from utils.logger import log_info, log_error, log_warning
 except ImportError as e:
     print(f"❌ Critical dependency missing: {e}")
     print("Please ensure all required modules are in the same directory.")
     sys.exit(1)
 
 try:
-    from simple_voice import speak_simple as speak, listen_simple as listen, is_voice_ready as is_voice_available
+    from utils.simple_voice import speak_simple as speak, listen_simple as listen, is_voice_ready as is_voice_available
 except ImportError as e:
     print(f"❌ Voice interface unavailable: {e}")
     # Fallback to dummy functions
@@ -32,16 +32,16 @@ except ImportError as e:
     log_error(f"Voice interface disabled due to missing dependencies: {e}")
 
 try:
-    from unified_learning_manager import get_learning_manager, learn, ask, get_stats
+    from core.adaptation_engine import get_learning_manager, learn, ask, get_stats
 except ImportError as e:
     print(f"❌ Learning system unavailable: {e}")
     sys.exit(1)
 
 try:
-    from validators import sanitize_user_input, is_safe_input
-    from advanced_event_loop_manager import get_loop_manager, run_async_safely
-    from advanced_memory_manager import get_memory_manager, memory_monitor, register_memory_cleanup
-    from performance_monitoring_dashboard import get_performance_monitor, performance_timer
+    from utils.validator import sanitize_user_input, is_safe_input
+    from utils.advanced_event_loop_manager import get_loop_manager, run_async_safely
+    from utils.advanced_memory_manager import get_memory_manager, memory_monitor, register_memory_cleanup
+    from utils.performance_monitoring_dashboard import get_performance_monitor, performance_timer
 except ImportError as e:
     print(f"❌ Validation system unavailable: {e}")
     # Fallback to basic validation

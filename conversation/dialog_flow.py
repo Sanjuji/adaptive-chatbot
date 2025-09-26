@@ -18,7 +18,7 @@ import pickle
 import os
 
 try:
-    from logger import log_info, log_error, log_warning
+    from utils.logger import log_info, log_error, log_warning
 except ImportError:
     def log_info(msg): print(f"INFO - {msg}")
     def log_error(msg): print(f"ERROR - {msg}")

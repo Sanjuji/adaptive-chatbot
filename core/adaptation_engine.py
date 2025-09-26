@@ -10,10 +10,10 @@ from datetime import datetime
 from typing import Dict, Any, Optional, List, Tuple
 from pathlib import Path
 import threading
-from config import config
-from logger import log_info, log_error, log_warning, log_learning_event
-from validators import safe_input, validate_teaching_input
-from hindi_transliterator import transliterate_hindi, normalize_hindi_query, get_query_variations
+from configs.config import config
+from utils.logger import log_info, log_error, log_warning, log_learning_event
+from utils.validator import safe_input, validate_teaching_input
+from nlp.processing.hindi_transliterator import transliterate_hindi, normalize_hindi_query, get_query_variations
 
 class LearningManagerError(Exception):
     """Custom exception for learning manager errors"""
@@ -504,8 +504,8 @@ class UnifiedLearningManager:
         """Monitor memory usage and trigger cleanup if needed"""
         try:
             import sys
-            from advanced_memory_manager import get_memory_manager, memory_monitor, register_memory_cleanup
-            from advanced_circuit_breaker import circuit_breaker, get_circuit_breaker
+            from utils.advanced_memory_manager import get_memory_manager, memory_monitor, register_memory_cleanup
+            from utils.advanced_circuit_breaker import circuit_breaker, get_circuit_breaker
             # Get approximate memory usage
             kb_size = len(str(self.knowledge_base).encode('utf-8')) // 1024
             

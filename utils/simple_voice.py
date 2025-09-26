@@ -14,7 +14,7 @@ import threading
 import time
 import atexit
 from typing import Optional
-from logger import log_info, log_error, log_warning
+from utils.logger import log_info, log_error, log_warning
 
 class SimpleVoiceInterface:
     """Simple voice interface with EdgeTTS and basic speech recognition"""
@@ -78,8 +78,8 @@ class SimpleVoiceInterface:
             log_info(f"🔊 Speaking: {text[:50]}...")
             
             # Use advanced event loop manager for proper async handling
-            from advanced_event_loop_manager import get_loop_manager
-            from advanced_circuit_breaker import circuit_breaker, get_circuit_breaker
+            from utils.advanced_event_loop_manager import get_loop_manager
+            from utils.advanced_circuit_breaker import circuit_breaker, get_circuit_breaker
             
             loop_manager = get_loop_manager()
             audio_data = loop_manager.run_async_safely(

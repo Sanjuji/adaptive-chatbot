@@ -25,7 +25,7 @@ except ImportError as e:
     print(f"⚠️ Advanced NLP packages not available: {e}")
     TRANSFORMERS_AVAILABLE = False
 
-from logger import log_info, log_error, log_warning
+from utils.logger import log_info, log_error, log_warning
 
 # Set deterministic language detection
 DetectorFactory.seed = 0

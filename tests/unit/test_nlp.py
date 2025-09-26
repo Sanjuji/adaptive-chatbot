@@ -10,8 +10,8 @@ from datetime import datetime
 
 # Import the advanced NLP module
 try:
-    from advanced_nlp import get_nlp_engine, analyze_and_respond, detect_language
-    from logger import log_info, log_error
+    from nlp.advanced_nlp import get_nlp_engine, analyze_and_respond, detect_language
+    from utils.logger import log_info, log_error
 except ImportError as e:
     print(f"❌ Import error: {e}")
     sys.exit(1)
