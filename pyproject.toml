@@ -1,0 +1,50 @@
+[tool.ruff]
+line-length = 120
+indent-width = 4
+target-version = "py311"
+extend-exclude = [
+  ".venv",
+  "assets",
+  "data",
+  "logs",
+  "models",
+]
+
+[tool.ruff.lint]
+select = ["E", "F", "W"]
+ignore = [
+  "E501",  # line length handled by formatter/editorconfig
+]
+fixable = ["E", "F", "W"]
+unfixable = []
+
+[tool.ruff.format]
+quote-style = "preserve"
+indent-style = "space"
+skip-magic-trailing-comma = false
+
+[tool.mypy]
+python_version = "3.11"
+ignore_missing_imports = true
+warn_unused_ignores = false
+warn_redundant_casts = false
+warn_no_return = false
+disallow_untyped_defs = false
+disallow_incomplete_defs = false
+exclude = [
+  "\\.venv",
+  "^data/.*",
+  "^logs/.*",
+  "^models/.*",
+]
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+testpaths = [
+  "tests",
+]
+addopts = "-q"
+
+[build-system]
+requires = ["setuptools>=62.0"]
+build-backend = "setuptools.build_meta"

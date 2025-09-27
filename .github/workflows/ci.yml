@@ -1,0 +1,50 @@
+name: adaptive-chatbot-ci
+
+on:
+  push:
+    branches: [ main, master, develop ]
+  pull_request:
+    branches: [ main, master, develop ]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Upgrade pip
+        run: python -m pip install --upgrade pip
+
+      - name: Install app dependencies (pinned via constraints)
+        run: |
+          python -m pip install -r data/static/requirements.txt -c constraints-dev.txt
+
+      - name: Install tooling (ruff, mypy, pytest)
+        run: |
+          python -m pip install ruff mypy pytest
+
+      - name: Static checks (ruff)
+        run: |
+          python -m ruff check .
+
+      - name: Type checks (mypy - tolerant)
+        run: |
+          python -m mypy .
+
+      - name: Run tests
+        env:
+          APP_ENV: development
+          PYTHONIOENCODING: utf-8
+        run: |
+          pytest -q

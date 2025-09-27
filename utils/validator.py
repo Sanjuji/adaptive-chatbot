@@ -52,10 +52,8 @@ class InputValidator:
             
             # SQL injection patterns
             r"(union|select|insert|update|delete|drop|alter|create)\s+",
-            r"'\s*;\s*",
-            r'"\s*;\s*",
-            r"'\s*(or|and)\s+",
-            r'"\s*(or|and)\s+',
+            r"(?:'|\")\s*;\s*",
+            r"(?:'|\")\s*(?:or|and)\s+",
             
             # File operations
             r'(open|file|read|write)\s*\(',

@@ -1,4 +1,4 @@
-from advanced_nlp import get_nlp_engine
+from nlp.advanced_nlp import get_nlp_engine
 
 nlp = get_nlp_engine()
 

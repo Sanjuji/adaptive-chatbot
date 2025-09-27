@@ -77,27 +77,27 @@ class OptimizedEventLoopManager:
         """Run async coroutine safely in any context"""
         # Check if we're already in an async context
         try:
-            loop = asyncio.get_running_loop()
-            # We're in an async context, create task
-            return asyncio.create_task(coro)            except RuntimeError:
-                # Not in async context, continue to synchronous execution
-                pass
-        
+            # If a loop is running, schedule the coroutine as a task
+            asyncio.get_running_loop()
+            return asyncio.create_task(coro)
+        except RuntimeError:
+            # Not in async context; proceed to run synchronously
+            pass
+
         # Get or create event loop
         loop = self.get_or_create_loop()
-        
-        # If loop is running, schedule coroutine
+
+        # If loop is running, schedule coroutine thread-safely
         if loop.is_running():
             future = asyncio.run_coroutine_threadsafe(coro, loop)
             return future.result()
         else:
-            # Run in the loop
+            # Run to completion in this thread
             try:
                 return loop.run_until_complete(coro)
             finally:
-                # Keep loop open for potential reuse
+                # Keep loop open for potential reuse (no-op placeholder)
                 if loop and not loop.is_closed():
-                    # Store reference for cleanup later if needed
                     pass
     
     def cleanup(self):
@@ -382,8 +382,15 @@ import atexit
 
 def cleanup():
     """Cleanup all async resources"""
-    loop_manager = get_loop_manager()
-    loop_manager.cleanup()
+    # Do not create new resources during interpreter shutdown.
+    # Only clean up if a loop manager already exists.
+    global _loop_manager
+    if _loop_manager is not None:
+        try:
+            _loop_manager.cleanup()
+        except Exception:
+            # Best-effort cleanup during atexit
+            pass
 
 atexit.register(cleanup)
 
@@ -438,4 +445,4 @@ async def test_async_optimizations():
 
 if __name__ == "__main__":
     # Run tests
-    run_async_safe(test_async_optimizations())
+    run_async_safe(test_async_optimizations())

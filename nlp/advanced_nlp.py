@@ -27,6 +27,22 @@ except ImportError as e:
 
 from utils.logger import log_info, log_error, log_warning
 
+# Graceful fallback when langdetect isn't available
+# Ensure DetectorFactory and detect exist to prevent import-time errors in tests.
+if 'DetectorFactory' not in globals():
+    class _DummyDetectorFactory:
+        seed = 0
+    DetectorFactory = _DummyDetectorFactory
+
+if 'detect' not in globals():
+    def detect(text: str) -> str:
+        try:
+            # Simple heuristic: if Devanagari characters present, assume Hindi; else English
+            if re.search(r'[\u0900-\u097F]', text):
+                return 'hi'
+            return 'en'
+        except Exception:
+            return 'en'
 # Set deterministic language detection
 DetectorFactory.seed = 0
 
@@ -600,4 +616,4 @@ if __name__ == "__main__":
         print(f"Language: {result['language_info'].language_name}")
         print(f"Intent: {result['intent_info']['intent']}")
         print(f"Response: {result['response_text']}")
-        print(f"Suggested Voice: {result['suggested_voice']}")
+        print(f"Suggested Voice: {result['suggested_voice']}")

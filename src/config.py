@@ -99,7 +99,7 @@ class Config:
         self._setup_logging()
     
     def _load_config(self) -> None:
-        """Load configuration from YAML files with overlays.
+        """Load configuration from YAML files with overlays (schema-aware).
         Precedence (later overrides earlier):
         1) configs/app_config.yaml
         2) configs/nlp_config.yaml
@@ -107,6 +107,16 @@ class Config:
         4) configs/config_production.yaml (canonical)
         5) legacy config/config.yaml (user overrides)
         """
+        def _apply_dict(d: dict) -> None:
+            """Recursively apply dict values to known attributes on self."""
+            for k, v in (d or {}).items():
+                if isinstance(v, dict):
+                    # Recurse to allow nested structures such as app:, voice: etc.
+                    _apply_dict(v)
+                else:
+                    if hasattr(self, k):
+                        setattr(self, k, v)
+
         def _merge_from_file(path: Path):
             if not path.exists():
                 return
@@ -114,9 +124,7 @@ class Config:
                 with open(path, 'r', encoding='utf-8') as f:
                     data = yaml.safe_load(f) or {}
                 if isinstance(data, dict):
-                    for key, value in data.items():
-                        if hasattr(self, key):
-                            setattr(self, key, value)
+                    _apply_dict(data)
                 logging.info(f"Loaded config overlay: {path}")
             except Exception as e:
                 logging.warning(f"Failed to load overlay {path}: {e}")

@@ -587,3 +587,26 @@ class UnifiedLearningManager:
             
         except Exception as e:
             self.logger.error("Learning manager cleanup failed", exc_info=True)
+
+# Backward-compatible provider for tests and external callers
+# Exposes get_learning_manager() returning a singleton UnifiedLearningManager.
+# Avoids hard dependency on utils.logger at import time by falling back to stdlib logging.
+_LM_SINGLETON = None
+
+def get_learning_manager():
+    """Return a process-wide singleton of UnifiedLearningManager."""
+    global _LM_SINGLETON
+    if _LM_SINGLETON is not None:
+        return _LM_SINGLETON
+    try:
+        # Prefer project logger if available
+        from utils.logger import get_logger  # lazy import to avoid import-time failures
+        logger = get_logger()
+    except Exception:
+        # Fallback: minimal stdlib logger
+        import logging
+        logger = logging.getLogger("AdaptiveChatbot")
+        if not logger.handlers:
+            logging.basicConfig(level=logging.INFO)
+    _LM_SINGLETON = UnifiedLearningManager(logger)
+    return _LM_SINGLETON

@@ -1,1 +1,557 @@
 2025-09-26 08:46:50,874 - AdaptiveChatbot - ERROR - chatbot:33 - Voice interface disabled due to missing dependencies: cannot import name 'log_info' from 'utils.logger' (C:\Users\Sanju\adaptive-chatbot\utils\logger.py)
+2025-09-26 21:39:09,736 - AdaptiveChatbot - INFO - logger:78 - logger_test_info
+2025-09-26 21:39:09,736 - AdaptiveChatbot - ERROR - logger:90 - logger_test_error
+2025-09-26 22:21:09,964 - AdaptiveChatbot - WARNING - logger:82 - Transformers not available, using basic NLP
+2025-09-26 22:21:09,964 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 22:45:13,689 - AdaptiveChatbot - WARNING - logger:82 - Transformers not available, using basic NLP
+2025-09-26 22:45:13,690 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 22:45:36,971 - AdaptiveChatbot - INFO - adaptation_engine:92 - Knowledge base saved: 0 entries
+2025-09-26 22:45:36,971 - AdaptiveChatbot - INFO - adaptation_engine:54 - Created new knowledge base file
+2025-09-26 22:45:36,971 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='स्विच का प्राइस कितना है', Normalized='switch ka price kitna hai'
+2025-09-26 22:45:36,971 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['switch ka price kitna hai', 'switch ka price kitna he', 'switch ka price kitana hai', 'switch ka rate kitna hai', 'switch ki price kitna hai']
+2025-09-26 22:45:36,972 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'स्विच का प्राइस कितना है'
+2025-09-26 22:45:36,972 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='स्विच की कीमत', Normalized='switch ki kimt'
+2025-09-26 22:45:36,972 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['switch ki kimt', 'switch ka kamt', 'switch ka kimt', 'switch ke kimt']
+2025-09-26 22:45:36,972 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'स्विच की कीमत'
+2025-09-26 22:45:36,972 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='वायर का रेट', Normalized='wire ka price'
+2025-09-26 22:45:36,972 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['wire ka price', 'wire ka rate', 'wire ki price', 'wire price', 'wire ka ki price']
+2025-09-26 22:45:36,972 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'वायर का रेट'
+2025-09-26 22:45:36,972 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='फैन की प्राइस', Normalized='fan ki price'
+2025-09-26 22:45:36,972 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['fan ki price', 'fan ki rate', 'fan ka price', 'fan ki ki price', 'fan ki ka price']
+2025-09-26 22:45:36,973 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'फैन की प्राइस'
+2025-09-26 22:45:36,973 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='एमसीबी का दाम', Normalized='emseebee ka dam'
+2025-09-26 22:45:36,973 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['emseebee ka dam', 'emsibi ka dam', 'emseebee ki dam', 'emseebee ke dam']
+2025-09-26 22:45:36,973 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'एमसीबी का दाम'
+2025-09-26 22:45:36,973 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='सॉकेट कितने का है', Normalized='socket kitna ka hai'
+2025-09-26 22:45:36,973 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['socket kitna ka hai', 'socket kitna ka he', 'socket kitana ka hai', 'socket kitna ki hai', 'socket katna ka hai']
+2025-09-26 22:45:36,973 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'सॉकेट कितने का है'
+2025-09-26 22:45:36,973 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='switch ka price', Normalized='switch ka price'
+2025-09-26 22:45:36,973 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['switch ka price', 'switch ka rate', 'switch ki price', 'switch price', 'switch ka ki price']
+2025-09-26 22:45:36,974 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'switch ka price'
+2025-09-26 22:45:36,974 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='switch ki price', Normalized='switch ki price'
+2025-09-26 22:45:36,974 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['switch ki price', 'switch ki rate', 'switch ka price', 'switch ki ki price', 'switch ki ka price']
+2025-09-26 22:45:36,974 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'switch ki price'
+2025-09-26 22:45:36,974 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='wire ka rate', Normalized='wire ka price'
+2025-09-26 22:45:36,974 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['wire ka price', 'wire ka rate', 'wire ki price', 'wire price', 'wire ka ki price']
+2025-09-26 22:45:36,974 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'wire ka rate'
+2025-09-26 22:45:36,974 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='fan ki price', Normalized='fan ki price'
+2025-09-26 22:45:36,974 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['fan ki price', 'fan ki rate', 'fan ka price', 'fan ki ki price', 'fan ki ka price']
+2025-09-26 22:45:36,975 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'fan ki price'
+2025-09-26 22:45:36,975 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='mcb price', Normalized='mcb price'
+2025-09-26 22:45:36,975 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['mcb price', 'mcb rate', 'mcb ki price', 'mcb ka price']
+2025-09-26 22:45:36,975 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'mcb price'
+2025-09-26 22:45:36,975 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='socket ki price', Normalized='socket ki price'
+2025-09-26 22:45:36,975 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['socket ki price', 'socket ki rate', 'socket ka price', 'sockat ki price', 'socket ki ki price']
+2025-09-26 22:45:36,975 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'socket ki price'
+2025-09-26 22:45:36,975 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='स्विच ka price kya hai', Normalized='switch ka price kya hai'
+2025-09-26 22:45:36,975 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['switch ka price kya hai', 'switch ka price kya he', 'switch ka rate kya hai', 'switch ki price kya hai', 'switch price kya hai']
+2025-09-26 22:45:36,975 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'स्विच ka price kya hai'
+2025-09-26 22:45:36,976 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='wire की कीमत', Normalized='wire ki kimt'
+2025-09-26 22:45:36,976 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['wire ki kimt', 'wire ka kamt', 'wire ka kimt', 'wire ke kimt']
+2025-09-26 22:45:36,976 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'wire की कीमत'
+2025-09-26 22:45:36,976 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='switch price', Normalized='switch price'
+2025-09-26 22:45:36,976 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['switch price', 'switch rate', 'switch ki price', 'switch ka price']
+2025-09-26 22:45:36,976 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'switch price'
+2025-09-26 22:45:36,976 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='price of switch', Normalized='price of switch'
+2025-09-26 22:45:36,976 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['price of switch', 'rate of switch']
+2025-09-26 22:45:36,976 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'price of switch'
+2025-09-26 22:45:36,976 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='switch cost', Normalized='switch price'
+2025-09-26 22:45:36,976 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['switch price', 'switch rate', 'switch ki price', 'switch ka price']
+2025-09-26 22:45:36,977 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'switch cost'
+2025-09-26 22:45:36,977 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='random query xyz', Normalized='random query xyz'
+2025-09-26 22:45:36,977 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['random query xyz']
+2025-09-26 22:45:36,977 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'random query xyz'
+2025-09-26 22:45:36,977 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='abcdefgh', Normalized='abcdefgh'
+2025-09-26 22:45:36,977 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['abcdefgh', 'abcdefg']
+2025-09-26 22:45:36,977 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'abcdefgh'
+2025-09-26 22:45:36,979 - AdaptiveChatbot - INFO - adaptation_engine:116 - Backup created: c:\Users\Sanju\adaptive-chatbot\configs\data\knowledge_base.json.backup_20250926_224536
+2025-09-26 22:45:36,984 - AdaptiveChatbot - INFO - adaptation_engine:92 - Knowledge base saved: 1 entries
+2025-09-26 22:45:36,984 - AdaptiveChatbot - INFO - adaptation_engine:192 - LEARNING_EVENT: success=True, question='टेस्ट सवाल एक', answer='यह टेस्ट जवाब एक है'
+2025-09-26 22:45:36,991 - AdaptiveChatbot - INFO - adaptation_engine:116 - Backup created: c:\Users\Sanju\adaptive-chatbot\configs\data\knowledge_base.json.backup_20250926_224536
+2025-09-26 22:45:36,993 - AdaptiveChatbot - INFO - adaptation_engine:92 - Knowledge base saved: 2 entries
+2025-09-26 22:45:36,993 - AdaptiveChatbot - INFO - adaptation_engine:192 - LEARNING_EVENT: success=True, question='test question two', answer='This is test answer two'
+2025-09-26 22:45:37,001 - AdaptiveChatbot - INFO - adaptation_engine:116 - Backup created: c:\Users\Sanju\adaptive-chatbot\configs\data\knowledge_base.json.backup_20250926_224536
+2025-09-26 22:45:37,002 - AdaptiveChatbot - INFO - adaptation_engine:92 - Knowledge base saved: 3 entries
+2025-09-26 22:45:37,002 - AdaptiveChatbot - INFO - adaptation_engine:192 - LEARNING_EVENT: success=True, question='मिक्स्ड question तीन', answer='Mixed answer तीन है'
+2025-09-26 22:45:37,003 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='टेस्ट सवाल एक', Normalized='test sval ek'
+2025-09-26 22:45:37,003 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['test sval ek']
+2025-09-26 22:45:37,003 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'टेस्ट सवाल एक'
+2025-09-26 22:45:37,003 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='test question two', Normalized='test question two'
+2025-09-26 22:45:37,003 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['test question two']
+2025-09-26 22:45:37,003 - AdaptiveChatbot - INFO - adaptation_engine:242 - [OK] Found match with variation: 'test question two'
+2025-09-26 22:45:37,003 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='मिक्स्ड question तीन', Normalized='miksd question teen'
+2025-09-26 22:45:37,003 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['miksd question teen', 'miksd question tin']
+2025-09-26 22:45:37,003 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'मिक्स्ड question तीन'
+2025-09-26 22:45:37,004 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='switch ka price', Normalized='switch ka price'
+2025-09-26 22:45:37,005 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['switch ka price', 'switch ka rate', 'switch ki price', 'switch price', 'switch ka ki price']
+2025-09-26 22:45:37,005 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'switch ka price'
+2025-09-26 22:45:37,005 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='स्विच का प्राइस', Normalized='switch ka price'
+2025-09-26 22:45:37,005 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['switch ka price', 'switch ka rate', 'switch ki price', 'switch price', 'switch ka ki price']
+2025-09-26 22:45:37,005 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'स्विच का प्राइस'
+2025-09-26 22:45:37,005 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='wire ka rate', Normalized='wire ka price'
+2025-09-26 22:45:37,005 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['wire ka price', 'wire ka rate', 'wire ki price', 'wire price', 'wire ka ki price']
+2025-09-26 22:45:37,005 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'wire ka rate'
+2025-09-26 22:45:37,005 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='fan ki price', Normalized='fan ki price'
+2025-09-26 22:45:37,005 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['fan ki price', 'fan ki rate', 'fan ka price', 'fan ki ki price', 'fan ki ka price']
+2025-09-26 22:45:37,006 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'fan ki price'
+2025-09-26 22:45:37,006 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='mcb price', Normalized='mcb price'
+2025-09-26 22:45:37,006 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['mcb price', 'mcb rate', 'mcb ki price', 'mcb ka price']
+2025-09-26 22:45:37,006 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'mcb price'
+2025-09-26 22:45:37,013 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 22:45:37,013 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 22:45:37,013 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 22:45:37,014 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 22:45:37,014 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 22:45:37,014 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 22:45:37,014 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 22:45:37,014 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 22:45:37,014 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 22:45:37,016 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 22:45:37,016 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 22:45:37,016 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 22:45:37,016 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 22:45:37,017 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 22:45:37,018 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 22:45:37,018 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 22:45:37,018 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 22:45:37,018 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 22:45:37,018 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 22:45:37,018 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 22:45:37,018 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 22:45:37,018 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 22:51:23,006 - AdaptiveChatbot - WARNING - logger:82 - Transformers not available, using basic NLP
+2025-09-26 22:51:23,006 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 22:51:25,708 - AdaptiveChatbot - INFO - adaptation_engine:48 - Knowledge base loaded: 3 entries
+2025-09-26 22:51:25,708 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='स्विच का प्राइस कितना है', Normalized='switch ka price kitna hai'
+2025-09-26 22:51:25,708 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['switch ka price kitna hai', 'switch ka price kitna he', 'switch ka price kitana hai', 'switch ka rate kitna hai', 'switch ki price kitna hai']
+2025-09-26 22:51:25,708 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'स्विच का प्राइस कितना है'
+2025-09-26 22:51:25,709 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='स्विच की कीमत', Normalized='switch ki kimt'
+2025-09-26 22:51:25,709 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['switch ki kimt', 'switch ka kamt', 'switch ka kimt', 'switch ke kimt']
+2025-09-26 22:51:25,709 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'स्विच की कीमत'
+2025-09-26 22:51:25,709 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='वायर का रेट', Normalized='wire ka price'
+2025-09-26 22:51:25,709 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['wire ka price', 'wire ka rate', 'wire ki price', 'wire price', 'wire ka ki price']
+2025-09-26 22:51:25,709 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'वायर का रेट'
+2025-09-26 22:51:25,709 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='फैन की प्राइस', Normalized='fan ki price'
+2025-09-26 22:51:25,709 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['fan ki price', 'fan ki rate', 'fan ka price', 'fan ki ki price', 'fan ki ka price']
+2025-09-26 22:51:25,709 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'फैन की प्राइस'
+2025-09-26 22:51:25,710 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='एमसीबी का दाम', Normalized='emseebee ka dam'
+2025-09-26 22:51:25,710 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['emseebee ka dam', 'emsibi ka dam', 'emseebee ki dam', 'emseebee ke dam']
+2025-09-26 22:51:25,710 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'एमसीबी का दाम'
+2025-09-26 22:51:25,710 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='सॉकेट कितने का है', Normalized='socket kitna ka hai'
+2025-09-26 22:51:25,710 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['socket kitna ka hai', 'socket kitna ka he', 'socket kitana ka hai', 'socket kitna ki hai', 'socket katna ka hai']
+2025-09-26 22:51:25,710 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'सॉकेट कितने का है'
+2025-09-26 22:51:25,710 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='switch ka price', Normalized='switch ka price'
+2025-09-26 22:51:25,710 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['switch ka price', 'switch ka rate', 'switch ki price', 'switch price', 'switch ka ki price']
+2025-09-26 22:51:25,710 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'switch ka price'
+2025-09-26 22:51:25,710 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='switch ki price', Normalized='switch ki price'
+2025-09-26 22:51:25,710 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['switch ki price', 'switch ki rate', 'switch ka price', 'switch ki ki price', 'switch ki ka price']
+2025-09-26 22:51:25,711 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'switch ki price'
+2025-09-26 22:51:25,711 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='wire ka rate', Normalized='wire ka price'
+2025-09-26 22:51:25,711 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['wire ka price', 'wire ka rate', 'wire ki price', 'wire price', 'wire ka ki price']
+2025-09-26 22:51:25,711 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'wire ka rate'
+2025-09-26 22:51:25,711 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='fan ki price', Normalized='fan ki price'
+2025-09-26 22:51:25,711 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['fan ki price', 'fan ki rate', 'fan ka price', 'fan ki ki price', 'fan ki ka price']
+2025-09-26 22:51:25,711 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'fan ki price'
+2025-09-26 22:51:25,711 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='mcb price', Normalized='mcb price'
+2025-09-26 22:51:25,711 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['mcb price', 'mcb rate', 'mcb ki price', 'mcb ka price']
+2025-09-26 22:51:25,711 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'mcb price'
+2025-09-26 22:51:25,711 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='socket ki price', Normalized='socket ki price'
+2025-09-26 22:51:25,712 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['socket ki price', 'socket ki rate', 'socket ka price', 'sockat ki price', 'socket ki ki price']
+2025-09-26 22:51:25,712 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'socket ki price'
+2025-09-26 22:51:25,712 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='स्विच ka price kya hai', Normalized='switch ka price kya hai'
+2025-09-26 22:51:25,712 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['switch ka price kya hai', 'switch ka price kya he', 'switch ka rate kya hai', 'switch ki price kya hai', 'switch price kya hai']
+2025-09-26 22:51:25,712 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'स्विच ka price kya hai'
+2025-09-26 22:51:25,712 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='wire की कीमत', Normalized='wire ki kimt'
+2025-09-26 22:51:25,712 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['wire ki kimt', 'wire ka kamt', 'wire ka kimt', 'wire ke kimt']
+2025-09-26 22:51:25,712 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'wire की कीमत'
+2025-09-26 22:51:25,712 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='switch price', Normalized='switch price'
+2025-09-26 22:51:25,712 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['switch price', 'switch rate', 'switch ki price', 'switch ka price']
+2025-09-26 22:51:25,713 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'switch price'
+2025-09-26 22:51:25,713 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='price of switch', Normalized='price of switch'
+2025-09-26 22:51:25,713 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['price of switch', 'rate of switch']
+2025-09-26 22:51:25,713 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'price of switch'
+2025-09-26 22:51:25,713 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='switch cost', Normalized='switch price'
+2025-09-26 22:51:25,713 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['switch price', 'switch rate', 'switch ki price', 'switch ka price']
+2025-09-26 22:51:25,713 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'switch cost'
+2025-09-26 22:51:25,713 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='random query xyz', Normalized='random query xyz'
+2025-09-26 22:51:25,713 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['random query xyz']
+2025-09-26 22:51:25,713 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'random query xyz'
+2025-09-26 22:51:25,713 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='abcdefgh', Normalized='abcdefgh'
+2025-09-26 22:51:25,713 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['abcdefgh', 'abcdefg']
+2025-09-26 22:51:25,714 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'abcdefgh'
+2025-09-26 22:51:25,715 - AdaptiveChatbot - INFO - adaptation_engine:166 - Knowledge already exists: टेस्ट सवाल एक...
+2025-09-26 22:51:25,715 - AdaptiveChatbot - INFO - adaptation_engine:166 - Knowledge already exists: test question two...
+2025-09-26 22:51:25,715 - AdaptiveChatbot - INFO - adaptation_engine:166 - Knowledge already exists: मिक्स्ड question तीन...
+2025-09-26 22:51:25,715 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='टेस्ट सवाल एक', Normalized='test sval ek'
+2025-09-26 22:51:25,715 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['test sval ek']
+2025-09-26 22:51:25,715 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'टेस्ट सवाल एक'
+2025-09-26 22:51:25,715 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='test question two', Normalized='test question two'
+2025-09-26 22:51:25,715 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['test question two']
+2025-09-26 22:51:25,715 - AdaptiveChatbot - INFO - adaptation_engine:242 - [OK] Found match with variation: 'test question two'
+2025-09-26 22:51:25,716 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='मिक्स्ड question तीन', Normalized='miksd question teen'
+2025-09-26 22:51:25,716 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['miksd question teen', 'miksd question tin']
+2025-09-26 22:51:25,716 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'मिक्स्ड question तीन'
+2025-09-26 22:51:25,717 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='switch ka price', Normalized='switch ka price'
+2025-09-26 22:51:25,717 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['switch ka price', 'switch ka rate', 'switch ki price', 'switch price', 'switch ka ki price']
+2025-09-26 22:51:25,717 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'switch ka price'
+2025-09-26 22:51:25,717 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='स्विच का प्राइस', Normalized='switch ka price'
+2025-09-26 22:51:25,717 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['switch ka price', 'switch ka rate', 'switch ki price', 'switch price', 'switch ka ki price']
+2025-09-26 22:51:25,717 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'स्विच का प्राइस'
+2025-09-26 22:51:25,717 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='wire ka rate', Normalized='wire ka price'
+2025-09-26 22:51:25,717 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['wire ka price', 'wire ka rate', 'wire ki price', 'wire price', 'wire ka ki price']
+2025-09-26 22:51:25,717 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'wire ka rate'
+2025-09-26 22:51:25,718 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='fan ki price', Normalized='fan ki price'
+2025-09-26 22:51:25,718 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['fan ki price', 'fan ki rate', 'fan ka price', 'fan ki ki price', 'fan ki ka price']
+2025-09-26 22:51:25,718 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'fan ki price'
+2025-09-26 22:51:25,718 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='mcb price', Normalized='mcb price'
+2025-09-26 22:51:25,718 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['mcb price', 'mcb rate', 'mcb ki price', 'mcb ka price']
+2025-09-26 22:51:25,718 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'mcb price'
+2025-09-26 22:51:25,725 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 22:51:25,725 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 22:51:25,725 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 22:51:25,725 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 22:51:25,726 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 22:51:25,726 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 22:51:25,726 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 22:51:25,726 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 22:51:25,726 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 22:51:25,727 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 22:51:25,727 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 22:51:25,728 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 22:51:25,728 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 22:51:25,728 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 22:51:25,729 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 22:51:25,729 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 22:51:25,729 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 22:51:25,729 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 22:51:25,729 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 22:51:25,730 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 22:51:25,730 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 22:51:25,730 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 22:58:06,982 - AdaptiveChatbot - WARNING - logger:82 - Transformers not available, using basic NLP
+2025-09-26 22:58:06,983 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 22:58:09,539 - AdaptiveChatbot - INFO - adaptation_engine:48 - Knowledge base loaded: 3 entries
+2025-09-26 22:58:09,540 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='स्विच का प्राइस कितना है', Normalized='switch ka price kitna hai'
+2025-09-26 22:58:09,540 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['switch ka price kitna hai', 'switch ka price kitna he', 'switch ka price kitana hai', 'switch ka rate kitna hai', 'switch ki price kitna hai']
+2025-09-26 22:58:09,540 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'स्विच का प्राइस कितना है'
+2025-09-26 22:58:09,540 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='स्विच की कीमत', Normalized='switch ki kimt'
+2025-09-26 22:58:09,540 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['switch ki kimt', 'switch ka kamt', 'switch ka kimt', 'switch ke kimt']
+2025-09-26 22:58:09,540 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'स्विच की कीमत'
+2025-09-26 22:58:09,540 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='वायर का रेट', Normalized='wire ka price'
+2025-09-26 22:58:09,540 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['wire ka price', 'wire ka rate', 'wire ki price', 'wire price', 'wire ka ki price']
+2025-09-26 22:58:09,540 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'वायर का रेट'
+2025-09-26 22:58:09,541 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='फैन की प्राइस', Normalized='fan ki price'
+2025-09-26 22:58:09,541 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['fan ki price', 'fan ki rate', 'fan ka price', 'fan ki ki price', 'fan ki ka price']
+2025-09-26 22:58:09,541 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'फैन की प्राइस'
+2025-09-26 22:58:09,541 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='एमसीबी का दाम', Normalized='emseebee ka dam'
+2025-09-26 22:58:09,541 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['emseebee ka dam', 'emsibi ka dam', 'emseebee ki dam', 'emseebee ke dam']
+2025-09-26 22:58:09,541 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'एमसीबी का दाम'
+2025-09-26 22:58:09,541 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='सॉकेट कितने का है', Normalized='socket kitna ka hai'
+2025-09-26 22:58:09,541 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['socket kitna ka hai', 'socket kitna ka he', 'socket kitana ka hai', 'socket kitna ki hai', 'socket katna ka hai']
+2025-09-26 22:58:09,541 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'सॉकेट कितने का है'
+2025-09-26 22:58:09,542 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='switch ka price', Normalized='switch ka price'
+2025-09-26 22:58:09,542 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['switch ka price', 'switch ka rate', 'switch ki price', 'switch price', 'switch ka ki price']
+2025-09-26 22:58:09,542 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'switch ka price'
+2025-09-26 22:58:09,542 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='switch ki price', Normalized='switch ki price'
+2025-09-26 22:58:09,542 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['switch ki price', 'switch ki rate', 'switch ka price', 'switch ki ki price', 'switch ki ka price']
+2025-09-26 22:58:09,542 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'switch ki price'
+2025-09-26 22:58:09,542 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='wire ka rate', Normalized='wire ka price'
+2025-09-26 22:58:09,542 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['wire ka price', 'wire ka rate', 'wire ki price', 'wire price', 'wire ka ki price']
+2025-09-26 22:58:09,542 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'wire ka rate'
+2025-09-26 22:58:09,542 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='fan ki price', Normalized='fan ki price'
+2025-09-26 22:58:09,542 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['fan ki price', 'fan ki rate', 'fan ka price', 'fan ki ki price', 'fan ki ka price']
+2025-09-26 22:58:09,543 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'fan ki price'
+2025-09-26 22:58:09,543 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='mcb price', Normalized='mcb price'
+2025-09-26 22:58:09,543 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['mcb price', 'mcb rate', 'mcb ki price', 'mcb ka price']
+2025-09-26 22:58:09,543 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'mcb price'
+2025-09-26 22:58:09,543 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='socket ki price', Normalized='socket ki price'
+2025-09-26 22:58:09,543 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['socket ki price', 'socket ki rate', 'socket ka price', 'sockat ki price', 'socket ki ki price']
+2025-09-26 22:58:09,543 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'socket ki price'
+2025-09-26 22:58:09,543 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='स्विच ka price kya hai', Normalized='switch ka price kya hai'
+2025-09-26 22:58:09,543 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['switch ka price kya hai', 'switch ka price kya he', 'switch ka rate kya hai', 'switch ki price kya hai', 'switch price kya hai']
+2025-09-26 22:58:09,543 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'स्विच ka price kya hai'
+2025-09-26 22:58:09,544 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='wire की कीमत', Normalized='wire ki kimt'
+2025-09-26 22:58:09,544 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['wire ki kimt', 'wire ka kamt', 'wire ka kimt', 'wire ke kimt']
+2025-09-26 22:58:09,544 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'wire की कीमत'
+2025-09-26 22:58:09,544 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='switch price', Normalized='switch price'
+2025-09-26 22:58:09,544 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['switch price', 'switch rate', 'switch ki price', 'switch ka price']
+2025-09-26 22:58:09,544 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'switch price'
+2025-09-26 22:58:09,544 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='price of switch', Normalized='price of switch'
+2025-09-26 22:58:09,544 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['price of switch', 'rate of switch']
+2025-09-26 22:58:09,544 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'price of switch'
+2025-09-26 22:58:09,544 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='switch cost', Normalized='switch price'
+2025-09-26 22:58:09,544 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['switch price', 'switch rate', 'switch ki price', 'switch ka price']
+2025-09-26 22:58:09,544 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'switch cost'
+2025-09-26 22:58:09,545 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='random query xyz', Normalized='random query xyz'
+2025-09-26 22:58:09,545 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['random query xyz']
+2025-09-26 22:58:09,545 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'random query xyz'
+2025-09-26 22:58:09,545 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='abcdefgh', Normalized='abcdefgh'
+2025-09-26 22:58:09,545 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['abcdefgh', 'abcdefg']
+2025-09-26 22:58:09,545 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'abcdefgh'
+2025-09-26 22:58:09,546 - AdaptiveChatbot - INFO - adaptation_engine:166 - Knowledge already exists: टेस्ट सवाल एक...
+2025-09-26 22:58:09,546 - AdaptiveChatbot - INFO - adaptation_engine:166 - Knowledge already exists: test question two...
+2025-09-26 22:58:09,546 - AdaptiveChatbot - INFO - adaptation_engine:166 - Knowledge already exists: मिक्स्ड question तीन...
+2025-09-26 22:58:09,547 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='टेस्ट सवाल एक', Normalized='test sval ek'
+2025-09-26 22:58:09,547 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['test sval ek']
+2025-09-26 22:58:09,547 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'टेस्ट सवाल एक'
+2025-09-26 22:58:09,547 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='test question two', Normalized='test question two'
+2025-09-26 22:58:09,547 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['test question two']
+2025-09-26 22:58:09,547 - AdaptiveChatbot - INFO - adaptation_engine:242 - [OK] Found match with variation: 'test question two'
+2025-09-26 22:58:09,547 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='मिक्स्ड question तीन', Normalized='miksd question teen'
+2025-09-26 22:58:09,547 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['miksd question teen', 'miksd question tin']
+2025-09-26 22:58:09,547 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'मिक्स्ड question तीन'
+2025-09-26 22:58:09,548 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='switch ka price', Normalized='switch ka price'
+2025-09-26 22:58:09,548 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['switch ka price', 'switch ka rate', 'switch ki price', 'switch price', 'switch ka ki price']
+2025-09-26 22:58:09,548 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'switch ka price'
+2025-09-26 22:58:09,549 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='स्विच का प्राइस', Normalized='switch ka price'
+2025-09-26 22:58:09,549 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['switch ka price', 'switch ka rate', 'switch ki price', 'switch price', 'switch ka ki price']
+2025-09-26 22:58:09,549 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'स्विच का प्राइस'
+2025-09-26 22:58:09,549 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='wire ka rate', Normalized='wire ka price'
+2025-09-26 22:58:09,549 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['wire ka price', 'wire ka rate', 'wire ki price', 'wire price', 'wire ka ki price']
+2025-09-26 22:58:09,549 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'wire ka rate'
+2025-09-26 22:58:09,549 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='fan ki price', Normalized='fan ki price'
+2025-09-26 22:58:09,549 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['fan ki price', 'fan ki rate', 'fan ka price', 'fan ki ki price', 'fan ki ka price']
+2025-09-26 22:58:09,549 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'fan ki price'
+2025-09-26 22:58:09,549 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='mcb price', Normalized='mcb price'
+2025-09-26 22:58:09,549 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['mcb price', 'mcb rate', 'mcb ki price', 'mcb ka price']
+2025-09-26 22:58:09,549 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'mcb price'
+2025-09-26 22:58:09,556 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 22:58:09,556 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 22:58:09,556 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 22:58:09,557 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 22:58:09,557 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 22:58:09,557 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 22:58:09,557 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 22:58:09,557 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 22:58:09,558 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 22:58:09,559 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 22:58:09,559 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 22:58:09,559 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 22:58:09,559 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 22:58:09,559 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 22:58:09,560 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 22:58:09,560 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 22:58:09,560 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 22:58:09,560 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 22:58:09,561 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 22:58:09,561 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 22:58:09,561 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 22:58:09,561 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 23:23:54,909 - AdaptiveChatbot - WARNING - logger:82 - Transformers not available, using basic NLP
+2025-09-26 23:23:54,909 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 23:24:11,911 - AdaptiveChatbot - INFO - adaptation_engine:48 - Knowledge base loaded: 3 entries
+2025-09-26 23:24:11,911 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='स्विच का प्राइस कितना है', Normalized='switch ka price kitna hai'
+2025-09-26 23:24:11,911 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['switch ka price kitna hai', 'switch ka price kitna he', 'switch ka price kitana hai', 'switch ka rate kitna hai', 'switch ki price kitna hai']
+2025-09-26 23:24:11,912 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'स्विच का प्राइस कितना है'
+2025-09-26 23:24:11,912 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='स्विच की कीमत', Normalized='switch ki kimt'
+2025-09-26 23:24:11,912 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['switch ki kimt', 'switch ka kamt', 'switch ka kimt', 'switch ke kimt']
+2025-09-26 23:24:11,912 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'स्विच की कीमत'
+2025-09-26 23:24:11,912 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='वायर का रेट', Normalized='wire ka price'
+2025-09-26 23:24:11,912 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['wire ka price', 'wire ka rate', 'wire ki price', 'wire price', 'wire ka ki price']
+2025-09-26 23:24:11,912 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'वायर का रेट'
+2025-09-26 23:24:11,912 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='फैन की प्राइस', Normalized='fan ki price'
+2025-09-26 23:24:11,912 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['fan ki price', 'fan ki rate', 'fan ka price', 'fan ki ki price', 'fan ki ka price']
+2025-09-26 23:24:11,912 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'फैन की प्राइस'
+2025-09-26 23:24:11,913 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='एमसीबी का दाम', Normalized='emseebee ka dam'
+2025-09-26 23:24:11,913 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['emseebee ka dam', 'emsibi ka dam', 'emseebee ki dam', 'emseebee ke dam']
+2025-09-26 23:24:11,913 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'एमसीबी का दाम'
+2025-09-26 23:24:11,913 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='सॉकेट कितने का है', Normalized='socket kitna ka hai'
+2025-09-26 23:24:11,913 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['socket kitna ka hai', 'socket kitna ka he', 'socket kitana ka hai', 'socket kitna ki hai', 'socket katna ka hai']
+2025-09-26 23:24:11,913 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'सॉकेट कितने का है'
+2025-09-26 23:24:11,913 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='switch ka price', Normalized='switch ka price'
+2025-09-26 23:24:11,913 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['switch ka price', 'switch ka rate', 'switch ki price', 'switch price', 'switch ka ki price']
+2025-09-26 23:24:11,913 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'switch ka price'
+2025-09-26 23:24:11,913 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='switch ki price', Normalized='switch ki price'
+2025-09-26 23:24:11,914 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['switch ki price', 'switch ki rate', 'switch ka price', 'switch ki ki price', 'switch ki ka price']
+2025-09-26 23:24:11,914 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'switch ki price'
+2025-09-26 23:24:11,914 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='wire ka rate', Normalized='wire ka price'
+2025-09-26 23:24:11,914 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['wire ka price', 'wire ka rate', 'wire ki price', 'wire price', 'wire ka ki price']
+2025-09-26 23:24:11,914 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'wire ka rate'
+2025-09-26 23:24:11,914 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='fan ki price', Normalized='fan ki price'
+2025-09-26 23:24:11,914 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['fan ki price', 'fan ki rate', 'fan ka price', 'fan ki ki price', 'fan ki ka price']
+2025-09-26 23:24:11,914 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'fan ki price'
+2025-09-26 23:24:11,914 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='mcb price', Normalized='mcb price'
+2025-09-26 23:24:11,914 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['mcb price', 'mcb rate', 'mcb ki price', 'mcb ka price']
+2025-09-26 23:24:11,914 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'mcb price'
+2025-09-26 23:24:11,915 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='socket ki price', Normalized='socket ki price'
+2025-09-26 23:24:11,915 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['socket ki price', 'socket ki rate', 'socket ka price', 'sockat ki price', 'socket ki ki price']
+2025-09-26 23:24:11,915 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'socket ki price'
+2025-09-26 23:24:11,915 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='स्विच ka price kya hai', Normalized='switch ka price kya hai'
+2025-09-26 23:24:11,915 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['switch ka price kya hai', 'switch ka price kya he', 'switch ka rate kya hai', 'switch ki price kya hai', 'switch price kya hai']
+2025-09-26 23:24:11,915 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'स्विच ka price kya hai'
+2025-09-26 23:24:11,915 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='wire की कीमत', Normalized='wire ki kimt'
+2025-09-26 23:24:11,915 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['wire ki kimt', 'wire ka kamt', 'wire ka kimt', 'wire ke kimt']
+2025-09-26 23:24:11,916 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'wire की कीमत'
+2025-09-26 23:24:11,916 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='switch price', Normalized='switch price'
+2025-09-26 23:24:11,916 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['switch price', 'switch rate', 'switch ki price', 'switch ka price']
+2025-09-26 23:24:11,916 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'switch price'
+2025-09-26 23:24:11,916 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='price of switch', Normalized='price of switch'
+2025-09-26 23:24:11,916 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['price of switch', 'rate of switch']
+2025-09-26 23:24:11,916 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'price of switch'
+2025-09-26 23:24:11,916 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='switch cost', Normalized='switch price'
+2025-09-26 23:24:11,916 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['switch price', 'switch rate', 'switch ki price', 'switch ka price']
+2025-09-26 23:24:11,916 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'switch cost'
+2025-09-26 23:24:11,916 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='random query xyz', Normalized='random query xyz'
+2025-09-26 23:24:11,917 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['random query xyz']
+2025-09-26 23:24:11,917 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'random query xyz'
+2025-09-26 23:24:11,917 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='abcdefgh', Normalized='abcdefgh'
+2025-09-26 23:24:11,917 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['abcdefgh', 'abcdefg']
+2025-09-26 23:24:11,917 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'abcdefgh'
+2025-09-26 23:24:11,918 - AdaptiveChatbot - INFO - adaptation_engine:166 - Knowledge already exists: टेस्ट सवाल एक...
+2025-09-26 23:24:11,918 - AdaptiveChatbot - INFO - adaptation_engine:166 - Knowledge already exists: test question two...
+2025-09-26 23:24:11,918 - AdaptiveChatbot - INFO - adaptation_engine:166 - Knowledge already exists: मिक्स्ड question तीन...
+2025-09-26 23:24:11,919 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='टेस्ट सवाल एक', Normalized='test sval ek'
+2025-09-26 23:24:11,919 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['test sval ek']
+2025-09-26 23:24:11,919 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'टेस्ट सवाल एक'
+2025-09-26 23:24:11,919 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='test question two', Normalized='test question two'
+2025-09-26 23:24:11,919 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['test question two']
+2025-09-26 23:24:11,919 - AdaptiveChatbot - INFO - adaptation_engine:242 - [OK] Found match with variation: 'test question two'
+2025-09-26 23:24:11,919 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='मिक्स्ड question तीन', Normalized='miksd question teen'
+2025-09-26 23:24:11,919 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['miksd question teen', 'miksd question tin']
+2025-09-26 23:24:11,919 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'मिक्स्ड question तीन'
+2025-09-26 23:24:11,920 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='switch ka price', Normalized='switch ka price'
+2025-09-26 23:24:11,920 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['switch ka price', 'switch ka rate', 'switch ki price', 'switch price', 'switch ka ki price']
+2025-09-26 23:24:11,920 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'switch ka price'
+2025-09-26 23:24:11,920 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='स्विच का प्राइस', Normalized='switch ka price'
+2025-09-26 23:24:11,921 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['switch ka price', 'switch ka rate', 'switch ki price', 'switch price', 'switch ka ki price']
+2025-09-26 23:24:11,921 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'स्विच का प्राइस'
+2025-09-26 23:24:11,921 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='wire ka rate', Normalized='wire ka price'
+2025-09-26 23:24:11,921 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['wire ka price', 'wire ka rate', 'wire ki price', 'wire price', 'wire ka ki price']
+2025-09-26 23:24:11,921 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'wire ka rate'
+2025-09-26 23:24:11,921 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='fan ki price', Normalized='fan ki price'
+2025-09-26 23:24:11,921 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['fan ki price', 'fan ki rate', 'fan ka price', 'fan ki ki price', 'fan ki ka price']
+2025-09-26 23:24:11,921 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'fan ki price'
+2025-09-26 23:24:11,921 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='mcb price', Normalized='mcb price'
+2025-09-26 23:24:11,921 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['mcb price', 'mcb rate', 'mcb ki price', 'mcb ka price']
+2025-09-26 23:24:11,921 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'mcb price'
+2025-09-26 23:24:11,928 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 23:24:11,928 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 23:24:11,928 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 23:24:11,929 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 23:24:11,929 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 23:24:11,929 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 23:24:11,929 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 23:24:11,929 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 23:24:11,929 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 23:24:11,930 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 23:24:11,931 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 23:24:11,931 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 23:24:11,931 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 23:24:11,931 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 23:24:11,932 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 23:24:11,932 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 23:24:11,932 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 23:24:11,932 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 23:24:11,932 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 23:24:11,933 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 23:24:11,933 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 23:24:11,933 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 23:25:11,378 - AdaptiveChatbot - WARNING - logger:82 - Transformers not available, using basic NLP
+2025-09-26 23:25:11,378 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 23:25:15,939 - AdaptiveChatbot - INFO - adaptation_engine:48 - Knowledge base loaded: 3 entries
+2025-09-26 23:25:15,939 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='स्विच का प्राइस कितना है', Normalized='switch ka price kitna hai'
+2025-09-26 23:25:15,939 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['switch ka price kitna hai', 'switch ka price kitna he', 'switch ka price kitana hai', 'switch ka rate kitna hai', 'switch ki price kitna hai']
+2025-09-26 23:25:15,939 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'स्विच का प्राइस कितना है'
+2025-09-26 23:25:15,939 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='स्विच की कीमत', Normalized='switch ki kimt'
+2025-09-26 23:25:15,940 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['switch ki kimt', 'switch ka kamt', 'switch ka kimt', 'switch ke kimt']
+2025-09-26 23:25:15,940 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'स्विच की कीमत'
+2025-09-26 23:25:15,940 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='वायर का रेट', Normalized='wire ka price'
+2025-09-26 23:25:15,940 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['wire ka price', 'wire ka rate', 'wire ki price', 'wire price', 'wire ka ki price']
+2025-09-26 23:25:15,940 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'वायर का रेट'
+2025-09-26 23:25:15,940 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='फैन की प्राइस', Normalized='fan ki price'
+2025-09-26 23:25:15,940 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['fan ki price', 'fan ki rate', 'fan ka price', 'fan ki ki price', 'fan ki ka price']
+2025-09-26 23:25:15,940 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'फैन की प्राइस'
+2025-09-26 23:25:15,940 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='एमसीबी का दाम', Normalized='emseebee ka dam'
+2025-09-26 23:25:15,941 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['emseebee ka dam', 'emsibi ka dam', 'emseebee ki dam', 'emseebee ke dam']
+2025-09-26 23:25:15,941 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'एमसीबी का दाम'
+2025-09-26 23:25:15,941 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='सॉकेट कितने का है', Normalized='socket kitna ka hai'
+2025-09-26 23:25:15,941 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['socket kitna ka hai', 'socket kitna ka he', 'socket kitana ka hai', 'socket kitna ki hai', 'socket katna ka hai']
+2025-09-26 23:25:15,941 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'सॉकेट कितने का है'
+2025-09-26 23:25:15,941 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='switch ka price', Normalized='switch ka price'
+2025-09-26 23:25:15,941 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['switch ka price', 'switch ka rate', 'switch ki price', 'switch price', 'switch ka ki price']
+2025-09-26 23:25:15,941 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'switch ka price'
+2025-09-26 23:25:15,942 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='switch ki price', Normalized='switch ki price'
+2025-09-26 23:25:15,942 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['switch ki price', 'switch ki rate', 'switch ka price', 'switch ki ki price', 'switch ki ka price']
+2025-09-26 23:25:15,942 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'switch ki price'
+2025-09-26 23:25:15,942 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='wire ka rate', Normalized='wire ka price'
+2025-09-26 23:25:15,942 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['wire ka price', 'wire ka rate', 'wire ki price', 'wire price', 'wire ka ki price']
+2025-09-26 23:25:15,942 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'wire ka rate'
+2025-09-26 23:25:15,942 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='fan ki price', Normalized='fan ki price'
+2025-09-26 23:25:15,942 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['fan ki price', 'fan ki rate', 'fan ka price', 'fan ki ki price', 'fan ki ka price']
+2025-09-26 23:25:15,942 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'fan ki price'
+2025-09-26 23:25:15,942 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='mcb price', Normalized='mcb price'
+2025-09-26 23:25:15,942 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['mcb price', 'mcb rate', 'mcb ki price', 'mcb ka price']
+2025-09-26 23:25:15,942 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'mcb price'
+2025-09-26 23:25:15,943 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='socket ki price', Normalized='socket ki price'
+2025-09-26 23:25:15,943 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['socket ki price', 'socket ki rate', 'socket ka price', 'sockat ki price', 'socket ki ki price']
+2025-09-26 23:25:15,943 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'socket ki price'
+2025-09-26 23:25:15,943 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='स्विच ka price kya hai', Normalized='switch ka price kya hai'
+2025-09-26 23:25:15,943 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['switch ka price kya hai', 'switch ka price kya he', 'switch ka rate kya hai', 'switch ki price kya hai', 'switch price kya hai']
+2025-09-26 23:25:15,943 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'स्विच ka price kya hai'
+2025-09-26 23:25:15,943 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='wire की कीमत', Normalized='wire ki kimt'
+2025-09-26 23:25:15,943 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['wire ki kimt', 'wire ka kamt', 'wire ka kimt', 'wire ke kimt']
+2025-09-26 23:25:15,943 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'wire की कीमत'
+2025-09-26 23:25:15,944 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='switch price', Normalized='switch price'
+2025-09-26 23:25:15,944 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['switch price', 'switch rate', 'switch ki price', 'switch ka price']
+2025-09-26 23:25:15,944 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'switch price'
+2025-09-26 23:25:15,944 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='price of switch', Normalized='price of switch'
+2025-09-26 23:25:15,944 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['price of switch', 'rate of switch']
+2025-09-26 23:25:15,944 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'price of switch'
+2025-09-26 23:25:15,944 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='switch cost', Normalized='switch price'
+2025-09-26 23:25:15,944 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['switch price', 'switch rate', 'switch ki price', 'switch ka price']
+2025-09-26 23:25:15,944 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'switch cost'
+2025-09-26 23:25:15,944 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='random query xyz', Normalized='random query xyz'
+2025-09-26 23:25:15,944 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['random query xyz']
+2025-09-26 23:25:15,944 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'random query xyz'
+2025-09-26 23:25:15,945 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='abcdefgh', Normalized='abcdefgh'
+2025-09-26 23:25:15,945 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['abcdefgh', 'abcdefg']
+2025-09-26 23:25:15,945 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'abcdefgh'
+2025-09-26 23:25:15,946 - AdaptiveChatbot - INFO - adaptation_engine:166 - Knowledge already exists: टेस्ट सवाल एक...
+2025-09-26 23:25:15,946 - AdaptiveChatbot - INFO - adaptation_engine:166 - Knowledge already exists: test question two...
+2025-09-26 23:25:15,946 - AdaptiveChatbot - INFO - adaptation_engine:166 - Knowledge already exists: मिक्स्ड question तीन...
+2025-09-26 23:25:15,946 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='टेस्ट सवाल एक', Normalized='test sval ek'
+2025-09-26 23:25:15,947 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['test sval ek']
+2025-09-26 23:25:15,947 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'टेस्ट सवाल एक'
+2025-09-26 23:25:15,947 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='test question two', Normalized='test question two'
+2025-09-26 23:25:15,947 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['test question two']
+2025-09-26 23:25:15,947 - AdaptiveChatbot - INFO - adaptation_engine:242 - [OK] Found match with variation: 'test question two'
+2025-09-26 23:25:15,947 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='मिक्स्ड question तीन', Normalized='miksd question teen'
+2025-09-26 23:25:15,947 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['miksd question teen', 'miksd question tin']
+2025-09-26 23:25:15,947 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'मिक्स्ड question तीन'
+2025-09-26 23:25:15,948 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='switch ka price', Normalized='switch ka price'
+2025-09-26 23:25:15,948 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['switch ka price', 'switch ka rate', 'switch ki price', 'switch price', 'switch ka ki price']
+2025-09-26 23:25:15,948 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'switch ka price'
+2025-09-26 23:25:15,949 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='स्विच का प्राइस', Normalized='switch ka price'
+2025-09-26 23:25:15,949 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['switch ka price', 'switch ka rate', 'switch ki price', 'switch price', 'switch ka ki price']
+2025-09-26 23:25:15,949 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'स्विच का प्राइस'
+2025-09-26 23:25:15,949 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='wire ka rate', Normalized='wire ka price'
+2025-09-26 23:25:15,949 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['wire ka price', 'wire ka rate', 'wire ki price', 'wire price', 'wire ka ki price']
+2025-09-26 23:25:15,949 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'wire ka rate'
+2025-09-26 23:25:15,949 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='fan ki price', Normalized='fan ki price'
+2025-09-26 23:25:15,949 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['fan ki price', 'fan ki rate', 'fan ka price', 'fan ki ki price', 'fan ki ka price']
+2025-09-26 23:25:15,949 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'fan ki price'
+2025-09-26 23:25:15,949 - AdaptiveChatbot - INFO - adaptation_engine:224 - [SEARCH] Searching for: Original='mcb price', Normalized='mcb price'
+2025-09-26 23:25:15,949 - AdaptiveChatbot - INFO - adaptation_engine:234 - [NOTE] Query variations: ['mcb price', 'mcb rate', 'mcb ki price', 'mcb ka price']
+2025-09-26 23:25:15,949 - AdaptiveChatbot - WARNING - adaptation_engine:271 - [ERROR] No match found for query: 'mcb price'
+2025-09-26 23:25:15,956 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 23:25:15,956 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 23:25:15,957 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 23:25:15,957 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 23:25:15,957 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 23:25:15,957 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 23:25:15,957 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 23:25:15,958 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 23:25:15,958 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 23:25:15,959 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 23:25:15,959 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 23:25:15,959 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 23:25:15,959 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 23:25:15,959 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 23:25:15,960 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 23:25:15,960 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 23:25:15,961 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 23:25:15,961 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 23:25:15,961 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 23:25:15,961 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 23:25:15,961 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined
+2025-09-26 23:25:15,961 - AdaptiveChatbot - WARNING - logger:82 - Sentiment analysis failed: name 'TextBlob' is not defined

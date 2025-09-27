@@ -114,12 +114,43 @@ class KnowledgeStore:
                     logging.warning(f"FTS5 not available or failed to initialize: {fe}")
                 
                 conn.commit()
+                # Best-effort: ensure FTS content is synchronized with base table
+                try:
+                    self.ensure_fts_sync()
+                except Exception:
+                    pass
                 logging.info("Database schema initialized successfully (WAL, indices, FTS if available)")
                 
         except Exception as e:
             logging.error(f"Error initializing database: {e}")
             raise
-    
+
+    def ensure_fts_sync(self) -> None:
+        """
+        Ensure FTS virtual table contains the same rows as the base table.
+        This handles cases where FTS was created after rows already existed.
+        """
+        try:
+            with sqlite3.connect(self.db_path) as conn:
+                cur = conn.cursor()
+                try:
+                    # Attempt FTS5 rebuild from content table
+                    cur.execute("INSERT INTO knowledge_fts(knowledge_fts) VALUES('rebuild');")
+                    conn.commit()
+                    logging.info("FTS index rebuilt from content table")
+                    return
+                except sqlite3.OperationalError:
+                    # Fall back to manual repopulation
+                    try:
+                        cur.execute("DELETE FROM knowledge_fts;")
+                        cur.execute("INSERT INTO knowledge_fts(rowid, input, response) SELECT id, input, response FROM knowledge;")
+                        conn.commit()
+                        logging.info("FTS index repopulated from base table")
+                    except Exception as e:
+                        logging.debug(f"Manual FTS repopulation failed: {e}")
+        except Exception as e:
+            logging.debug(f"FTS sync skipped: {e}")
+        
     def add_knowledge(self, knowledge: Dict[str, Any]) -> bool:
         """
         Add new knowledge to the store.
@@ -141,8 +172,8 @@ class KnowledgeStore:
                         metadata[key] = knowledge[key]
                 
                 cursor.execute("""
-                    INSERT OR REPLACE INTO knowledge 
-                    (input, response, category, domain, confidence, created_at, 
+                    INSERT OR REPLACE INTO knowledge
+                    (input, response, category, domain, confidence, created_at,
                      updated_at, usage_count, metadata)
                     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
                 """, (
@@ -486,13 +517,13 @@ class KnowledgeStore:
             return []
 
     def search_fulltext(self, query_text: str, domain: Optional[str] = None, limit: int = 10) -> List[Dict[str, Any]]:
-        """Full-text search using FTS5 if available, with safe fallbacks."""
+        """Full-text search using FTS5 if available, with safe fallbacks (LIKE) when no hits."""
         results: List[Dict[str, Any]] = []
+        # 1) Try FTS5 (if available)
         try:
             with sqlite3.connect(self.db_path) as conn:
                 conn.row_factory = sqlite3.Row
                 cursor = conn.cursor()
-                # First try with bm25 ranking if supported
                 sql = (
                     "SELECT k.*, k.id as kid FROM knowledge_fts f "
                     "JOIN knowledge k ON k.id = f.rowid "
@@ -507,7 +538,7 @@ class KnowledgeStore:
                     params_ranked = params + [limit]
                     cursor.execute(sql_ranked, params_ranked)
                 except sqlite3.OperationalError:
-                    # Fallback without bm25
+                    # Fallback without bm25 function
                     sql_plain = sql + " LIMIT ?"
                     params_plain = params + [limit]
                     cursor.execute(sql_plain, params_plain)
@@ -521,10 +552,42 @@ class KnowledgeStore:
                             pass
                     results.append(item)
         except sqlite3.OperationalError as e:
-            # No FTS table - return empty to allow fallback
             logging.debug(f"FTS search unavailable: {e}")
         except Exception as e:
             logging.error(f"Error in FTS search: {e}")
+
+        # 2) If FTS yielded no results, fallback to LIKE keywords search
+        if not results:
+            try:
+                words = [w for w in (query_text or '').split() if len(w) > 1]
+                if words:
+                    with sqlite3.connect(self.db_path) as conn:
+                        conn.row_factory = sqlite3.Row
+                        cursor = conn.cursor()
+                        keyword_conditions = []
+                        params: List[Any] = []
+                        for w in words:
+                            keyword_conditions.append("(input LIKE ? OR response LIKE ?)")
+                            params.extend([f"%{w}%", f"%{w}%"])
+                        sql_like = f"SELECT * FROM knowledge WHERE {' OR '.join(keyword_conditions)}"
+                        if domain:
+                            sql_like += " AND domain = ?"
+                            params.append(domain)
+                        sql_like += " ORDER BY usage_count DESC, id DESC LIMIT ?"
+                        params.append(limit)
+                        cursor.execute(sql_like, params)
+                        for row in cursor.fetchall():
+                            item = dict(row)
+                            if item.get('metadata'):
+                                try:
+                                    md = json.loads(item['metadata'])
+                                    item.update(md)
+                                except Exception:
+                                    pass
+                            results.append(item)
+            except Exception as e:
+                logging.debug(f"LIKE fallback failed: {e}")
+
         return results
     
     def log_conversation(self, session_id: str, message_type: str, 

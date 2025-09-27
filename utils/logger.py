@@ -64,3 +64,27 @@ def get_logger():
 # from utils.logger import get_logger
 # logger = get_logger()
 # logger.info("message")
+
+
+# Backward-compatible helper functions for legacy imports
+# Some modules still do: `from utils.logger import log_info, log_warning, log_error, log_debug`
+# Provide thin wrappers that delegate to the shared singleton logger.
+def log_debug(message, **kwargs):
+    logger = get_logger()
+    logger.debug(str(message))
+
+def log_info(message, **kwargs):
+    logger = get_logger()
+    logger.info(str(message))
+
+def log_warning(message, **kwargs):
+    logger = get_logger()
+    logger.warning(str(message))
+
+def log_error(message, error=None, **kwargs):
+    logger = get_logger()
+    if error is not None:
+        # Do not rely on exc_info unless in an active exception context
+        logger.error(f"{message}: {error}")
+    else:
+        logger.error(str(message))
