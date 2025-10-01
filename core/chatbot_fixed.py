@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-\"\"\"
+"""
 Adaptive Chatbot - Production-Ready Main Application
 Unified architecture with comprehensive error handling and all features
-\"\"\"
+"""
 
 import sys
 import os
@@ -16,7 +16,7 @@ import atexit
 try:
     from utils.simple_voice import speak_simple as speak, listen_simple as listen, is_voice_ready as is_voice_available
 except ImportError as e:
-    print(f\"[ERROR] Voice interface unavailable: {e}\")
+    print(f"[ERROR] Voice interface unavailable: {e}")
     # Fallback to dummy functions
     def speak(text): return False
     def listen(timeout=10): return None
@@ -25,7 +25,7 @@ except ImportError as e:
 try:
     from core.adaptation_engine import UnifiedLearningManager
 except ImportError as e:
-    print(f\"[ERROR] Learning system unavailable: {e}\")
+    print(f"[ERROR] Learning system unavailable: {e}")
     sys.exit(1)
 
 try:
@@ -34,26 +34,26 @@ try:
     from utils.advanced_memory_manager import get_memory_manager, memory_monitor, register_memory_cleanup
     from utils.performance_monitoring_dashboard import get_performance_monitor, performance_timer
 except ImportError as e:
-    print(f\"[ERROR] Validation system unavailable: {e}\")
+    print(f"[ERROR] Validation system unavailable: {e}")
     # Fallback to basic validation
-    def sanitize_user_input(text): return str(text).strip() if text else \"\"
+    def sanitize_user_input(text): return str(text).strip() if text else ""
     def is_safe_input(text): return bool(text and len(str(text).strip()) > 0)
 
 try:
     from configs.config import config
     from utils.logger import get_logger
 except ImportError as e:
-    print(f\"[ERROR] Configuration or logger unavailable: {e}\")
+    print(f"[ERROR] Configuration or logger unavailable: {e}")
     # Create fallback config and logger
     class FallbackConfig:
         def get(self, section, key, default=None):
-            if section == \"app\" and key == \"version\":
-                return \"1.0.0\"
+            if section == "app" and key == "version":
+                return "1.0.0"
             return default
     config = FallbackConfig()
     
     import logging
-    logger = logging.getLogger(\"AdaptiveChatbot\")
+    logger = logging.getLogger("AdaptiveChatbot")
     logger.setLevel(logging.INFO)
     handler = logging.StreamHandler()
     logger.addHandler(handler)
@@ -62,34 +62,34 @@ else:
 
 
 def main():
-    \"\"\"Main function\"\"\"
+    """Main function"""
     parser = argparse.ArgumentParser(description='Adaptive Chatbot - AI Assistant that learns from you')
     parser.add_argument('--mode', choices=['menu', 'voice', 'text'], default='menu',
                        help='Start mode: menu (default), voice, or text')
     parser.add_argument('--debug', action='store_true', help='Enable debug mode')
     parser.add_argument('--version', action='version', 
-                       version=f'Adaptive Chatbot v{config.get(\"app\", \"version\", \"1.0.0\")}')
+                       version=f'Adaptive Chatbot v{config.get("app", "version", "1.0.0")}')
     
     args = parser.parse_args()
     
     # Set debug mode
     if args.debug:
         config.set('app', 'debug_mode', True)
-        logger.info(\"Debug mode enabled\")
+        logger.info("Debug mode enabled")
     
     try:
         # For now, just print a welcome message
-        print(\"Adaptive Chatbot v1.0.0\")
-        print(\"Starting in menu mode...\")
-        print(\"Options: --mode [menu|voice|text] --debug\")
+        print("Adaptive Chatbot v1.0.0")
+        print("Starting in menu mode...")
+        print("Options: --mode [menu|voice|text] --debug")
         
     except KeyboardInterrupt:
-        logger.info(\"\\nApplication interrupted by user\")
+        logger.info("\\nApplication interrupted by user")
     except Exception as e:
-        logger.error(\"Application error\", error=e)
-        print(f\"[ERROR] Critical error: {e}\")
+        logger.error("Application error", error=e)
+        print(f"[ERROR] Critical error: {e}")
         sys.exit(1)
 
 
-if __name__ == \"__main__\":
+if __name__ == "__main__":
     main()
