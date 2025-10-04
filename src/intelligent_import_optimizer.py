@@ -242,7 +242,7 @@ class IntelligentImportOptimizer:
             if node in rec_stack:
                 # Found a cycle
                 cycle_start = path.index(node)
-                cycle = path[cycle_start:] + [node]
+                cycle = path[cycle_start:]
                 self._circular_dependencies.append(CircularDependency(
                     modules=cycle,
                     severity=self._assess_circular_severity(cycle),
