@@ -263,6 +263,13 @@ def main():
         print("✓ Conversation history tracking")
         print("="*50)
         
+        # Ask user if they want to start interactive chat
+        interactive_choice = input("\nDo you want to start an interactive chat? (yes/no): ").lower().strip()
+        if interactive_choice in ['yes', 'y']:
+            chatbot.chat()
+        else:
+            print("Exiting. Goodbye!")
+
     except Exception as e:
         print(f"Error: {e}")
         import traceback
